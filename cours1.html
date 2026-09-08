@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mikaël Valot">
+
+<title>CM1 - Introduction à l’apprentissage automatique (machine learning) – 2627 XTI306 Introduction à l'ingénierie IA</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./figures/favicon.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-88e8eab2b9e74ff2b2dcb2dc0227e102.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-35673c1328022ec05f8a1bab69fe76b7.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-88e8eab2b9e74ff2b2dcb2dc0227e102.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-626bc743731229bd8adb76e0f8fa352c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-626bc743731229bd8adb76e0f8fa352c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-626bc743731229bd8adb76e0f8fa352c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Pas de résultats",
+    "search-matching-documents-text": "documents trouvés",
+    "search-copy-link-title": "Copier le lien vers la recherche",
+    "search-hide-matches-text": "Cacher les correspondances additionnelles",
+    "search-more-match-text": "correspondance de plus dans ce document",
+    "search-more-matches-text": "correspondances de plus dans ce document",
+    "search-clear-button-title": "Effacer",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Annuler",
+    "search-submit-button-title": "Envoyer",
+    "search-label": "Recherche"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cours1.html">Cours</a></li><li class="breadcrumb-item"><a href="./cours1.html">CM1 - Introduction à l’apprentissage automatique (<em>machine learning</em>)</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Recherche" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./figures/logo-noir.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./figures/logo-noir.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Recherche"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Cours</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Basculer la section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cours1.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">CM1 - Introduction à l’apprentissage automatique (<em>machine learning</em>)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">TPs</span></span>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Sur cette page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#modèle" id="toc-modèle" class="nav-link active" data-scroll-target="#modèle"><span class="header-section-number">1</span> Modèle</a>
+  <ul class="collapse">
+  <li><a href="#comment-une-machine-peut-elle-apprendre" id="toc-comment-une-machine-peut-elle-apprendre" class="nav-link" data-scroll-target="#comment-une-machine-peut-elle-apprendre"><span class="header-section-number">1.1</span> Comment une machine peut-elle « apprendre » ?</a></li>
+  <li><a href="#les-deux-temps-de-la-vie-dun-modèle" id="toc-les-deux-temps-de-la-vie-dun-modèle" class="nav-link" data-scroll-target="#les-deux-temps-de-la-vie-dun-modèle"><span class="header-section-number">1.2</span> Les deux temps de la vie d’un modèle</a></li>
+  <li><a href="#dautres-formes-dapprentissage" id="toc-dautres-formes-dapprentissage" class="nav-link" data-scroll-target="#dautres-formes-dapprentissage"><span class="header-section-number">1.3</span> D’autres formes d’apprentissage</a></li>
+  <li><a href="#quelques-familles-de-modèles" id="toc-quelques-familles-de-modèles" class="nav-link" data-scroll-target="#quelques-familles-de-modèles"><span class="header-section-number">1.4</span> Quelques familles de modèles</a></li>
+  </ul></li>
+  <li><a href="#régression-linéaire" id="toc-régression-linéaire" class="nav-link" data-scroll-target="#régression-linéaire"><span class="header-section-number">2</span> Régression linéaire</a>
+  <ul class="collapse">
+  <li><a href="#etude-de-cas-prix-dun-appartement" id="toc-etude-de-cas-prix-dun-appartement" class="nav-link" data-scroll-target="#etude-de-cas-prix-dun-appartement"><span class="header-section-number">2.1</span> Etude de cas : prix d’un appartement</a></li>
+  <li><a href="#transformation-linéaire" id="toc-transformation-linéaire" class="nav-link" data-scroll-target="#transformation-linéaire"><span class="header-section-number">2.2</span> Transformation linéaire</a></li>
+  </ul></li>
+  <li><a href="#fonction-de-perte-loss-function" id="toc-fonction-de-perte-loss-function" class="nav-link" data-scroll-target="#fonction-de-perte-loss-function"><span class="header-section-number">3</span> Fonction de perte (<strong>loss function</strong>)</a>
+  <ul class="collapse">
+  <li><a href="#fonction-de-coût-cost-function" id="toc-fonction-de-coût-cost-function" class="nav-link" data-scroll-target="#fonction-de-coût-cost-function"><span class="header-section-number">3.1</span> Fonction de coût (cost function)</a></li>
+  <li><a href="#lire-le-coût-la-rmse" id="toc-lire-le-coût-la-rmse" class="nav-link" data-scroll-target="#lire-le-coût-la-rmse"><span class="header-section-number">3.2</span> Lire le coût : la RMSE</a></li>
+  </ul></li>
+  <li><a href="#tp-régression-linéaire" id="toc-tp-régression-linéaire" class="nav-link" data-scroll-target="#tp-régression-linéaire"><span class="header-section-number">4</span> TP régression linéaire</a>
+  <ul class="collapse">
+  <li><a href="#initiation-à-jupyter-dans-pycharm" id="toc-initiation-à-jupyter-dans-pycharm" class="nav-link" data-scroll-target="#initiation-à-jupyter-dans-pycharm"><span class="header-section-number">4.1</span> Initiation à Jupyter dans PyCharm</a></li>
+  <li><a href="#démarrage-du-tp" id="toc-démarrage-du-tp" class="nav-link" data-scroll-target="#démarrage-du-tp"><span class="header-section-number">4.2</span> Démarrage du TP</a></li>
+  </ul></li>
+  <li><a href="#descente-de-gradient-gradient-descent" id="toc-descente-de-gradient-gradient-descent" class="nav-link" data-scroll-target="#descente-de-gradient-gradient-descent"><span class="header-section-number">5</span> Descente de gradient (gradient descent)</a>
+  <ul class="collapse">
+  <li><a href="#analogie-avec-le-randonneur-dans-le-brouillard" id="toc-analogie-avec-le-randonneur-dans-le-brouillard" class="nav-link" data-scroll-target="#analogie-avec-le-randonneur-dans-le-brouillard"><span class="header-section-number">5.1</span> Analogie avec le randonneur dans le brouillard</a></li>
+  <li><a href="#application-sur-une-régression-linéaire" id="toc-application-sur-une-régression-linéaire" class="nav-link" data-scroll-target="#application-sur-une-régression-linéaire"><span class="header-section-number">5.2</span> Application sur une régression linéaire</a></li>
+  </ul></li>
+  <li><a href="#tp-descente-de-gradient" id="toc-tp-descente-de-gradient" class="nav-link" data-scroll-target="#tp-descente-de-gradient"><span class="header-section-number">6</span> TP descente de gradient</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cours1.html">Cours</a></li><li class="breadcrumb-item"><a href="./cours1.html">CM1 - Introduction à l’apprentissage automatique (<em>machine learning</em>)</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">CM1 - Introduction à l’apprentissage automatique (<em>machine learning</em>)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Auteur·rice</div>
+    <div class="quarto-title-meta-contents">
+             <p>Mikaël Valot </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="modèle" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Modèle</h1>
+<p>Un <strong>modèle</strong> (<em>model</em>) est une fonction qui transforme une <strong>entrée</strong> en une <strong>sortie</strong> :</p>
+<p><span class="math display">\[y = f(x)\]</span></p>
+<ul>
+<li><span class="math inline">\(x\)</span> est l’<strong>entrée</strong> (<em>input</em>),</li>
+<li><span class="math inline">\(y\)</span> est la <strong>sortie</strong> (<em>output</em>),</li>
+<li><span class="math inline">\(f\)</span> est le <strong>modèle</strong> : la fonction que l’on cherche.</li>
+</ul>
+<p>Presque toutes les tâches d’IA s’écrivent sous cette forme. Seules changent la nature de <span class="math inline">\(x\)</span>, celle de <span class="math inline">\(y\)</span>, et la difficulté à trouver <span class="math inline">\(f\)</span>.</p>
+<table class="caption-top table">
+<caption>Quatre tâches très différentes, une seule écriture.</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 35%">
+<col style="width: 39%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tâche</th>
+<th>Entrée <span class="math inline">\(x\)</span></th>
+<th>Sortie <span class="math inline">\(y\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Filtrer le spam</td>
+<td>le texte d’un courriel</td>
+<td>booléen: spam/non-spam</td>
+</tr>
+<tr class="even">
+<td>Estimer un prix</td>
+<td>les caractéristiques d’un appartement</td>
+<td>un prix en euros</td>
+</tr>
+<tr class="odd">
+<td>Reconnaître un chiffre manuscrit</td>
+<td>une image de 28 × 28 pixels</td>
+<td>un chiffre de 0 à 9</td>
+</tr>
+<tr class="even">
+<td>Compléter une phrase</td>
+<td>les mots déjà écrits</td>
+<td>le mot suivant</td>
+</tr>
+</tbody>
+</table>
+<section id="comment-une-machine-peut-elle-apprendre" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="comment-une-machine-peut-elle-apprendre"><span class="header-section-number">1.1</span> Comment une machine peut-elle « apprendre » ?</h2>
+<div class="callout callout-style-simple callout-important">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Apprendre, pour une machine, c’est construire la fonction <span class="math inline">\(f\)</span> (le modèle) à partir d’exemples.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Programmation classique vs Apprentissage automatique
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>En programmation classique, c’est le développeur qui écrit <span class="math inline">\(f\)</span> : il connaît les règles du problème et les traduit en code.</p>
+<ul>
+<li>Pour un filtrage de spam, on utiliserait une liste de règles : — « contient tel mot », « expéditeur inconnu ». Mais elles sont facilement contournables.</li>
+<li>Certaines tâches sont impossibles : personne ne sait énoncer les règles qui distinguent la photo d’un chat de celle d’un chien.</li>
+</ul>
+<p>En apprentissage automatique, on n’écrit pas <em>f</em>. On écrit un algorithme d’<strong>entraînement</strong> (<em>training</em>) qui <strong>construit</strong> <span class="math inline">\(f\)</span> à partir d’<strong>exemples</strong>.</p>
+</div>
+</div>
+</div>
+<section id="apprentissage-supervisé" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="apprentissage-supervisé"><span class="header-section-number">1.1.1</span> Apprentissage supervisé</h3>
+<p>Lorsque les exemples fournissent à la fois une entrée et la sortie attendue, on parle d’<strong>apprentissage supervisé</strong> (<em>supervised learning</em>).</p>
+<p>Un <strong>dataset</strong> de <span class="math inline">\(N\)</span> exemples est alors un ensemble de <span class="math inline">\(N\)</span> paires :</p>
+<p><span class="math display">\[\mathcal{D} = \left\{\, \left(x^{(i)},\ y^{(i)}\right) \,\right\}_{i=1}^{N}\]</span></p>
+<p>Chaque entrée <span class="math inline">\(x^{(i)}\)</span> est associée à sa sortie <strong>cible</strong> (<em>target</em>), aussi appelée <strong>étiquette</strong> (<em>label</em>).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Lire la notation
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>L’exposant entre parenthèses est un <strong>numéro d’exemple</strong>, pas une puissance : <span class="math inline">\(x^{(3)}\)</span> est le troisième exemple du dataset.</p>
+<p>L’indice en bas désignera plus tard une <strong>caractéristique</strong> : <span class="math inline">\(x_2\)</span> est la deuxième caractéristique.</p>
+<p>Les deux se combinent : <span class="math inline">\(x_2^{(3)}\)</span> est la deuxième caractéristique du troisième exemple.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="les-deux-temps-de-la-vie-dun-modèle" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="les-deux-temps-de-la-vie-dun-modèle"><span class="header-section-number">1.2</span> Les deux temps de la vie d’un modèle</h2>
+<section id="lentraînement" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="lentraînement"><span class="header-section-number">1.2.1</span> L’entraînement</h3>
+<ol type="1">
+<li>On choisit d’abord une <strong>famille</strong> de modèle: la forme générale de <span class="math inline">\(f\)</span></li>
+<li>On montre à l’algorithme tous les exemples du <strong>jeu d’entraînement</strong> (<em>training set</em>).</li>
+<li>L’algorithme d’entraînement en déduit <span class="math inline">\(f\)</span>.</li>
+</ol>
+</section>
+<section id="linférence-inference-ou-prédiction." class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="linférence-inference-ou-prédiction."><span class="header-section-number">1.2.2</span> L’inférence (<em>inference</em>), ou <strong>prédiction</strong>.</h3>
+<p>Le modèle est figé. On lui soumet une entrée <span class="math inline">\(x\)</span> <strong>qu’il n’a jamais vue</strong> et il répond :</p>
+<p><span class="math display">\[\hat{y} = f(x)\]</span></p>
+<p>La capacité à répondre juste sur des entrées nouvelles s’appelle la <strong>généralisation</strong> (<em>generalization</em>).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Surapprentissage (overfitting)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Un modèle qui répond parfaitement sur les exemples d’entraînements mais mal sur exemples inédits n’a pas bien “appris”. Il a juste mémorisé des exemples. Ce problème s’appelle le <strong>surapprentissage</strong>. Nous verrons plus loin comment évaluer ce problème et comment le corriger.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Ressources nécessaires
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>La phase d’entraînement consomme énormément de ressources (CPU, GPU, RAM, Disque) par rapport à la phase d’inférence.</p>
+<p>Par exemple, Llama 3.1 a été entraîné sur un cluster de 16000 GPUs H100 pendant 54 jours. Pour l’inférence, une seule machine avec 8 GPUs H100 est suffisante pour servir plusieurs utilisateurs simultanés.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="dautres-formes-dapprentissage" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="dautres-formes-dapprentissage"><span class="header-section-number">1.3</span> D’autres formes d’apprentissage</h2>
+<p>L’apprentissage supervisé exige des exemples avec des labels, donc un travail humain souvent coûteux. D’autres formes d’apprentissage s’en passent :</p>
+<ul>
+<li><strong>non supervisé</strong> (<em>unsupervised</em>) : les exemples n’ont pas de cible, l’algorithme cherche lui-même une structure — regrouper des clients par comportement, par exemple ;</li>
+<li><strong>auto-supervisé</strong> (<em>self-supervised</em>) : la cible est extraite des données elles-mêmes. C’est ainsi qu’on entraîne un LLM : la cible est simplement le mot suivant du texte, déjà présent dans le corpus ;</li>
+<li><strong>par renforcement</strong> (<em>reinforcement</em>) : pas de cible, mais une récompense obtenue après une suite d’actions — jeux, robotique.</li>
+</ul>
+</section>
+<section id="quelques-familles-de-modèles" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="quelques-familles-de-modèles"><span class="header-section-number">1.4</span> Quelques familles de modèles</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 26%">
+<col style="width: 18%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Famille</th>
+<th>Idée</th>
+<th>Terrain de prédilection</th>
+<th>Exemple concret</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Régression linéaire</strong></td>
+<td>ajuster une droite, un plan</td>
+<td>valeurs numériques</td>
+<td>estimer le prix d’un appartement d’après sa surface</td>
+</tr>
+<tr class="even">
+<td>Régression logistique</td>
+<td>une frontière séparant deux classes</td>
+<td>scoring, diagnostic</td>
+<td>accorder ou refuser un crédit</td>
+</tr>
+<tr class="odd">
+<td>Arbres de décision, forêts aléatoires</td>
+<td>une cascade de tests « si… alors »</td>
+<td>données tabulaires</td>
+<td>repérer une transaction bancaire frauduleuse</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(k\)</span> plus proches voisins</td>
+<td>répondre comme les exemples les plus ressemblants</td>
+<td>recommandation simple</td>
+<td>suggérer un film aimé par des abonnés au profil proche</td>
+</tr>
+<tr class="odd">
+<td>Machines à vecteurs de support</td>
+<td>séparer les classes avec la marge la plus large</td>
+<td>petits jeux de données</td>
+<td>distinguer cellules saines et tumorales sur quelques centaines d’échantillons</td>
+</tr>
+<tr class="even">
+<td><strong>Réseaux de neurones</strong></td>
+<td>empiler des transformations simples</td>
+<td>image, texte, audio, LLM</td>
+<td>reconnaître un panneau de signalisation, traduire un texte, ChatGPT</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="régression-linéaire" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Régression linéaire</h1>
+<section id="etude-de-cas-prix-dun-appartement" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="etude-de-cas-prix-dun-appartement"><span class="header-section-number">2.1</span> Etude de cas : prix d’un appartement</h2>
+<p>Nous voulons construire un modèle qui estime le prix d’un appartement à Bordeaux.</p>
+<section id="choisir-lentrée" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="choisir-lentrée"><span class="header-section-number">2.1.1</span> Choisir l’entrée</h3>
+<p>Un appartement possède de nombreuses <strong>caractéristiques</strong> (<em>features</em>) qui influencent son prix : surface, localisation, nombre de pièces, étage, étiquette DPE, année de construction…</p>
+<p>Pour commencer, nous n’en utiliserons qu’une seule, qui est la plus déterminante : la surface.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Signification</th>
+<th>Unité</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(x\)</span></td>
+<td>surface habitable</td>
+<td>m²</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(y\)</span></td>
+<td>prix de vente</td>
+<td>€</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(f\)</span></td>
+<td>le modèle à construire</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="collecter-les-exemples" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="collecter-les-exemples"><span class="header-section-number">2.1.2</span> Collecter les exemples</h3>
+<p>Entraîner ce modèle suppose d’abord d’observer un maximum de ventes réelles. Chaque exemple <span class="math inline">\(i\)</span> est une paire <span class="math inline">\(\left(x^{(i)}, y^{(i)}\right)\)</span> : une surface constatée et le prix de vente correspondant.</p>
+<div class="cell" data-execution_count="2">
+<div id="tbl-examples" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="2">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-examples-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Cinq exemples du jeu de données. Chaque ligne est une paire (entrée, cible).
+</figcaption>
+<div aria-describedby="tbl-examples-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display" data-execution_count="2">
+<style type="text/css">
+</style>
+
+<table id="T_386a8" class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th id="T_386a8_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Exemple i</th>
+<th id="T_386a8_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Surface (m²)</th>
+<th id="T_386a8_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Prix (€)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_386a8_row0_col0" class="data row0 col0">1</td>
+<td id="T_386a8_row0_col1" class="data row0 col1">93</td>
+<td id="T_386a8_row0_col2" class="data row0 col2">394 000</td>
+</tr>
+<tr class="even">
+<td id="T_386a8_row1_col0" class="data row1 col0">2</td>
+<td id="T_386a8_row1_col1" class="data row1 col1">61</td>
+<td id="T_386a8_row1_col2" class="data row1 col2">305 000</td>
+</tr>
+<tr class="odd">
+<td id="T_386a8_row2_col0" class="data row2 col0">3</td>
+<td id="T_386a8_row2_col1" class="data row2 col1">101</td>
+<td id="T_386a8_row2_col2" class="data row2 col2">394 000</td>
+</tr>
+<tr class="even">
+<td id="T_386a8_row3_col0" class="data row3 col0">4</td>
+<td id="T_386a8_row3_col1" class="data row3 col1">86</td>
+<td id="T_386a8_row3_col2" class="data row3 col2">384 000</td>
+</tr>
+<tr class="odd">
+<td id="T_386a8_row4_col0" class="data row4 col0">5</td>
+<td id="T_386a8_row4_col1" class="data row4 col1">27</td>
+<td id="T_386a8_row4_col2" class="data row4 col2">126 000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>En reportant les <span class="math inline">\(N = 60\)</span> ventes sur un graphique — la surface en abscisse, le prix en ordonnée — chaque exemple devient un point.</p>
+<div id="cell-fig-scatter" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div id="fig-scatter" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-scatter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="cours1_files/figure-html/fig-scatter-output-1.png" width="809" height="534" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scatter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: 60 ventes d’appartements à Bordeaux. Un point = un exemple.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Les points ne sont pas alignés parfaitement, mais leur tendance est nette : le prix monte à peu près proportionnellement à la surface.</p>
+<div class="callout callout-style-simple callout-important">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Construire le modèle consiste à faire passer une fonction <span class="math inline">\(f\)</span> au milieu de ce nuage de points.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Question — quelles limites voyez-vous déjà ?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Une seule caractéristique.</strong> Deux appartements de 60 m², l’un aux Chartrons, l’autre en périphérie, n’ont pas le même prix. Le modèle leur donnera pourtant la même réponse.</li>
+<li><strong>La dispersion.</strong> À surface égale, les prix observés varient de plusieurs dizaines de milliers d’euros. Aucune fonction de <span class="math inline">\(x\)</span> seul ne peut passer par tous les points : le modèle sera nécessairement <strong>approché</strong>.</li>
+<li><strong>L’extrapolation.</strong> Le jeu de données s’arrête à 115 m². Interrogé sur un 300 m², le modèle répondra quand même — sans aucune raison d’avoir raison.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="transformation-linéaire" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="transformation-linéaire"><span class="header-section-number">2.2</span> Transformation linéaire</h2>
+<p>Le modèle le plus simple serait de tracer une droite qui essaie de se rapprocher au plus près des exemples.</p>
+<div id="cell-fig-line" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div id="fig-line" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="cours1_files/figure-html/fig-line-output-1.png" width="809" height="534" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Une droite tracée au milieu du nuage. Elle passe près des points, mais par aucun exactement.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Une telle droite a une équation <span class="math display">\[f(x) = wx + b\]</span></p>
+<p>La formule <span class="math inline">\(wx + b\)</span> est une <strong>transformation linéaire</strong>.</p>
+<p>Pour ce type de modèle, les seules inconnues sont <span class="math inline">\(w\)</span> et <span class="math inline">\(b\)</span>. Ce sont des <strong>paramètres</strong> de notre modèle.</p>
+<ul>
+<li><span class="math inline">\(w\)</span> est appelé <strong>poids</strong> (<strong>weight</strong>),</li>
+<li><span class="math inline">\(b\)</span> est le <strong>biais</strong> (<strong>bias</strong>).</li>
+</ul>
+<section id="comment-trouver-ces-2-paramètres" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="comment-trouver-ces-2-paramètres"><span class="header-section-number">2.2.1</span> Comment trouver ces 2 paramètres ?</h3>
+<p>Plusieurs techniques sont possibles :</p>
+<ul>
+<li>visuellement</li>
+<li>au hasard, en tâtonnant avec plusieurs valeurs</li>
+<li>avec une méthode analytique
+<ul>
+<li>on résout une équation et on obtient une valeur exacte</li>
+</ul></li>
+<li>avec une méthode itérative : l’algorithme de la <strong>descente de gradient</strong> (voir ci-dessous)</li>
+</ul>
+<div class="callout callout-style-simple callout-important">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Une <strong>régression linéaire</strong> consiste à trouver les meilleurs paramètres <span class="math inline">\(w\)</span> et <span class="math inline">\(b\)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="fonction-de-perte-loss-function" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Fonction de perte (<strong>loss function</strong>)</h1>
+<p>Dans tous les cas, il nous faut un moyen de juger si nos paramètres sont bons. Pour cela, nous allons calculer une <strong>perte</strong> (<strong>loss</strong>) pour chaque exemple i.</p>
+<p><span class="math display">\[L^{(i)} = L\left(\hat{y}^{(i)},\ y^{(i)}\right)\]</span></p>
+<div class="text-center">
+<p><span class="math inline">\(\hat{y}^{(i)} = f\left(x^{(i)}\right)\)</span> est la prédiction du modèle pour l’exemple <span class="math inline">\(i\)</span>.</p>
+<p><span class="math inline">\(L\)</span> est la fonction de perte.</p>
+</div>
+<p>La perte est une valeur décimale <strong>positive</strong>. Elle exprime la différence entre ce que le modèle prédit et ce qu’il aurait dû prévoir. Plus elle est proche de <strong>0</strong> et mieux c’est.</p>
+<p>Il existe différentes fonctions de perte, adaptées à chaque famille de modèle. Pour notre modèle en transformation linéaire, nous utiliserons la formule :</p>
+<p><span class="math display">\[L\left(\hat{y}^{(i)},\ y^{(i)}\right) = \left(\hat{y}^{(i)} - y^{(i)}\right)^2\]</span></p>
+<section id="fonction-de-coût-cost-function" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="fonction-de-coût-cost-function"><span class="header-section-number">3.1</span> Fonction de coût (cost function)</h2>
+<p>Pour trouver les meilleurs paramètres pour notre modèle, il nous faut donc trouver les paramètres pour lesquel la perte est <strong>minimale</strong>, mais en considérant <strong>tous les exemples</strong>. Nous allons utiliser pour cela une <strong>fonction de coût</strong> (cost function).</p>
+<p><span class="math display">\[J = J(w, b\,;\, X, Y)\]</span></p>
+<div class="text-center">
+<p><span class="math inline">\(X\)</span> désigne l’ensemble des données d’exemple en entrée</p>
+<p><span class="math inline">\(Y\)</span> désigne l’ensemble des données d’exemple en sortie</p>
+</div>
+<p>Les meilleurs paramètres <span class="math inline">\(w\)</span> et <span class="math inline">\(b\)</span> seront ceux pour lesquels <span class="math inline">\(J\)</span> est le plus petit.</p>
+<p>Pour notre modèle en transformation linéaire, nous pouvons faire la <strong>moyenne des pertes</strong> sur tous les exemples. Voici la formule : <span class="math display">\[
+\begin{aligned}
+J(w, b\,;\, X, Y) &amp;= \frac{1}{N} \sum_{i=1}^{N} L\left(\hat{y}^{(i)},\ y^{(i)}\right) \\
+                  &amp;= \frac{1}{N} \sum_{i=1}^{N} \left(\hat{y}^{(i)} - y^{(i)}\right)^2
+\end{aligned}
+\]</span></p>
+<div class="callout callout-style-simple callout-important">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>On note <span class="math inline">\(\theta\)</span> : ensemble des paramètres du modèle (dans notre cas, <span class="math inline">\(w\)</span> et <span class="math inline">\(b\)</span>).</p>
+<p>Les meilleurs <strong>paramètres</strong> <span class="math inline">\(\theta\)</span> sont ceux pour lesquels le coût <span class="math inline">\(J(\theta)\)</span> est le plus proche de <strong>0</strong>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>D’autres fonctions de perte et de coût peuvent être utilisées selon la famille de modèle et selon le problème à modéliser.</p></li>
+<li><p>Certains auteurs utilisent les termes perte/coût (cost/loss) comme synonymes. Nous utiliserons le terme <strong>perte</strong> pour un seul exemple, et le terme <strong>coût</strong> pour désigner l’agrégation de la perte sur un dataset.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="lire-le-coût-la-rmse" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="lire-le-coût-la-rmse"><span class="header-section-number">3.2</span> Lire le coût : la RMSE</h2>
+<p>Notre coût <span class="math inline">\(J\)</span> est une moyenne de <strong>carrés</strong> d’euros : il s’exprime donc en €². C’est une unité que personne ne sait interpréter. Sur les 60 ventes ci-dessus, la meilleure droite donne un coût de <span class="math inline">\(4{,}9 \times 10^8\)</span> €² — ce nombre ne nous dit rien sur la qualité du modèle.</p>
+<p>Il suffit d’en prendre la <strong>racine carrée</strong> pour revenir en euros :</p>
+<p><span class="math display">\[\mathrm{RMSE} = \sqrt{J} = \sqrt{\frac{1}{N} \sum_{i=1}^{N} \left(\hat{y}^{(i)} - y^{(i)}\right)^2}\]</span></p>
+<div class="cell" data-execution_count="5">
+<div id="tbl-rmse" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="5">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-rmse-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Le même coût, lu de deux façons. La colonne du milieu est illisible, celle de droite se compare à un prix.
+</figcaption>
+<div aria-describedby="tbl-rmse-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display" data-execution_count="5">
+<style type="text/css">
+</style>
+
+<table id="T_ce167" class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th id="T_ce167_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Modèle</th>
+<th id="T_ce167_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Coût J (€²)</th>
+<th id="T_ce167_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">RMSE (€)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_ce167_row0_col0" class="data row0 col0">droite ajustée (w = 4 509, b = 162)</td>
+<td id="T_ce167_row0_col1" class="data row0 col1">4.94e+08</td>
+<td id="T_ce167_row0_col2" class="data row0 col2">22 222</td>
+</tr>
+<tr class="even">
+<td id="T_ce167_row1_col0" class="data row1 col0">trop plat (w = 3 000, b = 0)</td>
+<td id="T_ce167_row1_col1" class="data row1 col1">1.29e+10</td>
+<td id="T_ce167_row1_col2" class="data row1 col2">113 512</td>
+</tr>
+<tr class="odd">
+<td id="T_ce167_row2_col0" class="data row2 col0">trop pentu (w = 6 000, b = 0)</td>
+<td id="T_ce167_row2_col1" class="data row2 col1">1.25e+10</td>
+<td id="T_ce167_row2_col2" class="data row2 col2">111 941</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>La RMSE donne l’<strong>ordre de grandeur de l’erreur</strong> du modèle, dans l’unité de la sortie. Ici : environ 22 000 € d’écart typique, pour un prix moyen de 309 000 € — soit 7 %. On peut enfin juger le modèle.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Vocabulaire et précautions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li>Notre fonction de coût <span class="math inline">\(J\)</span> porte un nom : l’<strong>erreur quadratique moyenne</strong> (<em>mean squared error</em>, <strong>MSE</strong>). Sa racine est la <strong>RMSE</strong> (<em>root mean squared error</em>).</li>
+<li>La RMSE sert à <strong>lire</strong> le coût, pas à l’optimiser. Comme la racine carrée est croissante, minimiser <span class="math inline">\(J\)</span> ou minimiser la RMSE revient exactement au même — mais <span class="math inline">\(J\)</span> se dérive bien plus simplement, et c’est donc <span class="math inline">\(J\)</span> que l’algorithme de la descente de gradient va chercher à minimiser.</li>
+<li>La RMSE n’est pas la moyenne des erreurs : elle est toujours plus grande, parce que le carré donne plus de poids aux grosses erreurs. Ici, l’erreur moyenne en valeur absolue n’est que de 17 600 €.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="tp-régression-linéaire" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> TP régression linéaire</h1>
+<section id="initiation-à-jupyter-dans-pycharm" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="initiation-à-jupyter-dans-pycharm"><span class="header-section-number">4.1</span> Initiation à Jupyter dans PyCharm</h2>
+<p>Un notebook Jupyter est un document interactif qui combine code, texte et résultats dans le navigateur. On écrit du code par petits blocs, on l’exécute, et le résultat s’affiche juste en dessous.</p>
+<p>Bien qu’il soit possible d’utiliser un navigateur pour travailler avec Jupyter, nous utiliserons PyCharm car il offre des fonctionnalités plus avancées :</p>
+<ul>
+<li>souligne les erreurs potentielles en rouge</li>
+<li>autocomplétion du code avec <strong>ctrl-space</strong></li>
+<li>navigation avec <strong>ctrl-click</strong></li>
+<li>documentation avec <strong>ctrl-Q</strong></li>
+<li>inspection des variables</li>
+</ul>
+<section id="créer-un-notebook" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="créer-un-notebook"><span class="header-section-number">4.1.1</span> Créer un notebook</h3>
+<ol type="1">
+<li>Lancez PyCharm</li>
+<li>Créer un nouveau projet Python.
+<ol type="a">
+<li>Location : choisissez un répertoire, en nommant le projet <code>tp0_jupyter</code></li>
+<li>Interpreter type: venv</li>
+</ol></li>
+<li>File -&gt; New File or Directory -&gt; Jupyter Notebook. Nommez le “initiation”</li>
+</ol>
+</section>
+<section id="ajouter-du-code" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="ajouter-du-code"><span class="header-section-number">4.1.2</span> Ajouter du code</h3>
+<ol type="1">
+<li>La première cellule est de type code. Collez le code suivant et cliquez sur le bouton vert à gauche :</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>greeting<span class="op">=</span><span class="st">'Bonjour'</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(greeting)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Le résultat s’affiche sous la cellule, et la fenêtre “jupyter variables” affiche le contenu de <code>greeting</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/jupyter_initiation.png" class="img-fluid figure-img"></p>
+<figcaption>Cellule jupyter</figcaption>
+</figure>
+</div>
+<p>Le point fort de Jupyter : les variables restent en mémoire d’une cellule à l’autre, dans l’ordre où vous les exécutez. Une valeur calculée dans une cellule est réutilisable dans les suivantes.</p>
+<ol start="2" type="1">
+<li>Ajoutez une nouvelle cellule (bouton +), et collez le code qui suit. Ensuite, exécutez le avec <strong>ctrl-enter</strong></li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>greeting <span class="op">+=</span> <span class="st">' depuis Jupyter'</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(greeting)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Une cellule utilise les variables déjà exécutées, pas leur position dans le notebook. Si vous obtenez une erreur NameError, vérifiez que vous avez bien exécuté les cellules dans le bon ordre, ou redémarrez le kernel.</p>
+</div>
+</div>
+<p>On peut exécuter une cellule plusieurs fois, mais attention ! Si votre cellule modifie des variables, l’exécuter plusieurs fois peut créer des problèmes.</p>
+</section>
+<section id="installer-une-bibliothèque" class="level3" data-number="4.1.3">
+<h3 data-number="4.1.3" class="anchored" data-anchor-id="installer-une-bibliothèque"><span class="header-section-number">4.1.3</span> Installer une bibliothèque</h3>
+<p>Nous aurons besoin de <code>matplotlib</code> pour tracer des graphiques. Pour l’installer :</p>
+<ol type="1">
+<li>Créez un nouveau fichier <code>requirements.txt</code></li>
+<li>Collez ce contenu dans le fichier :</li>
+</ol>
+<pre><code>matplotlib==0.4.3</code></pre>
+<ol start="3" type="1">
+<li>Cliquez sur le bouton en haut à gauche de l’éditeur “pip update from requirements.txt”</li>
+</ol>
+</section>
+<section id="créer-un-graphique" class="level3" data-number="4.1.4">
+<h3 data-number="4.1.4" class="anchored" data-anchor-id="créer-un-graphique"><span class="header-section-number">4.1.4</span> Créer un graphique</h3>
+<p>Créez une nouvelle cellule pour tracer un graphique :</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>]</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y, marker<span class="op">=</span><span class="st">"o"</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Mon premier graphique"</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Après exécution, le graphique s’affiche sous la cellule.</p>
+</section>
+<section id="ajouter-du-texte" class="level3" data-number="4.1.5">
+<h3 data-number="4.1.5" class="anchored" data-anchor-id="ajouter-du-texte"><span class="header-section-number">4.1.5</span> Ajouter du texte</h3>
+<p>Créez une cellule, puis changez son type de code à <strong>markdown</strong>. Collez le contenu suivant :</p>
+<pre><code># Mon analyse
+
+Ceci est une **cellule Markdown** pour expliquer mon travail.
+
+## Objectifs
+- Apprendre Jupyter
+- Créer des graphiques</code></pre>
+<p>Après exécution, jupyter affiche le contenu formatté.</p>
+</section>
+<section id="comprendre-le-kernel" class="level3" data-number="4.1.6">
+<h3 data-number="4.1.6" class="anchored" data-anchor-id="comprendre-le-kernel"><span class="header-section-number">4.1.6</span> Comprendre le kernel</h3>
+<p>Le kernel est le processus qui exécute votre code Python en arrière-plan. Quand une cellule reste bloquée sur [*] ou que l’interface ne répond plus, le kernel est occupé ou planté. Le menu en haut permet de le reprendre en main :</p>
+<ul>
+<li>Interrupt : arrêter l’exécution en cours.</li>
+<li>Restart : redémarrer le kernel (les variables sont perdues).</li>
+<li><strong>Restart Kernel &amp; Run All</strong> : redémarrage complet et exécute toutes les cellules une par une. A utiliser pour vérifier que votre notebook s’exécute sans erreurs.</li>
+<li>Clear output: efface les sorties, utile si on veut committer le notebook sans les résultats.</li>
+</ul>
+<p>En cas de doute après beaucoup de modifications, redémarrez le kernel et réexécutez les cellules dans l’ordre pour repartir sur une base saine.</p>
+</section>
+<section id="à-retenir" class="level3" data-number="4.1.7">
+<h3 data-number="4.1.7" class="anchored" data-anchor-id="à-retenir"><span class="header-section-number">4.1.7</span> À retenir</h3>
+<ul>
+<li>Un notebook est une suite de cellules de code et de texte, exécutées une par une.</li>
+<li>Les variables persistent entre cellules selon l’ordre d’exécution. En cas d’erreur, redémarrez le kernel.</li>
+<li>Le fichier <code>.ipynb</code> stocke code, texte et résultats au format JSON, portable.</li>
+</ul>
+</section>
+</section>
+<section id="démarrage-du-tp" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="démarrage-du-tp"><span class="header-section-number">4.2</span> Démarrage du TP</h2>
+<ol type="1">
+<li>Cliquez sur le lien GitHub classroom pour créer votre repository GitHub</li>
+<li>Lancez PyCharm</li>
+<li>File -&gt; Project from version control…</li>
+<li>Collez l’URL de votre repository GitHub et choisissez un répertoire de destination.</li>
+<li>Ouvrez le fichier <code>tp1a_linear_regression.ipynb</code></li>
+<li>Exécutez les cellules une par une, en complétant le code qui suit les <code># TODO ...</code></li>
+</ol>
+</section>
+</section>
+<section id="descente-de-gradient-gradient-descent" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Descente de gradient (gradient descent)</h1>
+<p>L’approche par tâtonnement n’est pas satisfaisante :</p>
+<ul>
+<li>nous ne sommes pas certains de trouver les meilleurs paramètres (convergence),</li>
+<li>elle n’est pas efficace (lente)</li>
+<li>elle serait impraticable au delà de 2-3 paramètres.</li>
+</ul>
+<section id="analogie-avec-le-randonneur-dans-le-brouillard" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="analogie-avec-le-randonneur-dans-le-brouillard"><span class="header-section-number">5.1</span> Analogie avec le randonneur dans le brouillard</h2>
+<p>Imaginez que votre avion s’est écrasé sur une montagne inconnue, dans un brouillard épais. Vous cherchez à atteindre le fond de la vallée à pied. Vous pouvez :</p>
+<ul>
+<li>modifier vos <strong>paramètres</strong> de position (latitude, longitude)</li>
+<li>en faisant des <strong>pas (step)</strong> plus ou moins grands</li>
+<li>sentir la <strong>pente</strong> = <strong>le gradient</strong> sous vos pieds</li>
+<li>mesurer votre altitude.</li>
+</ul>
+<p>Comment faire pour trouver le point le plus bas ?</p>
+<ol type="1">
+<li>Votre point de départ est aléatoire.</li>
+<li>Mesurer l’altitude à ce point</li>
+<li>Sentir la direction de pente. Par exemple, on sent qu’elle descend vers le sud-ouest</li>
+<li>Faire un pas vers là où la pente descend. Vous faites un plus petit pas si la pente est faible.</li>
+<li>Mesurer la nouvelle altitude</li>
+<li>S’arrêter lorsque l’altitude ne change presque plus, sinon goto 3</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/randonneur.png" class="img-fluid figure-img"></p>
+<figcaption>Randonneur dans le brouillard</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Taille du pas
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Si le pas est trop grand, vous risquez de rater le point le plus bas. Vous risquez également de <strong>diverger</strong>, c’est-à-dire de monter de plus en plus, au lieu de descendre. Imaginez un géant qui passe d’une montagne à l’autre à chaque pas.</p>
+<p>Si le pas est trop petit, cela va prendre beaucoup de temps.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="application-sur-une-régression-linéaire" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="application-sur-une-régression-linéaire"><span class="header-section-number">5.2</span> Application sur une régression linéaire</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 76%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Randonneur</th>
+<th>Descente de gradient</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Position du randonneur</td>
+<td>paramètres <span class="math inline">\(w\)</span> et <span class="math inline">\(b\)</span></td>
+</tr>
+<tr class="even">
+<td>altitude</td>
+<td>coût <span class="math inline">\(J(w, b)\)</span></td>
+</tr>
+<tr class="odd">
+<td>pente</td>
+<td><strong>gradient</strong> : dérivée partielle de la fonction de coût pour chaque paramètre</td>
+</tr>
+<tr class="even">
+<td>taille de pas</td>
+<td><span class="math inline">\(\alpha\)</span> : <strong>taux d’apprentissage</strong> (<strong>learning rate</strong>)</td>
+</tr>
+<tr class="odd">
+<td>nombre de pas</td>
+<td><strong>époque (epoch)</strong>: un passage complet sur tout le dataset d’entraînement</td>
+</tr>
+</tbody>
+</table>
+<p>L’algorithme devient :</p>
+<ol type="1">
+<li>Choisir <span class="math inline">\(w\)</span> et <span class="math inline">\(b\)</span> au hasard. <code>epoch = 0</code></li>
+<li>Calculer <span class="math inline">\(J(w,b)\)</span></li>
+<li>Calculer <span class="math inline">\(\frac{\partial J}{\partial w}\)</span> et <span class="math inline">\(\frac{\partial J}{\partial b}\)</span></li>
+<li>Ajuster <span class="math inline">\(w = w - α \frac{\partial J}{\partial w}\)</span> et <span class="math inline">\(b = b - α \frac{\partial J}{\partial b}\)</span></li>
+<li>Calculer <span class="math inline">\(J(w,b)\)</span></li>
+<li>S’arrêter lorsque <span class="math inline">\(J(w, b)\)</span> ne change presque plus : c’est la <strong>convergence</strong>.
+<ol type="a">
+<li>Sinon : <code>epoch += 1</code> et goto 3</li>
+</ol></li>
+</ol>
+<section id="illustration" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="illustration"><span class="header-section-number">5.2.1</span> Illustration</h3>
+<p>Le coût dépend de 2 paramètres, et sa représentation graphique serait en 3 dimensions <span class="math inline">\((w, b, J)\)</span>, ce qui serait plus difficile à visualiser.</p>
+<p>Simplifions le problème : figeons <span class="math inline">\(b\)</span> à sa meilleure valeur et ne faisons varier que <span class="math inline">\(w\)</span>. Le coût ne dépend plus que d’un seul paramètre, et le paysage du randonneur se réduit à une courbe.</p>
+<div id="cell-fig-gradient-1d" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div id="fig-gradient-1d" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-gradient-1d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="cours1_files/figure-html/fig-gradient-1d-output-1.png" width="798" height="536" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gradient-1d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Descente de gradient sur le seul paramètre <span class="math inline">\(w\)</span>. Chaque point rouge est une epoch. Le pas est proportionnel à la pente : il raccourcit à mesure que l’on approche du minimum.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>On part de <span class="math inline">\(w_0 = 1200\)</span> €/m², une valeur tirée au hasard et très éloignée de la meilleur valeur.</p>
+<ul>
+<li>En <span class="math inline">\(w_0\)</span>, la tangente (en orange) est <strong>très inclinée</strong> : le modèle est mauvais, et <span class="math inline">\(\frac{\partial J}{\partial w}\)</span> est grand.</li>
+<li>Comme le pas vaut <span class="math inline">\(\alpha \frac{\partial J}{\partial w}\)</span>, ce premier pas est <strong>grand</strong> : on avance vite.</li>
+<li>La pente est <strong>négative</strong>, donc <span class="math inline">\(w - \alpha \frac{\partial J}{\partial w}\)</span> <strong>augmente</strong> <span class="math inline">\(w\)</span> : l’algorithme part spontanément du bon côté.</li>
+<li>À chaque epoch la pente s’aplatit, donc les pas raccourcissent. L’algorithme ralentit tout seul en approchant du minimum.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Un seul minimum
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>La courbe est une <strong>parabole</strong> : elle n’a qu’un seul creux. C’est une propriété de notre fonction de coût appliquée à une transformation linéaire. Cela fonctionne aussi avec 2 paramètres <span class="math inline">\(w\)</span> et <span class="math inline">\(b\)</span>.</p>
+<p>Contrairement au randonneur, notre algorithme ne risque donc pas de se retrouver piégé dans une vallée secondaire. Mais avec les réseaux de neurones le paysage sera plus accidenté.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Comment calculer les dérivées partielles ?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Pour une régression linéaire, on les obtient avec les règles de dérivation vues en terminale. Elles se calculent en trois lignes :</p>
+<p><span class="math display">\[\frac{\partial J}{\partial w} = \frac{2}{N} \sum_{i=1}^{N} \left(w x^{(i)} + b - y^{(i)}\right) x^{(i)}
+\qquad
+\frac{\partial J}{\partial b} = \frac{2}{N} \sum_{i=1}^{N} \left(w x^{(i)} + b - y^{(i)}\right)\]</span></p>
+<p>La démonstration complète est dans le fichier <code>justification_mathematique.md</code> du TP.</p>
+<p>Mais cette approche ne passe pas l’échelle : un réseau de neurones compte des millions de paramètres, et il faudrait tout redériver à la main à chaque changement de modèle.</p>
+<p>En pratique, nous utiliserons la bibliothèque <strong>PyTorch</strong>, qui :</p>
+<ol type="1">
+<li><strong>enregistre</strong> chaque opération effectuée pour calculer <span class="math inline">\(J(\theta)\)</span>, dans un <strong>graphe de calcul</strong> (<em>computational graph</em>) ;</li>
+<li><strong>remonte ce graphe à l’envers</strong> en appliquant la <strong>règle de dérivation en chaîne</strong> (<em>chain rule</em>) à chaque opération élémentaire, dont il connaît la dérivée.</li>
+</ol>
+<p>Ce parcours en sens inverse s’appelle la <strong>rétropropagation</strong> (<em>backpropagation</em>). PyTorch ne manipule aucune formule : il enchaîne des dérivées élémentaires sur des valeurs numériques. C’est ce qui lui permet de dériver n’importe quel modèle, aussi compliqué soit-il.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="tp-descente-de-gradient" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> TP descente de gradient</h1>
+<ol type="1">
+<li>Dans le projet tp1_ml, ouvrez le notebook <code>tp1b_gradient_descent.ipynb</code></li>
+<li>Suivez les instructions</li>
+</ol>
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+// Presentation mode. Turning it on:
+//   - collapses every collapsible callout, each one staying clickable so it
+//     can be opened on demand during the lecture
+//   - scales the document up for projection (see styles.css)
+// Turning it off restores the reading view, with every callout expanded.
+// The choice is stored in localStorage so it survives page navigation.
+(function () {
+  const STORAGE_KEY = "xti306-presentation-mode";
+  const root = document.documentElement;
+
+  // Quarto renders a callout carrying a collapse attribute with the Bootstrap
+  // collapse markup: a .callout-header holding aria-expanded, and a
+  // .callout-collapse holding the body. The chevron is rotated by CSS from
+  // aria-expanded alone, and Bootstrap reads the "show" class back from the
+  // DOM on every click, so setting both by hand keeps later manual clicks
+  // consistent.
+  //
+  // Callouts written without a collapse attribute lack this markup and are
+  // left alone: they stay visible in both modes.
+  function setCalloutsCollapsed(collapsed) {
+    document.querySelectorAll(".callout").forEach(function (callout) {
+      const header = callout.querySelector(".callout-header[aria-expanded]");
+      const body = callout.querySelector(".callout-collapse");
+      if (!header || !body) return;
+
+      body.classList.toggle("show", !collapsed);
+      header.setAttribute("aria-expanded", String(!collapsed));
+    });
+  }
+
+  function render(button, enabled) {
+    root.classList.toggle("presentation-mode", enabled);
+    setCalloutsCollapsed(enabled);
+
+    button.setAttribute("aria-pressed", String(enabled));
+    button.title = enabled
+      ? "Revenir à la vue complète : tous les encadrés dépliés"
+      : "Replier les encadrés et agrandir le texte pour la projection";
+  }
+
+  function init() {
+    const button = document.createElement("button");
+    button.id = "presentation-toggle";
+    button.type = "button";
+    button.innerHTML = '<span class="status-dot"></span>Mode présentation';
+
+    let enabled = localStorage.getItem(STORAGE_KEY) === "true";
+    render(button, enabled);
+
+    button.addEventListener("click", function () {
+      enabled = !enabled;
+      localStorage.setItem(STORAGE_KEY, String(enabled));
+      render(button, enabled);
+    });
+
+    document.body.appendChild(button);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copié");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copié");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mikaelv\.github\.io\/xti306_IA_site\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

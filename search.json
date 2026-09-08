@@ -1,0 +1,229 @@
+[
+  {
+    "objectID": "cours2.html",
+    "href": "cours2.html",
+    "title": "1 Réseaux de neurones",
+    "section": "",
+    "text": "TODO introduire réseaux, analogie avec le cerveau\nNotre modèle en transformation linéaire est trop simple : - il faudrait qu’il prenne en compte d’autres caractéristiques : nombre de pièces, localisation, étiquette DPE, … - le prix n’évolue pas forcément de manière linéaire. Il faudrait pouvoir “courber” notre fonction f.\nTODO illustration courbes: 2 caractéristiques + plan linéaire, 1 caractéristique + courbe, et objectif : courbe+ plusieurs dimensions Voir LLM book p33.\n\n\nSi on prend également en compte le nombre de pièces, notre entrée x devient un vecteur de caractéristiques (feature vector) à 2 dimensions.\nTODO x = [x1, x2] x1 représente la surface en m2 x2 représente le nombre de pièces\n\nUn vecteur est en général représenté par une colonne de nombre. C’est un vecteur colonne (column vector). x = TODO colonne …\nSi on souhaite le représenter en ligne, il faut le transposer pour qu’il devienne un vecteur ligne (row vector).\nxT = [x1, x2] ou x = [x1, x2]T\n\n\n\n\nNous avons vu comment trouver la meilleur droite sur un problème à une dimension. Avec 2 dimensions, cela revient à trouver le meilleur plan.\nNotre modèle devient : y = w1.x1 + w2.x2 +b\nIl possède désormais 3 paramètres w1, w2, b.\nTODO illustration\n\nNous pouvons ajouter d’autres dimensions à notre entrée, comme la localisation ou l’année de construction. Au delà de 3 dimensions, il devient cependant impossible de représenter nos points sur un graphique.\nNotre modèle linéaire subsiste, et sa formule est celle d’un hyperplan à n dimensions. y = w1.x1 + w2.x2 + … + wn.xn + b y = sigma … TODO\n\n\n\n\nUne ligne droite ou un plan ne permet en général pas de modéliser un problème complexe. Nous aurions besoin d’ajouter des “courbes” ou “plis” à notre tracé. Il faut pour cela appliquer une fonction non-linéaire à la sortie de notre transformation linéaire. Nous appelons cette fonction la fonction d’activation.\nEn apprentissage machine, nous utiliserons l’une de ces 3 fonctions : … TODO LLM book p 33/34, ou https://developers.google.com/machine-learning/crash-course/neural-networks/activation-functions\nNotre modèle devient : y = sigma(w1.x1 + w2.x2 + b)\nTODO illustrer avec différentes fonctions TODO expliquer, nous avons créé un neuron !!\n\n\n\nC’est mieux, mais avec une seule application de la fonction d’activation, nous n’ajoutons qu’une seule inflexion. Pour en ajouter plusieurs, il faut : 1 - introduire plusieurs résultats intermédiaires cachés 1 - les combiner pour avoir un seul résultat\nSi nous voulons 3 inflexions, il nous faut 3 résultats intermédiaires. Nommons les h1, h2, h3. Pour chaque résultat, il nous faut des paramètres correspondants. Pour chaque résultat intermédiaire hi, nous aurons 2 poids wi1, wi2 (un par dimension en entrée), et un biais bi.\nTODO colors !!! Represent as a vector ! h1 = sigma(sum(w1j.xj) + b1) h2 = sigma(sum(w2j.xj) + b2) h3 = sigma(sum(w3j.xj) + b3)\nEnsuite, nous combinons ces résultat comme si il représentaient un vecteur d’entrée à 3 dimensions. Il nous faut un autre vecteur de poids et un autre biais que nous appelerons v et c.\nNotre modèle final devient : y = sigma(v1.h1 + v2.h2 + v3.h3 + c)\nIl possède 4 neurons: 3 neurons dans la couche cachée, un neuron dans la couche de sortie. Ces paramètres sont (i=0 to 3, j=0 to 2) wij, bi, vi, c TODO représenter sous forme vectorielle avec tous les paramètres TODO montrer le graphe de calcul avec les connections\nTODO montrer de quoi ce modèle est capable\n\n\n\nLes poids Wij peuvent être représentés sous forme de matrice:\nTODO matrices W. La matrice ci dessous a 3 lignes et 2 colonnes. On dit qu’elle est de dimensions 3x2.\nLa notation Wij désigne la cellule qui est sur la i-ème ligne et la j-ème colonne.\nUn vecteur est un simplement un cas particulier de matrice: il a m lignes et 1 seule colonne. TODO illustration\n\n\nEn mathématiques, la multiplication de deux matrices A et B est définie comme suit : Soit une matrice A de dimensions mn (m lignes, n colonnes) Soit une matrice B de dimensions no La multiplication A x B produit une matrice C de dimensions m*o. Chaque cellule Cij est calculée de la manière suivante : Cij = somme Aik x Bkj\n\nPour pouvoir multipler deux matrices, leurs dimensions doivent être compatibles. nombre de colonnes de la matrice A = nombre de lignes de la matrice B\n\n\n\n\nOn peut ajouter 2 matrices A et B si elles ont les mêmes dimensions. Cela consiste à ajouter les cellules de mêmes coordonnées.\nCij = Aij + Bij\nTODO exemple\n\n\n\nAppliquer une fonction sigma à une matrice consiste à appliquer la fonction à chaque cellule:\nsigma(A) = C avec Cij = sigma(Aij)\n\n\n\n\nGrâce à nos nouveaux outils, nous pouvons réécrire notre modèle de perceptron avec la notation matricielle : h = sigma(W.x + b) y = sigma(V.h + c)\nCet écriture est très pratique, et elle nous rappelle la formule utilisée pour une transformation linéaire. Par ailleurs, les bibliothèques Python modernes sont optimisées pour le calcul matriciel. Elles peuvent effectuer de nombreux calculs en parallèle grâce au GPU.\n\n\n\nTODO continuer sur le même dataset, introduire le nb de pièces."
+  },
+  {
+    "objectID": "cours2.html#vecteurs",
+    "href": "cours2.html#vecteurs",
+    "title": "1 Réseaux de neurones",
+    "section": "",
+    "text": "Si on prend également en compte le nombre de pièces, notre entrée x devient un vecteur de caractéristiques (feature vector) à 2 dimensions.\nTODO x = [x1, x2] x1 représente la surface en m2 x2 représente le nombre de pièces\n\nUn vecteur est en général représenté par une colonne de nombre. C’est un vecteur colonne (column vector). x = TODO colonne …\nSi on souhaite le représenter en ligne, il faut le transposer pour qu’il devienne un vecteur ligne (row vector).\nxT = [x1, x2] ou x = [x1, x2]T"
+  },
+  {
+    "objectID": "cours2.html#de-la-ligne-au-plan",
+    "href": "cours2.html#de-la-ligne-au-plan",
+    "title": "1 Réseaux de neurones",
+    "section": "",
+    "text": "Nous avons vu comment trouver la meilleur droite sur un problème à une dimension. Avec 2 dimensions, cela revient à trouver le meilleur plan.\nNotre modèle devient : y = w1.x1 + w2.x2 +b\nIl possède désormais 3 paramètres w1, w2, b.\nTODO illustration\n\nNous pouvons ajouter d’autres dimensions à notre entrée, comme la localisation ou l’année de construction. Au delà de 3 dimensions, il devient cependant impossible de représenter nos points sur un graphique.\nNotre modèle linéaire subsiste, et sa formule est celle d’un hyperplan à n dimensions. y = w1.x1 + w2.x2 + … + wn.xn + b y = sigma … TODO"
+  },
+  {
+    "objectID": "cours2.html#non-linéarité",
+    "href": "cours2.html#non-linéarité",
+    "title": "1 Réseaux de neurones",
+    "section": "",
+    "text": "Une ligne droite ou un plan ne permet en général pas de modéliser un problème complexe. Nous aurions besoin d’ajouter des “courbes” ou “plis” à notre tracé. Il faut pour cela appliquer une fonction non-linéaire à la sortie de notre transformation linéaire. Nous appelons cette fonction la fonction d’activation.\nEn apprentissage machine, nous utiliserons l’une de ces 3 fonctions : … TODO LLM book p 33/34, ou https://developers.google.com/machine-learning/crash-course/neural-networks/activation-functions\nNotre modèle devient : y = sigma(w1.x1 + w2.x2 + b)\nTODO illustrer avec différentes fonctions TODO expliquer, nous avons créé un neuron !!"
+  },
+  {
+    "objectID": "cours2.html#perceptron-multi-couches-multilayer-perceptron",
+    "href": "cours2.html#perceptron-multi-couches-multilayer-perceptron",
+    "title": "1 Réseaux de neurones",
+    "section": "",
+    "text": "C’est mieux, mais avec une seule application de la fonction d’activation, nous n’ajoutons qu’une seule inflexion. Pour en ajouter plusieurs, il faut : 1 - introduire plusieurs résultats intermédiaires cachés 1 - les combiner pour avoir un seul résultat\nSi nous voulons 3 inflexions, il nous faut 3 résultats intermédiaires. Nommons les h1, h2, h3. Pour chaque résultat, il nous faut des paramètres correspondants. Pour chaque résultat intermédiaire hi, nous aurons 2 poids wi1, wi2 (un par dimension en entrée), et un biais bi.\nTODO colors !!! Represent as a vector ! h1 = sigma(sum(w1j.xj) + b1) h2 = sigma(sum(w2j.xj) + b2) h3 = sigma(sum(w3j.xj) + b3)\nEnsuite, nous combinons ces résultat comme si il représentaient un vecteur d’entrée à 3 dimensions. Il nous faut un autre vecteur de poids et un autre biais que nous appelerons v et c.\nNotre modèle final devient : y = sigma(v1.h1 + v2.h2 + v3.h3 + c)\nIl possède 4 neurons: 3 neurons dans la couche cachée, un neuron dans la couche de sortie. Ces paramètres sont (i=0 to 3, j=0 to 2) wij, bi, vi, c TODO représenter sous forme vectorielle avec tous les paramètres TODO montrer le graphe de calcul avec les connections\nTODO montrer de quoi ce modèle est capable"
+  },
+  {
+    "objectID": "cours2.html#matrices",
+    "href": "cours2.html#matrices",
+    "title": "1 Réseaux de neurones",
+    "section": "",
+    "text": "Les poids Wij peuvent être représentés sous forme de matrice:\nTODO matrices W. La matrice ci dessous a 3 lignes et 2 colonnes. On dit qu’elle est de dimensions 3x2.\nLa notation Wij désigne la cellule qui est sur la i-ème ligne et la j-ème colonne.\nUn vecteur est un simplement un cas particulier de matrice: il a m lignes et 1 seule colonne. TODO illustration\n\n\nEn mathématiques, la multiplication de deux matrices A et B est définie comme suit : Soit une matrice A de dimensions mn (m lignes, n colonnes) Soit une matrice B de dimensions no La multiplication A x B produit une matrice C de dimensions m*o. Chaque cellule Cij est calculée de la manière suivante : Cij = somme Aik x Bkj\n\nPour pouvoir multipler deux matrices, leurs dimensions doivent être compatibles. nombre de colonnes de la matrice A = nombre de lignes de la matrice B\n\n\n\n\nOn peut ajouter 2 matrices A et B si elles ont les mêmes dimensions. Cela consiste à ajouter les cellules de mêmes coordonnées.\nCij = Aij + Bij\nTODO exemple\n\n\n\nAppliquer une fonction sigma à une matrice consiste à appliquer la fonction à chaque cellule:\nsigma(A) = C avec Cij = sigma(Aij)"
+  },
+  {
+    "objectID": "cours2.html#perceptron-avec-matrices",
+    "href": "cours2.html#perceptron-avec-matrices",
+    "title": "1 Réseaux de neurones",
+    "section": "",
+    "text": "Grâce à nos nouveaux outils, nous pouvons réécrire notre modèle de perceptron avec la notation matricielle : h = sigma(W.x + b) y = sigma(V.h + c)\nCet écriture est très pratique, et elle nous rappelle la formule utilisée pour une transformation linéaire. Par ailleurs, les bibliothèques Python modernes sont optimisées pour le calcul matriciel. Elles peuvent effectuer de nombreux calculs en parallèle grâce au GPU."
+  },
+  {
+    "objectID": "cours2.html#tp---perceptron",
+    "href": "cours2.html#tp---perceptron",
+    "title": "1 Réseaux de neurones",
+    "section": "",
+    "text": "TODO continuer sur le même dataset, introduire le nb de pièces."
+  },
+  {
+    "objectID": "cours2.html#classification",
+    "href": "cours2.html#classification",
+    "title": "1 Réseaux de neurones",
+    "section": "2.1 Classification",
+    "text": "2.1 Classification"
+  },
+  {
+    "objectID": "cours2.html#architecture",
+    "href": "cours2.html#architecture",
+    "title": "1 Réseaux de neurones",
+    "section": "2.2 Architecture",
+    "text": "2.2 Architecture\nCombien de couches ? Combien de neurons dans chaque couche ? https://playground.tensorflow.org/#activation=relu&batchSize=15&dataset=xor&regDataset=reg-gauss&learningRate=0.03&regularizationRate=0&noise=25&networkShape=5,2&seed=0.41002&showTestData=false&discretize=false&percTrainData=50&x=true&y=true&xTimesY=false&xSquared=true&ySquared=true&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=regression&initZero=false&hideText=false\nExercice ici: https://developers.google.com/machine-learning/crash-course/neural-networks/interactive-exercises?hl=fr\nTODO Example ?: je montre 1M de photos de chats à mon programme d’apprentissage. Les photos sont suffisamment variées pour avoir différentes races et positions. Une fois mon modèle entraîné, je peux lui soumettre une photo x….\ntraining/dev set : dans le TP"
+  },
+  {
+    "objectID": "cours2.html#surapprentissage-overfitting",
+    "href": "cours2.html#surapprentissage-overfitting",
+    "title": "1 Réseaux de neurones",
+    "section": "2.3 Surapprentissage (overfitting)",
+    "text": "2.3 Surapprentissage (overfitting)"
+  },
+  {
+    "objectID": "cours2.html#glossaire",
+    "href": "cours2.html#glossaire",
+    "title": "1 Réseaux de neurones",
+    "section": "2.4 Glossaire",
+    "text": "2.4 Glossaire"
+  },
+  {
+    "objectID": "cours1.html",
+    "href": "cours1.html",
+    "title": "CM1 - Introduction à l’apprentissage automatique (machine learning)",
+    "section": "",
+    "text": "Un modèle (model) est une fonction qui transforme une entrée en une sortie :\n\\[y = f(x)\\]\n\n\\(x\\) est l’entrée (input),\n\\(y\\) est la sortie (output),\n\\(f\\) est le modèle : la fonction que l’on cherche.\n\nPresque toutes les tâches d’IA s’écrivent sous cette forme. Seules changent la nature de \\(x\\), celle de \\(y\\), et la difficulté à trouver \\(f\\).\n\nQuatre tâches très différentes, une seule écriture.\n\n\n\n\n\n\n\nTâche\nEntrée \\(x\\)\nSortie \\(y\\)\n\n\n\n\nFiltrer le spam\nle texte d’un courriel\nbooléen: spam/non-spam\n\n\nEstimer un prix\nles caractéristiques d’un appartement\nun prix en euros\n\n\nReconnaître un chiffre manuscrit\nune image de 28 × 28 pixels\nun chiffre de 0 à 9\n\n\nCompléter une phrase\nles mots déjà écrits\nle mot suivant\n\n\n\n\n\n\n\n\n\n\n\nApprendre, pour une machine, c’est construire la fonction \\(f\\) (le modèle) à partir d’exemples.\n\n\n\n\n\n\n\n\n\nNoteProgrammation classique vs Apprentissage automatique\n\n\n\n\n\nEn programmation classique, c’est le développeur qui écrit \\(f\\) : il connaît les règles du problème et les traduit en code.\n\nPour un filtrage de spam, on utiliserait une liste de règles : — « contient tel mot », « expéditeur inconnu ». Mais elles sont facilement contournables.\nCertaines tâches sont impossibles : personne ne sait énoncer les règles qui distinguent la photo d’un chat de celle d’un chien.\n\nEn apprentissage automatique, on n’écrit pas f. On écrit un algorithme d’entraînement (training) qui construit \\(f\\) à partir d’exemples.\n\n\n\n\n\nLorsque les exemples fournissent à la fois une entrée et la sortie attendue, on parle d’apprentissage supervisé (supervised learning).\nUn dataset de \\(N\\) exemples est alors un ensemble de \\(N\\) paires :\n\\[\\mathcal{D} = \\left\\{\\, \\left(x^{(i)},\\ y^{(i)}\\right) \\,\\right\\}_{i=1}^{N}\\]\nChaque entrée \\(x^{(i)}\\) est associée à sa sortie cible (target), aussi appelée étiquette (label).\n\n\n\n\n\n\nNoteLire la notation\n\n\n\n\n\nL’exposant entre parenthèses est un numéro d’exemple, pas une puissance : \\(x^{(3)}\\) est le troisième exemple du dataset.\nL’indice en bas désignera plus tard une caractéristique : \\(x_2\\) est la deuxième caractéristique.\nLes deux se combinent : \\(x_2^{(3)}\\) est la deuxième caractéristique du troisième exemple.\n\n\n\n\n\n\n\n\n\n\nOn choisit d’abord une famille de modèle: la forme générale de \\(f\\)\nOn montre à l’algorithme tous les exemples du jeu d’entraînement (training set).\nL’algorithme d’entraînement en déduit \\(f\\).\n\n\n\n\nLe modèle est figé. On lui soumet une entrée \\(x\\) qu’il n’a jamais vue et il répond :\n\\[\\hat{y} = f(x)\\]\nLa capacité à répondre juste sur des entrées nouvelles s’appelle la généralisation (generalization).\n\n\n\n\n\n\nNoteSurapprentissage (overfitting)\n\n\n\n\n\nUn modèle qui répond parfaitement sur les exemples d’entraînements mais mal sur exemples inédits n’a pas bien “appris”. Il a juste mémorisé des exemples. Ce problème s’appelle le surapprentissage. Nous verrons plus loin comment évaluer ce problème et comment le corriger.\n\n\n\n\n\n\n\n\n\nNoteRessources nécessaires\n\n\n\n\n\nLa phase d’entraînement consomme énormément de ressources (CPU, GPU, RAM, Disque) par rapport à la phase d’inférence.\nPar exemple, Llama 3.1 a été entraîné sur un cluster de 16000 GPUs H100 pendant 54 jours. Pour l’inférence, une seule machine avec 8 GPUs H100 est suffisante pour servir plusieurs utilisateurs simultanés.\n\n\n\n\n\n\n\nL’apprentissage supervisé exige des exemples avec des labels, donc un travail humain souvent coûteux. D’autres formes d’apprentissage s’en passent :\n\nnon supervisé (unsupervised) : les exemples n’ont pas de cible, l’algorithme cherche lui-même une structure — regrouper des clients par comportement, par exemple ;\nauto-supervisé (self-supervised) : la cible est extraite des données elles-mêmes. C’est ainsi qu’on entraîne un LLM : la cible est simplement le mot suivant du texte, déjà présent dans le corpus ;\npar renforcement (reinforcement) : pas de cible, mais une récompense obtenue après une suite d’actions — jeux, robotique.\n\n\n\n\n\n\n\n\n\n\n\n\n\nFamille\nIdée\nTerrain de prédilection\nExemple concret\n\n\n\n\nRégression linéaire\najuster une droite, un plan\nvaleurs numériques\nestimer le prix d’un appartement d’après sa surface\n\n\nRégression logistique\nune frontière séparant deux classes\nscoring, diagnostic\naccorder ou refuser un crédit\n\n\nArbres de décision, forêts aléatoires\nune cascade de tests « si… alors »\ndonnées tabulaires\nrepérer une transaction bancaire frauduleuse\n\n\n\\(k\\) plus proches voisins\nrépondre comme les exemples les plus ressemblants\nrecommandation simple\nsuggérer un film aimé par des abonnés au profil proche\n\n\nMachines à vecteurs de support\nséparer les classes avec la marge la plus large\npetits jeux de données\ndistinguer cellules saines et tumorales sur quelques centaines d’échantillons\n\n\nRéseaux de neurones\nempiler des transformations simples\nimage, texte, audio, LLM\nreconnaître un panneau de signalisation, traduire un texte, ChatGPT",
+    "crumbs": [
+      "Cours",
+      "CM1 - Introduction à l'apprentissage automatique (*machine learning*)"
+    ]
+  },
+  {
+    "objectID": "cours1.html#comment-une-machine-peut-elle-apprendre",
+    "href": "cours1.html#comment-une-machine-peut-elle-apprendre",
+    "title": "CM1 - Introduction à l’apprentissage automatique (machine learning)",
+    "section": "",
+    "text": "Apprendre, pour une machine, c’est construire la fonction \\(f\\) (le modèle) à partir d’exemples.\n\n\n\n\n\n\n\n\n\nNoteProgrammation classique vs Apprentissage automatique\n\n\n\n\n\nEn programmation classique, c’est le développeur qui écrit \\(f\\) : il connaît les règles du problème et les traduit en code.\n\nPour un filtrage de spam, on utiliserait une liste de règles : — « contient tel mot », « expéditeur inconnu ». Mais elles sont facilement contournables.\nCertaines tâches sont impossibles : personne ne sait énoncer les règles qui distinguent la photo d’un chat de celle d’un chien.\n\nEn apprentissage automatique, on n’écrit pas f. On écrit un algorithme d’entraînement (training) qui construit \\(f\\) à partir d’exemples.\n\n\n\n\n\nLorsque les exemples fournissent à la fois une entrée et la sortie attendue, on parle d’apprentissage supervisé (supervised learning).\nUn dataset de \\(N\\) exemples est alors un ensemble de \\(N\\) paires :\n\\[\\mathcal{D} = \\left\\{\\, \\left(x^{(i)},\\ y^{(i)}\\right) \\,\\right\\}_{i=1}^{N}\\]\nChaque entrée \\(x^{(i)}\\) est associée à sa sortie cible (target), aussi appelée étiquette (label).\n\n\n\n\n\n\nNoteLire la notation\n\n\n\n\n\nL’exposant entre parenthèses est un numéro d’exemple, pas une puissance : \\(x^{(3)}\\) est le troisième exemple du dataset.\nL’indice en bas désignera plus tard une caractéristique : \\(x_2\\) est la deuxième caractéristique.\nLes deux se combinent : \\(x_2^{(3)}\\) est la deuxième caractéristique du troisième exemple.",
+    "crumbs": [
+      "Cours",
+      "CM1 - Introduction à l'apprentissage automatique (*machine learning*)"
+    ]
+  },
+  {
+    "objectID": "cours1.html#les-deux-temps-de-la-vie-dun-modèle",
+    "href": "cours1.html#les-deux-temps-de-la-vie-dun-modèle",
+    "title": "CM1 - Introduction à l’apprentissage automatique (machine learning)",
+    "section": "",
+    "text": "On choisit d’abord une famille de modèle: la forme générale de \\(f\\)\nOn montre à l’algorithme tous les exemples du jeu d’entraînement (training set).\nL’algorithme d’entraînement en déduit \\(f\\).\n\n\n\n\nLe modèle est figé. On lui soumet une entrée \\(x\\) qu’il n’a jamais vue et il répond :\n\\[\\hat{y} = f(x)\\]\nLa capacité à répondre juste sur des entrées nouvelles s’appelle la généralisation (generalization).\n\n\n\n\n\n\nNoteSurapprentissage (overfitting)\n\n\n\n\n\nUn modèle qui répond parfaitement sur les exemples d’entraînements mais mal sur exemples inédits n’a pas bien “appris”. Il a juste mémorisé des exemples. Ce problème s’appelle le surapprentissage. Nous verrons plus loin comment évaluer ce problème et comment le corriger.\n\n\n\n\n\n\n\n\n\nNoteRessources nécessaires\n\n\n\n\n\nLa phase d’entraînement consomme énormément de ressources (CPU, GPU, RAM, Disque) par rapport à la phase d’inférence.\nPar exemple, Llama 3.1 a été entraîné sur un cluster de 16000 GPUs H100 pendant 54 jours. Pour l’inférence, une seule machine avec 8 GPUs H100 est suffisante pour servir plusieurs utilisateurs simultanés.",
+    "crumbs": [
+      "Cours",
+      "CM1 - Introduction à l'apprentissage automatique (*machine learning*)"
+    ]
+  },
+  {
+    "objectID": "cours1.html#dautres-formes-dapprentissage",
+    "href": "cours1.html#dautres-formes-dapprentissage",
+    "title": "CM1 - Introduction à l’apprentissage automatique (machine learning)",
+    "section": "",
+    "text": "L’apprentissage supervisé exige des exemples avec des labels, donc un travail humain souvent coûteux. D’autres formes d’apprentissage s’en passent :\n\nnon supervisé (unsupervised) : les exemples n’ont pas de cible, l’algorithme cherche lui-même une structure — regrouper des clients par comportement, par exemple ;\nauto-supervisé (self-supervised) : la cible est extraite des données elles-mêmes. C’est ainsi qu’on entraîne un LLM : la cible est simplement le mot suivant du texte, déjà présent dans le corpus ;\npar renforcement (reinforcement) : pas de cible, mais une récompense obtenue après une suite d’actions — jeux, robotique.",
+    "crumbs": [
+      "Cours",
+      "CM1 - Introduction à l'apprentissage automatique (*machine learning*)"
+    ]
+  },
+  {
+    "objectID": "cours1.html#quelques-familles-de-modèles",
+    "href": "cours1.html#quelques-familles-de-modèles",
+    "title": "CM1 - Introduction à l’apprentissage automatique (machine learning)",
+    "section": "",
+    "text": "Famille\nIdée\nTerrain de prédilection\nExemple concret\n\n\n\n\nRégression linéaire\najuster une droite, un plan\nvaleurs numériques\nestimer le prix d’un appartement d’après sa surface\n\n\nRégression logistique\nune frontière séparant deux classes\nscoring, diagnostic\naccorder ou refuser un crédit\n\n\nArbres de décision, forêts aléatoires\nune cascade de tests « si… alors »\ndonnées tabulaires\nrepérer une transaction bancaire frauduleuse\n\n\n\\(k\\) plus proches voisins\nrépondre comme les exemples les plus ressemblants\nrecommandation simple\nsuggérer un film aimé par des abonnés au profil proche\n\n\nMachines à vecteurs de support\nséparer les classes avec la marge la plus large\npetits jeux de données\ndistinguer cellules saines et tumorales sur quelques centaines d’échantillons\n\n\nRéseaux de neurones\nempiler des transformations simples\nimage, texte, audio, LLM\nreconnaître un panneau de signalisation, traduire un texte, ChatGPT",
+    "crumbs": [
+      "Cours",
+      "CM1 - Introduction à l'apprentissage automatique (*machine learning*)"
+    ]
+  },
+  {
+    "objectID": "cours1.html#etude-de-cas-prix-dun-appartement",
+    "href": "cours1.html#etude-de-cas-prix-dun-appartement",
+    "title": "CM1 - Introduction à l’apprentissage automatique (machine learning)",
+    "section": "2.1 Etude de cas : prix d’un appartement",
+    "text": "2.1 Etude de cas : prix d’un appartement\nNous voulons construire un modèle qui estime le prix d’un appartement à Bordeaux.\n\n2.1.1 Choisir l’entrée\nUn appartement possède de nombreuses caractéristiques (features) qui influencent son prix : surface, localisation, nombre de pièces, étage, étiquette DPE, année de construction…\nPour commencer, nous n’en utiliserons qu’une seule, qui est la plus déterminante : la surface.\n\n\n\n\nSignification\nUnité\n\n\n\n\n\\(x\\)\nsurface habitable\nm²\n\n\n\\(y\\)\nprix de vente\n€\n\n\n\\(f\\)\nle modèle à construire\n—\n\n\n\n\n\n2.1.2 Collecter les exemples\nEntraîner ce modèle suppose d’abord d’observer un maximum de ventes réelles. Chaque exemple \\(i\\) est une paire \\(\\left(x^{(i)}, y^{(i)}\\right)\\) : une surface constatée et le prix de vente correspondant.\n\n\n\n\nTable 1: Cinq exemples du jeu de données. Chaque ligne est une paire (entrée, cible).\n\n\n\n\n\n\n\n\nExemple i\nSurface (m²)\nPrix (€)\n\n\n\n\n1\n93\n394 000\n\n\n2\n61\n305 000\n\n\n3\n101\n394 000\n\n\n4\n86\n384 000\n\n\n5\n27\n126 000\n\n\n\n\n\n\n\n\nEn reportant les \\(N = 60\\) ventes sur un graphique — la surface en abscisse, le prix en ordonnée — chaque exemple devient un point.\n\n\n\n\n\n\n\n\nFigure 1: 60 ventes d’appartements à Bordeaux. Un point = un exemple.\n\n\n\n\n\nLes points ne sont pas alignés parfaitement, mais leur tendance est nette : le prix monte à peu près proportionnellement à la surface.\n\n\n\n\n\n\nConstruire le modèle consiste à faire passer une fonction \\(f\\) au milieu de ce nuage de points.\n\n\n\n\n\n\n\n\n\nAstuceQuestion — quelles limites voyez-vous déjà ?\n\n\n\n\n\n\nUne seule caractéristique. Deux appartements de 60 m², l’un aux Chartrons, l’autre en périphérie, n’ont pas le même prix. Le modèle leur donnera pourtant la même réponse.\nLa dispersion. À surface égale, les prix observés varient de plusieurs dizaines de milliers d’euros. Aucune fonction de \\(x\\) seul ne peut passer par tous les points : le modèle sera nécessairement approché.\nL’extrapolation. Le jeu de données s’arrête à 115 m². Interrogé sur un 300 m², le modèle répondra quand même — sans aucune raison d’avoir raison.",
+    "crumbs": [
+      "Cours",
+      "CM1 - Introduction à l'apprentissage automatique (*machine learning*)"
+    ]
+  },
+  {
+    "objectID": "cours1.html#transformation-linéaire",
+    "href": "cours1.html#transformation-linéaire",
+    "title": "CM1 - Introduction à l’apprentissage automatique (machine learning)",
+    "section": "2.2 Transformation linéaire",
+    "text": "2.2 Transformation linéaire\nLe modèle le plus simple serait de tracer une droite qui essaie de se rapprocher au plus près des exemples.\n\n\n\n\n\n\n\n\nFigure 2: Une droite tracée au milieu du nuage. Elle passe près des points, mais par aucun exactement.\n\n\n\n\n\nUne telle droite a une équation \\[f(x) = wx + b\\]\nLa formule \\(wx + b\\) est une transformation linéaire.\nPour ce type de modèle, les seules inconnues sont \\(w\\) et \\(b\\). Ce sont des paramètres de notre modèle.\n\n\\(w\\) est appelé poids (weight),\n\\(b\\) est le biais (bias).\n\n\n2.2.1 Comment trouver ces 2 paramètres ?\nPlusieurs techniques sont possibles :\n\nvisuellement\nau hasard, en tâtonnant avec plusieurs valeurs\navec une méthode analytique\n\non résout une équation et on obtient une valeur exacte\n\navec une méthode itérative : l’algorithme de la descente de gradient (voir ci-dessous)\n\n\n\n\n\n\n\nUne régression linéaire consiste à trouver les meilleurs paramètres \\(w\\) et \\(b\\).",
+    "crumbs": [
+      "Cours",
+      "CM1 - Introduction à l'apprentissage automatique (*machine learning*)"
+    ]
+  },
+  {
+    "objectID": "cours1.html#fonction-de-coût-cost-function",
+    "href": "cours1.html#fonction-de-coût-cost-function",
+    "title": "CM1 - Introduction à l’apprentissage automatique (machine learning)",
+    "section": "3.1 Fonction de coût (cost function)",
+    "text": "3.1 Fonction de coût (cost function)\nPour trouver les meilleurs paramètres pour notre modèle, il nous faut donc trouver les paramètres pour lesquel la perte est minimale, mais en considérant tous les exemples. Nous allons utiliser pour cela une fonction de coût (cost function).\n\\[J = J(w, b\\,;\\, X, Y)\\]\n\n\\(X\\) désigne l’ensemble des données d’exemple en entrée\n\\(Y\\) désigne l’ensemble des données d’exemple en sortie\n\nLes meilleurs paramètres \\(w\\) et \\(b\\) seront ceux pour lesquels \\(J\\) est le plus petit.\nPour notre modèle en transformation linéaire, nous pouvons faire la moyenne des pertes sur tous les exemples. Voici la formule : \\[\n\\begin{aligned}\nJ(w, b\\,;\\, X, Y) &= \\frac{1}{N} \\sum_{i=1}^{N} L\\left(\\hat{y}^{(i)},\\ y^{(i)}\\right) \\\\\n                  &= \\frac{1}{N} \\sum_{i=1}^{N} \\left(\\hat{y}^{(i)} - y^{(i)}\\right)^2\n\\end{aligned}\n\\]\n\n\n\n\n\n\nOn note \\(\\theta\\) : ensemble des paramètres du modèle (dans notre cas, \\(w\\) et \\(b\\)).\nLes meilleurs paramètres \\(\\theta\\) sont ceux pour lesquels le coût \\(J(\\theta)\\) est le plus proche de 0.\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n\n\n\nD’autres fonctions de perte et de coût peuvent être utilisées selon la famille de modèle et selon le problème à modéliser.\nCertains auteurs utilisent les termes perte/coût (cost/loss) comme synonymes. Nous utiliserons le terme perte pour un seul exemple, et le terme coût pour désigner l’agrégation de la perte sur un dataset.",
+    "crumbs": [
+      "Cours",
+      "CM1 - Introduction à l'apprentissage automatique (*machine learning*)"
+    ]
+  },
+  {
+    "objectID": "cours1.html#lire-le-coût-la-rmse",
+    "href": "cours1.html#lire-le-coût-la-rmse",
+    "title": "CM1 - Introduction à l’apprentissage automatique (machine learning)",
+    "section": "3.2 Lire le coût : la RMSE",
+    "text": "3.2 Lire le coût : la RMSE\nNotre coût \\(J\\) est une moyenne de carrés d’euros : il s’exprime donc en €². C’est une unité que personne ne sait interpréter. Sur les 60 ventes ci-dessus, la meilleure droite donne un coût de \\(4{,}9 \\times 10^8\\) €² — ce nombre ne nous dit rien sur la qualité du modèle.\nIl suffit d’en prendre la racine carrée pour revenir en euros :\n\\[\\mathrm{RMSE} = \\sqrt{J} = \\sqrt{\\frac{1}{N} \\sum_{i=1}^{N} \\left(\\hat{y}^{(i)} - y^{(i)}\\right)^2}\\]\n\n\n\n\nTable 2: Le même coût, lu de deux façons. La colonne du milieu est illisible, celle de droite se compare à un prix.\n\n\n\n\n\n\n\n\nModèle\nCoût J (€²)\nRMSE (€)\n\n\n\n\ndroite ajustée (w = 4 509, b = 162)\n4.94e+08\n22 222\n\n\ntrop plat (w = 3 000, b = 0)\n1.29e+10\n113 512\n\n\ntrop pentu (w = 6 000, b = 0)\n1.25e+10\n111 941\n\n\n\n\n\n\n\n\nLa RMSE donne l’ordre de grandeur de l’erreur du modèle, dans l’unité de la sortie. Ici : environ 22 000 € d’écart typique, pour un prix moyen de 309 000 € — soit 7 %. On peut enfin juger le modèle.\n\n\n\n\n\n\nNoteVocabulaire et précautions\n\n\n\n\n\n\nNotre fonction de coût \\(J\\) porte un nom : l’erreur quadratique moyenne (mean squared error, MSE). Sa racine est la RMSE (root mean squared error).\nLa RMSE sert à lire le coût, pas à l’optimiser. Comme la racine carrée est croissante, minimiser \\(J\\) ou minimiser la RMSE revient exactement au même — mais \\(J\\) se dérive bien plus simplement, et c’est donc \\(J\\) que l’algorithme de la descente de gradient va chercher à minimiser.\nLa RMSE n’est pas la moyenne des erreurs : elle est toujours plus grande, parce que le carré donne plus de poids aux grosses erreurs. Ici, l’erreur moyenne en valeur absolue n’est que de 17 600 €.",
+    "crumbs": [
+      "Cours",
+      "CM1 - Introduction à l'apprentissage automatique (*machine learning*)"
+    ]
+  },
+  {
+    "objectID": "cours1.html#initiation-à-jupyter-dans-pycharm",
+    "href": "cours1.html#initiation-à-jupyter-dans-pycharm",
+    "title": "CM1 - Introduction à l’apprentissage automatique (machine learning)",
+    "section": "4.1 Initiation à Jupyter dans PyCharm",
+    "text": "4.1 Initiation à Jupyter dans PyCharm\nUn notebook Jupyter est un document interactif qui combine code, texte et résultats dans le navigateur. On écrit du code par petits blocs, on l’exécute, et le résultat s’affiche juste en dessous.\nBien qu’il soit possible d’utiliser un navigateur pour travailler avec Jupyter, nous utiliserons PyCharm car il offre des fonctionnalités plus avancées :\n\nsouligne les erreurs potentielles en rouge\nautocomplétion du code avec ctrl-space\nnavigation avec ctrl-click\ndocumentation avec ctrl-Q\ninspection des variables\n\n\n4.1.1 Créer un notebook\n\nLancez PyCharm\nCréer un nouveau projet Python.\n\nLocation : choisissez un répertoire, en nommant le projet tp0_jupyter\nInterpreter type: venv\n\nFile -&gt; New File or Directory -&gt; Jupyter Notebook. Nommez le “initiation”\n\n\n\n4.1.2 Ajouter du code\n\nLa première cellule est de type code. Collez le code suivant et cliquez sur le bouton vert à gauche :\n\ngreeting='Bonjour'\nprint(greeting)\nLe résultat s’affiche sous la cellule, et la fenêtre “jupyter variables” affiche le contenu de greeting.\n\n\n\nCellule jupyter\n\n\nLe point fort de Jupyter : les variables restent en mémoire d’une cellule à l’autre, dans l’ordre où vous les exécutez. Une valeur calculée dans une cellule est réutilisable dans les suivantes.\n\nAjoutez une nouvelle cellule (bouton +), et collez le code qui suit. Ensuite, exécutez le avec ctrl-enter\n\ngreeting += ' depuis Jupyter'\nprint(greeting)\n\n\n\n\n\n\nImportant\n\n\n\nUne cellule utilise les variables déjà exécutées, pas leur position dans le notebook. Si vous obtenez une erreur NameError, vérifiez que vous avez bien exécuté les cellules dans le bon ordre, ou redémarrez le kernel.\n\n\nOn peut exécuter une cellule plusieurs fois, mais attention ! Si votre cellule modifie des variables, l’exécuter plusieurs fois peut créer des problèmes.\n\n\n4.1.3 Installer une bibliothèque\nNous aurons besoin de matplotlib pour tracer des graphiques. Pour l’installer :\n\nCréez un nouveau fichier requirements.txt\nCollez ce contenu dans le fichier :\n\nmatplotlib==0.4.3\n\nCliquez sur le bouton en haut à gauche de l’éditeur “pip update from requirements.txt”\n\n\n\n4.1.4 Créer un graphique\nCréez une nouvelle cellule pour tracer un graphique :\nimport matplotlib.pyplot as plt\n\nx = [1, 2, 3, 4, 5]\ny = [2, 4, 6, 8, 10]\n\nplt.plot(x, y, marker=\"o\")\nplt.title(\"Mon premier graphique\")\nplt.show()\nAprès exécution, le graphique s’affiche sous la cellule.\n\n\n4.1.5 Ajouter du texte\nCréez une cellule, puis changez son type de code à markdown. Collez le contenu suivant :\n# Mon analyse\n\nCeci est une **cellule Markdown** pour expliquer mon travail.\n\n## Objectifs\n- Apprendre Jupyter\n- Créer des graphiques\nAprès exécution, jupyter affiche le contenu formatté.\n\n\n4.1.6 Comprendre le kernel\nLe kernel est le processus qui exécute votre code Python en arrière-plan. Quand une cellule reste bloquée sur [*] ou que l’interface ne répond plus, le kernel est occupé ou planté. Le menu en haut permet de le reprendre en main :\n\nInterrupt : arrêter l’exécution en cours.\nRestart : redémarrer le kernel (les variables sont perdues).\nRestart Kernel & Run All : redémarrage complet et exécute toutes les cellules une par une. A utiliser pour vérifier que votre notebook s’exécute sans erreurs.\nClear output: efface les sorties, utile si on veut committer le notebook sans les résultats.\n\nEn cas de doute après beaucoup de modifications, redémarrez le kernel et réexécutez les cellules dans l’ordre pour repartir sur une base saine.\n\n\n4.1.7 À retenir\n\nUn notebook est une suite de cellules de code et de texte, exécutées une par une.\nLes variables persistent entre cellules selon l’ordre d’exécution. En cas d’erreur, redémarrez le kernel.\nLe fichier .ipynb stocke code, texte et résultats au format JSON, portable.",
+    "crumbs": [
+      "Cours",
+      "CM1 - Introduction à l'apprentissage automatique (*machine learning*)"
+    ]
+  },
+  {
+    "objectID": "cours1.html#démarrage-du-tp",
+    "href": "cours1.html#démarrage-du-tp",
+    "title": "CM1 - Introduction à l’apprentissage automatique (machine learning)",
+    "section": "4.2 Démarrage du TP",
+    "text": "4.2 Démarrage du TP\n\nCliquez sur le lien GitHub classroom pour créer votre repository GitHub\nLancez PyCharm\nFile -&gt; Project from version control…\nCollez l’URL de votre repository GitHub et choisissez un répertoire de destination.\nOuvrez le fichier tp1a_linear_regression.ipynb\nExécutez les cellules une par une, en complétant le code qui suit les # TODO ...",
+    "crumbs": [
+      "Cours",
+      "CM1 - Introduction à l'apprentissage automatique (*machine learning*)"
+    ]
+  },
+  {
+    "objectID": "cours1.html#analogie-avec-le-randonneur-dans-le-brouillard",
+    "href": "cours1.html#analogie-avec-le-randonneur-dans-le-brouillard",
+    "title": "CM1 - Introduction à l’apprentissage automatique (machine learning)",
+    "section": "5.1 Analogie avec le randonneur dans le brouillard",
+    "text": "5.1 Analogie avec le randonneur dans le brouillard\nImaginez que votre avion s’est écrasé sur une montagne inconnue, dans un brouillard épais. Vous cherchez à atteindre le fond de la vallée à pied. Vous pouvez :\n\nmodifier vos paramètres de position (latitude, longitude)\nen faisant des pas (step) plus ou moins grands\nsentir la pente = le gradient sous vos pieds\nmesurer votre altitude.\n\nComment faire pour trouver le point le plus bas ?\n\nVotre point de départ est aléatoire.\nMesurer l’altitude à ce point\nSentir la direction de pente. Par exemple, on sent qu’elle descend vers le sud-ouest\nFaire un pas vers là où la pente descend. Vous faites un plus petit pas si la pente est faible.\nMesurer la nouvelle altitude\nS’arrêter lorsque l’altitude ne change presque plus, sinon goto 3\n\n\n\n\nRandonneur dans le brouillard\n\n\n\n\n\n\n\n\nNoteTaille du pas\n\n\n\n\n\nSi le pas est trop grand, vous risquez de rater le point le plus bas. Vous risquez également de diverger, c’est-à-dire de monter de plus en plus, au lieu de descendre. Imaginez un géant qui passe d’une montagne à l’autre à chaque pas.\nSi le pas est trop petit, cela va prendre beaucoup de temps.",
+    "crumbs": [
+      "Cours",
+      "CM1 - Introduction à l'apprentissage automatique (*machine learning*)"
+    ]
+  },
+  {
+    "objectID": "cours1.html#application-sur-une-régression-linéaire",
+    "href": "cours1.html#application-sur-une-régression-linéaire",
+    "title": "CM1 - Introduction à l’apprentissage automatique (machine learning)",
+    "section": "5.2 Application sur une régression linéaire",
+    "text": "5.2 Application sur une régression linéaire\n\n\n\n\n\n\n\nRandonneur\nDescente de gradient\n\n\n\n\nPosition du randonneur\nparamètres \\(w\\) et \\(b\\)\n\n\naltitude\ncoût \\(J(w, b)\\)\n\n\npente\ngradient : dérivée partielle de la fonction de coût pour chaque paramètre\n\n\ntaille de pas\n\\(\\alpha\\) : taux d’apprentissage (learning rate)\n\n\nnombre de pas\népoque (epoch): un passage complet sur tout le dataset d’entraînement\n\n\n\nL’algorithme devient :\n\nChoisir \\(w\\) et \\(b\\) au hasard. epoch = 0\nCalculer \\(J(w,b)\\)\nCalculer \\(\\frac{\\partial J}{\\partial w}\\) et \\(\\frac{\\partial J}{\\partial b}\\)\nAjuster \\(w = w - α \\frac{\\partial J}{\\partial w}\\) et \\(b = b - α \\frac{\\partial J}{\\partial b}\\)\nCalculer \\(J(w,b)\\)\nS’arrêter lorsque \\(J(w, b)\\) ne change presque plus : c’est la convergence.\n\nSinon : epoch += 1 et goto 3\n\n\n\n5.2.1 Illustration\nLe coût dépend de 2 paramètres, et sa représentation graphique serait en 3 dimensions \\((w, b, J)\\), ce qui serait plus difficile à visualiser.\nSimplifions le problème : figeons \\(b\\) à sa meilleure valeur et ne faisons varier que \\(w\\). Le coût ne dépend plus que d’un seul paramètre, et le paysage du randonneur se réduit à une courbe.\n\n\n\n\n\n\n\n\nFigure 3: Descente de gradient sur le seul paramètre \\(w\\). Chaque point rouge est une epoch. Le pas est proportionnel à la pente : il raccourcit à mesure que l’on approche du minimum.\n\n\n\n\n\nOn part de \\(w_0 = 1200\\) €/m², une valeur tirée au hasard et très éloignée de la meilleur valeur.\n\nEn \\(w_0\\), la tangente (en orange) est très inclinée : le modèle est mauvais, et \\(\\frac{\\partial J}{\\partial w}\\) est grand.\nComme le pas vaut \\(\\alpha \\frac{\\partial J}{\\partial w}\\), ce premier pas est grand : on avance vite.\nLa pente est négative, donc \\(w - \\alpha \\frac{\\partial J}{\\partial w}\\) augmente \\(w\\) : l’algorithme part spontanément du bon côté.\nÀ chaque epoch la pente s’aplatit, donc les pas raccourcissent. L’algorithme ralentit tout seul en approchant du minimum.\n\n\n\n\n\n\n\nNoteUn seul minimum\n\n\n\n\n\nLa courbe est une parabole : elle n’a qu’un seul creux. C’est une propriété de notre fonction de coût appliquée à une transformation linéaire. Cela fonctionne aussi avec 2 paramètres \\(w\\) et \\(b\\).\nContrairement au randonneur, notre algorithme ne risque donc pas de se retrouver piégé dans une vallée secondaire. Mais avec les réseaux de neurones le paysage sera plus accidenté.\n\n\n\n\n\n\n\n\n\nNoteComment calculer les dérivées partielles ?\n\n\n\n\n\nPour une régression linéaire, on les obtient avec les règles de dérivation vues en terminale. Elles se calculent en trois lignes :\n\\[\\frac{\\partial J}{\\partial w} = \\frac{2}{N} \\sum_{i=1}^{N} \\left(w x^{(i)} + b - y^{(i)}\\right) x^{(i)}\n\\qquad\n\\frac{\\partial J}{\\partial b} = \\frac{2}{N} \\sum_{i=1}^{N} \\left(w x^{(i)} + b - y^{(i)}\\right)\\]\nLa démonstration complète est dans le fichier justification_mathematique.md du TP.\nMais cette approche ne passe pas l’échelle : un réseau de neurones compte des millions de paramètres, et il faudrait tout redériver à la main à chaque changement de modèle.\nEn pratique, nous utiliserons la bibliothèque PyTorch, qui :\n\nenregistre chaque opération effectuée pour calculer \\(J(\\theta)\\), dans un graphe de calcul (computational graph) ;\nremonte ce graphe à l’envers en appliquant la règle de dérivation en chaîne (chain rule) à chaque opération élémentaire, dont il connaît la dérivée.\n\nCe parcours en sens inverse s’appelle la rétropropagation (backpropagation). PyTorch ne manipule aucune formule : il enchaîne des dérivées élémentaires sur des valeurs numériques. C’est ce qui lui permet de dériver n’importe quel modèle, aussi compliqué soit-il.",
+    "crumbs": [
+      "Cours",
+      "CM1 - Introduction à l'apprentissage automatique (*machine learning*)"
+    ]
+  }
+]

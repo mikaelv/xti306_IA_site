@@ -1,0 +1,118 @@
+/* ==========================================================================
+   XTI306 - course site styles
+   ========================================================================== */
+
+:root {
+  --accent: #3d7ea6;
+}
+
+/* --------------------------------------------------------------------------
+   1. Key statements
+   --------------------------------------------------------------------------
+   A key statement is written as a plain Quarto callout:
+
+     ::: {.callout-important appearance="simple"}
+     Apprendre, pour une machine, c'est construire la fonction $f$ ...
+     :::
+
+   Quarto sets every .callout-body to .9rem, which shrinks the very sentences
+   meant to stand out. The rule below lifts the important variant to 1.1rem, so
+   no nested ::: {.fs-5} is needed. Other callout types keep the smaller size.
+
+   Specificity is 0-4-0 against the theme's 0-3-0, and styles.css is loaded
+   after the theme, so this wins either way.
+   -------------------------------------------------------------------------- */
+
+.callout.callout-style-simple.callout-important .callout-body,
+.callout.callout-style-default.callout-important .callout-body {
+  font-size: 1.1rem;
+}
+
+/* --------------------------------------------------------------------------
+   2. Presentation mode
+   --------------------------------------------------------------------------
+   The class is set on <html> by _presentation-mode.html, which also collapses
+   every collapsible callout. Content meant to be revealed on demand is
+   written with plain Quarto syntax:
+
+     ::: {.callout-note collapse="false"}
+     ## Pour aller plus loin
+     :::
+
+   The collapse attribute is what makes Quarto emit the collapsible markup;
+   "false" means expanded by default, which is the reading view for students.
+   -------------------------------------------------------------------------- */
+
+/* Larger text for projection. Quarto sizes everything in rem, so scaling the
+   root scales the whole document. Delete this rule to keep the web size. */
+.presentation-mode {
+  font-size: 112%;
+}
+
+/* --------------------------------------------------------------------------
+   3. Toggle button
+   -------------------------------------------------------------------------- */
+
+#presentation-toggle {
+  position: fixed;
+  top: 0.6rem;
+  right: 0.8rem;
+  z-index: 1200;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+
+  padding: 0.32rem 0.75rem;
+  border: 1px solid #ccd4da;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.92);
+  color: #55636e;
+  font-size: 0.78rem;
+  font-family: inherit;
+  line-height: 1.4;
+  white-space: nowrap;
+  cursor: pointer;
+
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+#presentation-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Status dot, so the state is readable at a glance. */
+#presentation-toggle .status-dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  background: transparent;
+}
+
+#presentation-toggle[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+#presentation-toggle[aria-pressed="true"] .status-dot {
+  background: currentColor;
+}
+
+/* The button is pointless in print, and on narrow screens it would overlap
+   the navigation menu. */
+@media print {
+  #presentation-toggle {
+    display: none;
+  }
+}
+
+@media (max-width: 991px) {
+  #presentation-toggle {
+    display: none;
+  }
+}
