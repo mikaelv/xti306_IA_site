@@ -8,7 +8,7 @@
 
 <meta name="author" content="Mikaël Valot">
 
-<title>cours2 – 2627 XTI306 Introduction à l'ingénierie IA</title>
+<title>CM2 - Réseaux de neurones – 2627 XTI306 Introduction à l’ingénierie IA</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -76,7 +111,39 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Recherche"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -90,7 +157,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cours1.html">Cours</a></li><li class="breadcrumb-item"><a href="./cours2.html">CM2 - Réseaux de neurones</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Recherche" onclick="window.quartoOpenSearch();">
@@ -118,24 +185,84 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Cours</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Basculer la section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Basculer la section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cours1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">CM1 - Introduction à l’apprentissage automatique (<em>machine learning</em>)</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cours2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">CM2 - Réseaux de neurones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./glossaire.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossaire</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">TPs</span></span>
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Activités</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Basculer la section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cours1_gradient_descent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CM1 - Descente de Gradient</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./single-neuron.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CM2 - Modèle à un neurone</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multi-neuron.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CM2 - Modèle à plusieurs neurones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./playground.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CM2 - TensorFlow Playground</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">TPs</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Basculer la section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tp1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">TP1 - Introduction à l’apprentissage automatique (<em>machine learning</em>)</span></a>
+  </div>
+</li>
+      </ul>
   </li>
     </ul>
     </div>
@@ -147,31 +274,58 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Sur cette page</h2>
    
   <ul class="collapse">
-  <li><a href="#réseaux-de-neurones" id="toc-réseaux-de-neurones" class="nav-link active" data-scroll-target="#réseaux-de-neurones"><span class="header-section-number">1</span> Réseaux de neurones</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
   <ul class="collapse">
-  <li><a href="#vecteurs" id="toc-vecteurs" class="nav-link" data-scroll-target="#vecteurs"><span class="header-section-number">1.1</span> Vecteurs</a></li>
-  <li><a href="#de-la-ligne-au-plan" id="toc-de-la-ligne-au-plan" class="nav-link" data-scroll-target="#de-la-ligne-au-plan"><span class="header-section-number">1.2</span> De la ligne au plan</a></li>
-  <li><a href="#non-linéarité" id="toc-non-linéarité" class="nav-link" data-scroll-target="#non-linéarité"><span class="header-section-number">1.3</span> Non-linéarité</a></li>
-  <li><a href="#perceptron-multi-couches-multilayer-perceptron" id="toc-perceptron-multi-couches-multilayer-perceptron" class="nav-link" data-scroll-target="#perceptron-multi-couches-multilayer-perceptron"><span class="header-section-number">1.4</span> Perceptron multi-couches (multilayer perceptron)</a></li>
-  <li><a href="#matrices" id="toc-matrices" class="nav-link" data-scroll-target="#matrices"><span class="header-section-number">1.5</span> Matrices</a></li>
-  <li><a href="#perceptron-avec-matrices" id="toc-perceptron-avec-matrices" class="nav-link" data-scroll-target="#perceptron-avec-matrices"><span class="header-section-number">1.6</span> Perceptron avec matrices</a></li>
-  <li><a href="#tp---perceptron" id="toc-tp---perceptron" class="nav-link" data-scroll-target="#tp---perceptron"><span class="header-section-number">1.7</span> TP - perceptron</a></li>
+  <li><a href="#neurone-biologique" id="toc-neurone-biologique" class="nav-link" data-scroll-target="#neurone-biologique"><span class="header-section-number">1.1</span> Neurone biologique</a></li>
+  <li><a href="#neurone-artificiel" id="toc-neurone-artificiel" class="nav-link" data-scroll-target="#neurone-artificiel"><span class="header-section-number">1.2</span> Neurone artificiel</a></li>
+  <li><a href="#justification" id="toc-justification" class="nav-link" data-scroll-target="#justification"><span class="header-section-number">1.3</span> Justification</a></li>
   </ul></li>
-  <li><a href="#drafty" id="toc-drafty" class="nav-link" data-scroll-target="#drafty"><span class="header-section-number">2</span> Drafty</a>
+  <li><a href="#sec-neurone-1d" id="toc-sec-neurone-1d" class="nav-link" data-scroll-target="#sec-neurone-1d"><span class="header-section-number">2</span> Fonction d’activation</a>
   <ul class="collapse">
-  <li><a href="#classification" id="toc-classification" class="nav-link" data-scroll-target="#classification"><span class="header-section-number">2.1</span> Classification</a></li>
-  <li><a href="#architecture" id="toc-architecture" class="nav-link" data-scroll-target="#architecture"><span class="header-section-number">2.2</span> Architecture</a></li>
-  <li><a href="#surapprentissage-overfitting" id="toc-surapprentissage-overfitting" class="nav-link" data-scroll-target="#surapprentissage-overfitting"><span class="header-section-number">2.3</span> Surapprentissage (overfitting)</a></li>
-  <li><a href="#glossaire" id="toc-glossaire" class="nav-link" data-scroll-target="#glossaire"><span class="header-section-number">2.4</span> Glossaire</a></li>
+  <li><a href="#activité-modèle-avec-un-seul-neurone" id="toc-activité-modèle-avec-un-seul-neurone" class="nav-link" data-scroll-target="#activité-modèle-avec-un-seul-neurone"><span class="header-section-number">2.1</span> Activité : modèle avec un seul neurone</a></li>
+  <li><a href="#trois-neurones" id="toc-trois-neurones" class="nav-link" data-scroll-target="#trois-neurones"><span class="header-section-number">2.2</span> Trois neurones</a></li>
+  <li><a href="#activité-modèle-à-plusieurs-neurones" id="toc-activité-modèle-à-plusieurs-neurones" class="nav-link" data-scroll-target="#activité-modèle-à-plusieurs-neurones"><span class="header-section-number">2.3</span> Activité : modèle à plusieurs neurones</a></li>
   </ul></li>
+  <li><a href="#plusieurs-dimensions" id="toc-plusieurs-dimensions" class="nav-link" data-scroll-target="#plusieurs-dimensions"><span class="header-section-number">3</span> Plusieurs dimensions</a>
+  <ul class="collapse">
+  <li><a href="#vecteurs" id="toc-vecteurs" class="nav-link" data-scroll-target="#vecteurs"><span class="header-section-number">3.1</span> Vecteurs</a></li>
+  <li><a href="#un-neurone-avec-2-dimensions" id="toc-un-neurone-avec-2-dimensions" class="nav-link" data-scroll-target="#un-neurone-avec-2-dimensions"><span class="header-section-number">3.2</span> Un neurone avec 2 dimensions</a></li>
+  <li><a href="#plusieurs-neurones-avec-2-dimensions" id="toc-plusieurs-neurones-avec-2-dimensions" class="nav-link" data-scroll-target="#plusieurs-neurones-avec-2-dimensions"><span class="header-section-number">3.3</span> Plusieurs neurones avec 2 dimensions</a></li>
+  <li><a href="#activité-tensorflow-playground" id="toc-activité-tensorflow-playground" class="nav-link" data-scroll-target="#activité-tensorflow-playground"><span class="header-section-number">3.4</span> Activité : TensorFlow Playground</a></li>
+  </ul></li>
+  <li><a href="#matrices" id="toc-matrices" class="nav-link" data-scroll-target="#matrices"><span class="header-section-number">4</span> Matrices</a>
+  <ul class="collapse">
+  <li><a href="#définition" id="toc-définition" class="nav-link" data-scroll-target="#définition"><span class="header-section-number">4.1</span> Définition</a></li>
+  <li><a href="#paramètres-du-modèle-sous-forme-de-matrice" id="toc-paramètres-du-modèle-sous-forme-de-matrice" class="nav-link" data-scroll-target="#paramètres-du-modèle-sous-forme-de-matrice"><span class="header-section-number">4.2</span> Paramètres du modèle sous forme de matrice</a></li>
+  <li><a href="#multiplication-de-matrices" id="toc-multiplication-de-matrices" class="nav-link" data-scroll-target="#multiplication-de-matrices"><span class="header-section-number">4.3</span> Multiplication de matrices</a></li>
+  <li><a href="#addition" id="toc-addition" class="nav-link" data-scroll-target="#addition"><span class="header-section-number">4.4</span> Addition</a></li>
+  <li><a href="#application-de-fonction" id="toc-application-de-fonction" class="nav-link" data-scroll-target="#application-de-fonction"><span class="header-section-number">4.5</span> Application de fonction</a></li>
+  <li><a href="#réseau-de-neurones-avec-matrices" id="toc-réseau-de-neurones-avec-matrices" class="nav-link" data-scroll-target="#réseau-de-neurones-avec-matrices"><span class="header-section-number">4.6</span> Réseau de neurones avec matrices</a></li>
+  <li><a href="#réseau-de-neurones-avec-pytorch" id="toc-réseau-de-neurones-avec-pytorch" class="nav-link" data-scroll-target="#réseau-de-neurones-avec-pytorch"><span class="header-section-number">4.7</span> Réseau de neurones avec PyTorch</a></li>
+  </ul></li>
+  <li><a href="#apprentissage-profond-deep-learning" id="toc-apprentissage-profond-deep-learning" class="nav-link" data-scroll-target="#apprentissage-profond-deep-learning"><span class="header-section-number">5</span> Apprentissage profond (deep learning)</a>
+  <ul class="collapse">
+  <li><a href="#définition-1" id="toc-définition-1" class="nav-link" data-scroll-target="#définition-1"><span class="header-section-number">5.1</span> Définition</a></li>
+  <li><a href="#rétropropagation-backpropagation" id="toc-rétropropagation-backpropagation" class="nav-link" data-scroll-target="#rétropropagation-backpropagation"><span class="header-section-number">5.2</span> Rétropropagation (backpropagation)</a></li>
+  </ul></li>
+  <li><a href="#validation-et-test" id="toc-validation-et-test" class="nav-link" data-scroll-target="#validation-et-test"><span class="header-section-number">6</span> Validation et Test</a>
+  <ul class="collapse">
+  <li><a href="#réglage-des-hyperparamètres-hyperparameter-tuning" id="toc-réglage-des-hyperparamètres-hyperparameter-tuning" class="nav-link" data-scroll-target="#réglage-des-hyperparamètres-hyperparameter-tuning"><span class="header-section-number">6.1</span> Réglage des hyperparamètres (hyperparameter tuning)</a></li>
+  <li><a href="#surapprentissage-overfitting" id="toc-surapprentissage-overfitting" class="nav-link" data-scroll-target="#surapprentissage-overfitting"><span class="header-section-number">6.2</span> Surapprentissage (overfitting)</a></li>
+  <li><a href="#validation" id="toc-validation" class="nav-link" data-scroll-target="#validation"><span class="header-section-number">6.3</span> Validation</a></li>
+  <li><a href="#test" id="toc-test" class="nav-link" data-scroll-target="#test"><span class="header-section-number">6.4</span> Test</a></li>
+  <li><a href="#comment-régler-en-pratique" id="toc-comment-régler-en-pratique" class="nav-link" data-scroll-target="#comment-régler-en-pratique"><span class="header-section-number">6.5</span> Comment régler en pratique</a></li>
+  </ul></li>
+  <li><a href="#notations" id="toc-notations" class="nav-link" data-scroll-target="#notations"><span class="header-section-number">7</span> Notations</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cours1.html">Cours</a></li><li class="breadcrumb-item"><a href="./cours2.html">CM2 - Réseaux de neurones</a></li></ol></nav>
 <div class="quarto-title">
+<h1 class="title">CM2 - Réseaux de neurones</h1>
 </div>
 
 
@@ -194,104 +348,1620 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="réseaux-de-neurones" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Réseaux de neurones</h1>
-<p>TODO introduire réseaux, analogie avec le cerveau</p>
-<p>Notre modèle en transformation linéaire est trop simple : - il faudrait qu’il prenne en compte d’autres caractéristiques : nombre de pièces, localisation, étiquette DPE, … - le prix n’évolue pas forcément de manière linéaire. Il faudrait pouvoir “courber” notre fonction <code>f</code>.</p>
-<p>TODO illustration courbes: 2 caractéristiques + plan linéaire, 1 caractéristique + courbe, et objectif : courbe+ plusieurs dimensions Voir LLM book p33.</p>
-<section id="vecteurs" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="vecteurs"><span class="header-section-number">1.1</span> Vecteurs</h2>
-<p>Si on prend également en compte le nombre de pièces, notre entrée <code>x</code> devient un <strong>vecteur de caractéristiques</strong> (<strong>feature vector</strong>) à 2 dimensions.</p>
-<p>TODO x = [x1, x2] x1 représente la surface en m2 x2 représente le nombre de pièces</p>
-<div class="note">
-<p>Un vecteur est en général représenté par une <strong>colonne</strong> de nombre. C’est un <strong>vecteur colonne</strong> (<strong>column vector</strong>). x = TODO colonne …</p>
-<p>Si on souhaite le représenter en <strong>ligne</strong>, il faut le <strong>transposer</strong> pour qu’il devienne un <strong>vecteur ligne</strong> (<strong>row vector</strong>).</p>
-<p>xT = [x1, x2] ou x = [x1, x2]T</p>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>Un <strong>réseau de neurones artificiel (ANN Artificial Neural Network )</strong> est inspiré du fonctionnement du cerveau.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/neurones.png" class="img-fluid figure-img"></p>
+<figcaption>Neurones</figcaption>
+</figure>
 </div>
+<section id="neurone-biologique" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="neurone-biologique"><span class="header-section-number">1.1</span> Neurone biologique</h2>
+<ol type="1">
+<li>Un neurone génère un signal s’il y a assez de signaux d’entrées dans les dendrites</li>
+<li>Les neurones reçoivent les entrées depuis d’autres neurons en amont, et transmettent des signaux à d’autres neurones en aval</li>
+<li>Chaque neurone a son propre seuil d’activation. Lorsque le seuil est atteint, le neurone émet une impulsion électrique qui parcourt l’axone jusqu’aux neurones en aval. En dessous du seuil, il ne se passe rien.</li>
+</ol>
 </section>
-<section id="de-la-ligne-au-plan" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="de-la-ligne-au-plan"><span class="header-section-number">1.2</span> De la ligne au plan</h2>
-<p>Nous avons vu comment trouver la meilleur droite sur un problème à une dimension. Avec 2 dimensions, cela revient à trouver le meilleur plan.</p>
-<p>Notre modèle devient : y = w1.x1 + w2.x2 +b</p>
-<p>Il possède désormais 3 paramètres w1, w2, b.</p>
-<p>TODO illustration</p>
-<div class="note">
-<p>Nous pouvons ajouter d’autres dimensions à notre entrée, comme la localisation ou l’année de construction. Au delà de 3 dimensions, il devient cependant impossible de représenter nos points sur un graphique.</p>
-<p>Notre modèle linéaire subsiste, et sa formule est celle d’un hyperplan à n dimensions. y = w1.x1 + w2.x2 + … + wn.xn + b y = sigma … TODO</p>
-</div>
+<section id="neurone-artificiel" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="neurone-artificiel"><span class="header-section-number">1.2</span> Neurone artificiel</h2>
+<ol type="1">
+<li>Les entrées sont les données <span class="math inline">\(x_1, \ldots, x_D\)</span></li>
+<li>On multiplie chaque entrée par un poids <span class="math inline">\(w_i\)</span>, puis on somme le résultat</li>
+<li>Une fonction d’activation renvoie un résultat, qui est utilisé dans la couche de neurones suivante.</li>
+</ol>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 37%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Neurone biologique</th>
+<th>Neurone artificiel</th>
+<th>Explication</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Dendrites</td>
+<td>Entrées <span class="math inline">\(x_1, \ldots, x_D\)</span></td>
+<td>entrées</td>
+</tr>
+<tr class="even">
+<td>Synapses</td>
+<td>Poids <span class="math inline">\(w_i\)</span></td>
+<td>module la force du signal d’entrée</td>
+</tr>
+<tr class="odd">
+<td>Potentiel de membrane</td>
+<td>Somme pondérée <span class="math inline">\(\sum_i w_i x_i\)</span></td>
+<td>somme pondérée</td>
+</tr>
+<tr class="even">
+<td>Seuil d’activation</td>
+<td>Biais <span class="math inline">\(b\)</span> + fonction d’activation</td>
+<td>décide si le neurone s’active</td>
+</tr>
+</tbody>
+</table>
+<p>Les ANN ont été inventés en 1943. Il y avait initialement un grand engouement pour ce modèle, notamment avec l’invention du <strong>perceptron</strong> dans les années 50. Mais les limitations du modèle initial à une seule couche engendré une baisse de la recherche dans le domaine. C’était l’“hiver de l’IA”, dans les années 1970-1980.</p>
+<p>La recherche s’est ravivée dans les années 80 avec le développement des réseaux multi-couches entraînés avec la <strong>backpropagation</strong>. Depuis les années 2000, l’arrivée de données massives grâce à internet et l’amélioration du hardware ont fait décoller les usages.</p>
+<p>Pour donner un ordre de grandeur : un cerveau humain compte environ 86 milliards de neurones reliés par <span class="math inline">\(10^{14}\)</span> synapses, là où un grand modèle de langage comme GPT-3 n’a que 175 milliards (<span class="math inline">\(1{,}75 \times 10^{11}\)</span>) de paramètres.</p>
 </section>
-<section id="non-linéarité" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="non-linéarité"><span class="header-section-number">1.3</span> Non-linéarité</h2>
+<section id="justification" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="justification"><span class="header-section-number">1.3</span> Justification</h2>
+<p>Notre modèle en transformation linéaire est trop simple :</p>
+<ol type="1">
+<li>le prix n’évolue pas forcément de manière linéaire. Il faudrait pouvoir “courber” notre fonction <code>f</code>. Nous allons pour cela ajouter une <strong>fonction d’activation</strong>.</li>
+<li>il faudrait qu’il prenne en compte d’autres caractéristiques : nombre de pièces, localisation, étiquette DPE, …
+<ul>
+<li>Notre entrée <span class="math inline">\(x\)</span> et le biais <span class="math inline">\(b\)</span> vont devenir des vecteurs</li>
+<li>Le poids <span class="math inline">\(W\)</span> va devenir une matrice</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="sec-neurone-1d" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Fonction d’activation</h1>
 <p>Une ligne droite ou un plan ne permet en général pas de modéliser un problème complexe. Nous aurions besoin d’ajouter des “courbes” ou “plis” à notre tracé. Il faut pour cela appliquer une <strong>fonction non-linéaire</strong> à la sortie de notre transformation linéaire. Nous appelons cette fonction la <strong>fonction d’activation</strong>.</p>
-<p>En apprentissage machine, nous utiliserons l’une de ces 3 fonctions : … TODO LLM book p 33/34, ou https://developers.google.com/machine-learning/crash-course/neural-networks/activation-functions</p>
-<p>Notre modèle devient : y = sigma(w1.x1 + w2.x2 + b)</p>
-<p>TODO illustrer avec différentes fonctions TODO expliquer, nous avons créé un neuron !!</p>
+<p>Notre modèle devient :</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[f(x) = \sigma(\underbrace{wx + b}_{z})\]</span></p>
+<p>Nous avons créé un <strong>neurone</strong> artificiel à une seule dimension.</p>
+<ul>
+<li><span class="math inline">\(z = wx + b\)</span> est la sortie de la transformation linéaire — on l’appelle la <strong>pré-activation</strong>.</li>
+<li><span class="math inline">\(\sigma\)</span> est la fonction d’activation.</li>
+</ul>
+</div>
+</div>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div id="fig-single-neuron-graph" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-single-neuron-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+<pre class="mermaid mermaid-js" data-label="fig-single-neuron-graph">flowchart LR
+  x(["x"])
+
+  subgraph neuron ["neurone"]
+    direction LR
+    z(["z = wx + b"]) --&gt; s(["σ(z)"])
+  end
+
+  x -- "w" --&gt; z
+  s --&gt; y(["f(x)"])
+
+  classDef neuron fill:#e7e3f7,stroke:#5b52c4,stroke-width:1.5px,color:#2c2c2a;
+  classDef input fill:#f3f1ec,stroke:#6d6c66,stroke-width:1.5px,color:#2c2c2a;
+  class z,s neuron;
+  class x,y input;
+  style neuron fill:none,stroke:#d8d6cd,stroke-dasharray:4 4;
+</pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-single-neuron-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Un neurone unique : l’entrée est pondérée par w, décalée par le biais b, puis passée dans la fonction d’activation.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>En apprentissage machine, nous utiliserons l’une de ces 3 fonctions :</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 27%">
+<col style="width: 10%">
+<col style="width: 46%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Nom</th>
+<th>Formule (pour info, ne pas retenir)</th>
+<th>Valeurs de sortie</th>
+<th>Utilisation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ReLU (Rectified Linear Unit)</td>
+<td><span class="math inline">\(ReLU(z) = max(0, z)\)</span></td>
+<td><span class="math inline">\([0, +\infty[\)</span></td>
+<td>Choix par défaut dans les couches cachées (hidden layers) : simple et rapide à calculer</td>
+</tr>
+<tr class="even">
+<td>Sigmoïde (sigmoid)</td>
+<td><span class="math inline">\(sigmoid(z) = \dfrac{1}{1 + e^{-z}}\)</span></td>
+<td><span class="math inline">\(]0, 1[\)</span></td>
+<td>Couche de sortie d’une classification binaire (binary classification) : donne une probabilité</td>
+</tr>
+<tr class="odd">
+<td>Tangente hyperbolique (tanh)</td>
+<td><span class="math inline">\(tanh(z) = \dfrac{e^{z} - e^{-z}}{e^{z} + e^{-z}}\)</span></td>
+<td><span class="math inline">\(]-1, 1[\)</span></td>
+<td>Couches cachées, quand on veut une sortie centrée sur 0</td>
+</tr>
+</tbody>
+</table>
+<div id="cell-fig-activations" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div id="fig-activations" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-activations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="cours2_files/figure-html/fig-activations-output-1.png" width="763" height="1153" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-activations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Les 3 fonctions d’activation. En pointillés gris, la droite <span class="math inline">\(y = z\)</span> (aucune activation) : c’est l’écart à cette droite qui apporte la non-linéarité.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>À observer sur ces courbes
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>ReLU</strong> : la sortie est nulle tant que <span class="math inline">\(z &lt; 0\)</span> — le neurone reste <em>éteint</em>. Au-delà, elle suit exactement <span class="math inline">\(z\)</span>. Le “pli” en <span class="math inline">\(z = 0\)</span> suffit à casser la linéarité.</li>
+<li><strong>Sigmoïde</strong> : la sortie est écrasée entre 0 et 1, ce qui se lit comme une probabilité. Loin de 0, la courbe devient plate : le neurone <em>sature</em> et n’apprend presque plus.</li>
+<li><strong>tanh</strong> : même forme en S que la sigmoïde, mais centrée sur 0 et allant de -1 à 1.</li>
+</ul>
+</div>
+</div>
+</div>
+<section id="activité-modèle-avec-un-seul-neurone" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="activité-modèle-avec-un-seul-neurone"><span class="header-section-number">2.1</span> Activité : modèle avec un seul neurone</h2>
+<p>Cliquez sur ce lien : <a href="./single-neuron.html">Modèle à un neurone</a>.</p>
+<p>Le but : ajuster la courbe aux points le mieux possible (curve fitting). Utilisez le coût pour vous guider.</p>
 </section>
-<section id="perceptron-multi-couches-multilayer-perceptron" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="perceptron-multi-couches-multilayer-perceptron"><span class="header-section-number">1.4</span> Perceptron multi-couches (multilayer perceptron)</h2>
-<p>C’est mieux, mais avec une seule application de la fonction d’activation, nous n’ajoutons qu’une seule inflexion. Pour en ajouter plusieurs, il faut : 1 - introduire plusieurs résultats intermédiaires cachés 1 - les combiner pour avoir un seul résultat</p>
-<p>Si nous voulons 3 inflexions, il nous faut 3 résultats intermédiaires. Nommons les h1, h2, h3. Pour chaque résultat, il nous faut des paramètres correspondants. Pour chaque résultat intermédiaire hi, nous aurons 2 poids wi1, wi2 (un par dimension en entrée), et un biais bi.</p>
-<p>TODO colors !!! Represent as a vector ! h1 = sigma(sum(w1j.xj) + b1) h2 = sigma(sum(w2j.xj) + b2) h3 = sigma(sum(w3j.xj) + b3)</p>
-<p>Ensuite, nous combinons ces résultat comme si il représentaient un vecteur d’entrée à 3 dimensions. Il nous faut un autre vecteur de poids et un autre biais que nous appelerons v et c.</p>
-<p>Notre modèle final devient : y = sigma(v1.h1 + v2.h2 + v3.h3 + c)</p>
-<p>Il possède 4 neurons: 3 neurons dans la couche cachée, un neuron dans la couche de sortie. Ces paramètres sont (i=0 to 3, j=0 to 2) wij, bi, vi, c TODO représenter sous forme vectorielle avec tous les paramètres TODO montrer le graphe de calcul avec les connections</p>
-<p>TODO montrer de quoi ce modèle est capable</p>
-</section>
-<section id="matrices" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="matrices"><span class="header-section-number">1.5</span> Matrices</h2>
-<p>Les poids Wij peuvent être représentés sous forme de matrice:</p>
-<p>TODO matrices W. La matrice ci dessous a 3 lignes et 2 colonnes. On dit qu’elle est de dimensions 3x2.</p>
-<p>La notation Wij désigne la cellule qui est sur la i-ème ligne et la j-ème colonne.</p>
-<p>Un vecteur est un simplement un cas particulier de matrice: il a m lignes et 1 seule colonne. TODO illustration</p>
-<section id="multiplication-de-matrices" class="level3" data-number="1.5.1">
-<h3 data-number="1.5.1" class="anchored" data-anchor-id="multiplication-de-matrices"><span class="header-section-number">1.5.1</span> Multiplication de matrices</h3>
-<p>En mathématiques, la multiplication de deux matrices A et B est définie comme suit : Soit une matrice A de dimensions m<em>n (m lignes, n colonnes) Soit une matrice B de dimensions n</em>o La multiplication A x B produit une matrice C de dimensions m*o. Chaque cellule Cij est calculée de la manière suivante : Cij = somme Aik x Bkj</p>
-<div class="important">
-<p>Pour pouvoir multipler deux matrices, leurs dimensions doivent être compatibles. nombre de <strong>colonnes</strong> de la matrice A = nombre de <strong>lignes</strong> de la matrice B</p>
+<section id="trois-neurones" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="trois-neurones"><span class="header-section-number">2.2</span> Trois neurones</h2>
+<p>On constate qu’un seul neurone ne permet pas de modéliser correctement certaines formes, comme la bosse.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+\begin{aligned}
+h_1 &amp;= \sigma(w_1 x + b_1) \\
+h_2 &amp;= \sigma(w_2 x + b_2) \\
+f(x) &amp;= v_1 h_1 + v_2 h_2 + c
+\end{aligned}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(h_1\)</span> et <span class="math inline">\(h_2\)</span> sont les sorties de la <strong>couche cachée</strong> (<strong>hidden layer</strong>) : deux neurones qui reçoivent la même entrée <span class="math inline">\(x\)</span>, mais avec chacun ses propres paramètres.</li>
+<li><span class="math inline">\(f(x)\)</span> est la sortie de la <strong>couche de sortie</strong> (<strong>output layer</strong>) : un seul neurone, qui combine <span class="math inline">\(h_1\)</span> et <span class="math inline">\(h_2\)</span> avec les poids <span class="math inline">\(v_1, v_2\)</span> et le biais <span class="math inline">\(c\)</span>.</li>
+<li>Le modèle possède maintenant 7 paramètres : <span class="math inline">\(w_1, b_1, w_2, b_2, v_1, v_2, c\)</span>.</li>
+</ul>
+</div>
+</div>
+<p>Ce modèle se représente sous forme de <strong>graphe de calcul</strong> : chaque cercle est un neurone, chaque flèche porte un poids.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div id="fig-two-layer-graph" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-two-layer-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+<pre class="mermaid mermaid-js" data-label="fig-two-layer-graph">flowchart LR
+  x(["x"])
+
+  subgraph hidden ["couche cachée"]
+    direction TB
+    h1(["h₁ = σ(w₁x + b₁)"])
+    h2(["h₂ = σ(w₂x + b₂)"])
+  end
+
+  subgraph output ["couche de sortie"]
+    f(["f(x) = v₁h₁ + v₂h₂ + c"])
+  end
+
+  x -- "w₁" --&gt; h1
+  x -- "w₂" --&gt; h2
+  h1 -- "v₁" --&gt; f
+  h2 -- "v₂" --&gt; f
+
+  classDef neuron fill:#e7e3f7,stroke:#5b52c4,stroke-width:1.5px,color:#2c2c2a;
+  classDef input fill:#f3f1ec,stroke:#6d6c66,stroke-width:1.5px,color:#2c2c2a;
+  class h1,h2,f neuron;
+  class x input;
+  style hidden fill:none,stroke:#d8d6cd,stroke-dasharray:4 4;
+  style output fill:none,stroke:#d8d6cd,stroke-dasharray:4 4;
+</pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-two-layer-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Nos 3 neurones. L’entrée x alimente les deux neurones de la couche cachée, dont les sorties sont combinées par le neurone de sortie.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>La <strong>largeur</strong> d’une couche est le nombre de neurones <span class="math inline">\(M\)</span> dans cette couche.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Pourquoi cela change tout
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Chaque neurone caché apporte son propre “pli” (grâce à <span class="math inline">\(\sigma\)</span>) : le poids <span class="math inline">\(w_i\)</span> règle la raideur du pli, le biais <span class="math inline">\(b_i\)</span> sa position sur l’axe des <span class="math inline">\(x\)</span>. La couche de sortie additionne ensuite ces plis en les dosant avec <span class="math inline">\(v_1\)</span> et <span class="math inline">\(v_2\)</span>.</p>
+<p>Avec 2 neurones cachés on obtient 2 plis, avec 3 neurones 3 plis, etc. C’est ce qui permet d’épouser une courbe quelconque, là où un neurone unique ne pouvait produire qu’une seule inflexion.</p>
+<p>Notez qu’il n’y a <strong>pas</strong> de fonction d’activation sur la couche de sortie ici : en régression, on veut une sortie libre dans <span class="math inline">\(]-\infty, +\infty[\)</span>, alors que <span class="math inline">\(\sigma\)</span> l’écraserait dans un intervalle borné.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Pourquoi pas deux neurones ?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Brancher la sortie d’un neurone sur l’entrée d’un autre, <span class="math inline">\(f(x) = \sigma(v\,\sigma(wx + b) + c)\)</span>, ne suffit pas :</p>
+<p><span class="math inline">\(\sigma\)</span> est monotone (elle monte ou elle descend), et composer deux fonctions monotones donne encore une fonction monotone. La courbe ne peut que monter, ou que descendre — jamais faire une bosse.</p>
+<p>Il faut donc placer les neurones <strong>en parallèle</strong> : ils reçoivent la même entrée <span class="math inline">\(x\)</span>, chacun avec ses propres paramètres, et un dernier neurone combine leurs sorties.</p>
+</div>
+</div>
 </div>
 </section>
-<section id="addition" class="level3" data-number="1.5.2">
-<h3 data-number="1.5.2" class="anchored" data-anchor-id="addition"><span class="header-section-number">1.5.2</span> Addition</h3>
-<p>On peut ajouter 2 matrices A et B si elles ont les mêmes dimensions. Cela consiste à ajouter les cellules de mêmes coordonnées.</p>
-<p>Cij = Aij + Bij</p>
-<p>TODO exemple</p>
-</section>
-<section id="application-de-fonction" class="level3" data-number="1.5.3">
-<h3 data-number="1.5.3" class="anchored" data-anchor-id="application-de-fonction"><span class="header-section-number">1.5.3</span> Application de fonction</h3>
-<p>Appliquer une fonction sigma à une matrice consiste à appliquer la fonction à chaque cellule:</p>
-<p>sigma(A) = C avec Cij = sigma(Aij)</p>
+<section id="activité-modèle-à-plusieurs-neurones" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="activité-modèle-à-plusieurs-neurones"><span class="header-section-number">2.3</span> Activité : modèle à plusieurs neurones</h2>
+<p>Cliquez sur ce lien : <a href="./multi-neuron.html">Modèle à plusieurs neurones</a>.</p>
+<p>Même exercice que précédemment, mais avec une couche cachée dont vous choisissez la taille. Combien de neurones faut-il pour épouser chaque forme ?</p>
 </section>
 </section>
-<section id="perceptron-avec-matrices" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="perceptron-avec-matrices"><span class="header-section-number">1.6</span> Perceptron avec matrices</h2>
-<p>Grâce à nos nouveaux outils, nous pouvons réécrire notre modèle de perceptron avec la notation matricielle : h = sigma(W.x + b) y = sigma(V.h + c)</p>
-<p>Cet écriture est très pratique, et elle nous rappelle la formule utilisée pour une transformation linéaire. Par ailleurs, les bibliothèques Python modernes sont optimisées pour le calcul matriciel. Elles peuvent effectuer de nombreux calculs en parallèle grâce au GPU.</p>
+<section id="plusieurs-dimensions" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Plusieurs dimensions</h1>
+<p>Nous avons vu jusqu’ici des modèles à une seule dimension : l’entrée <span class="math inline">\(x\)</span> est un nombre réel. Pour pouvoir modéliser des problèmes plus complexes, on va ajouter plusieurs <strong>caractéristiques (features)</strong> à notre entrée.</p>
+<p>Par exemple, pour estimer le prix d’un appartement, on va aussi prendre en compte sa localisation, le nombre de pièces, …</p>
+<section id="vecteurs" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="vecteurs"><span class="header-section-number">3.1</span> Vecteurs</h2>
+<p>Si on prend également en compte le nombre de pièces, notre entrée <span class="math inline">\(\mathbf{x}\)</span> devient un <strong>vecteur de caractéristiques</strong> (<strong>feature vector</strong>) à <span class="math inline">\(D = 2\)</span> dimensions.</p>
+<p><span class="math display">\[
+\mathbf{x} = \begin{pmatrix} x_1 \\ x_2 \end{pmatrix}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(x_1\)</span> représente la surface en m²</li>
+<li><span class="math inline">\(x_2\)</span> représente le nombre de pièces</li>
+</ul>
+<p>On écrira les vecteurs et les matrices <strong>en gras</strong>, pour les distinguer des nombres.</p>
 </section>
-<section id="tp---perceptron" class="level2" data-number="1.7">
-<h2 data-number="1.7" class="anchored" data-anchor-id="tp---perceptron"><span class="header-section-number">1.7</span> TP - perceptron</h2>
-<p>TODO continuer sur le même dataset, introduire le nb de pièces.</p>
+<section id="un-neurone-avec-2-dimensions" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="un-neurone-avec-2-dimensions"><span class="header-section-number">3.2</span> Un neurone avec 2 dimensions</h2>
+<p>Pour un seul neurone et deux dimensions, notre modèle devient :</p>
+<p><span class="math display">\[f(\mathbf{x}) = \sigma(\underbrace{w_1 x_1 + w_2 x_2 + b}_{z})\]</span></p>
+<p>Le neurone a maintenant <strong>un poids par caractéristique</strong> : il possède 3 paramètres <span class="math inline">\(w_1, w_2, b\)</span>.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div id="fig-neuron-2d-graph" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-neuron-2d-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+<pre class="mermaid mermaid-js" data-label="fig-neuron-2d-graph">flowchart LR
+  x1(["x₁"])
+  x2(["x₂"])
+
+  subgraph neuron ["neurone"]
+    direction LR
+    z(["z = w₁x₁ + w₂x₂ + b"]) --&gt; s(["σ(z)"])
+  end
+
+  x1 -- "w₁" --&gt; z
+  x2 -- "w₂" --&gt; z
+  s --&gt; y(["f(x)"])
+
+  classDef neuron fill:#e7e3f7,stroke:#5b52c4,stroke-width:1.5px,color:#2c2c2a;
+  classDef input fill:#f3f1ec,stroke:#6d6c66,stroke-width:1.5px,color:#2c2c2a;
+  class z,s neuron;
+  class x1,x2,y input;
+  style neuron fill:none,stroke:#d8d6cd,stroke-dasharray:4 4;
+</pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-neuron-2d-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Le même neurone, avec deux caractéristiques en entrée. On a un poids différent pour chaque entrée.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="plusieurs-neurones-avec-2-dimensions" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="plusieurs-neurones-avec-2-dimensions"><span class="header-section-number">3.3</span> Plusieurs neurones avec 2 dimensions</h2>
+<p>Avec un seul neurone, nous aurions le même problème que précédemment : certaines formes ne seraient pas modélisable correctement. Chaque neurone supplémentaire dans la couche cachée va permettre d’ajouter un “pli” à notre fonction.</p>
+<p>Avec une couche cachée de largeur <span class="math inline">\(M=3\)</span>, notre modèle devient :</p>
+<p><span class="math display">\[
+\begin{aligned}
+\textcolor{#c4562c}{h_1} &amp;= \textcolor{#c4562c}{\sigma(w_{11} x_1 + w_{12} x_2 + b_1)} \\
+\textcolor{#2f6fb0}{h_2} &amp;= \textcolor{#2f6fb0}{\sigma(w_{21} x_1 + w_{22} x_2 + b_2)} \\
+\textcolor{#12805f}{h_3} &amp;= \textcolor{#12805f}{\sigma(w_{31} x_1 + w_{32} x_2 + b_3)} \\
+f(\mathbf{x}) &amp;= \textcolor{#c4562c}{v_1 h_1} + \textcolor{#2f6fb0}{v_2 h_2} + \textcolor{#12805f}{v_3 h_3} + c
+\end{aligned}
+\]</span></p>
+<ul>
+<li>Chaque neurone caché a maintenant <strong>un poids par caractéristique</strong>.</li>
+<li>On note <span class="math inline">\(w_{ij}\)</span> le poids que le neurone caché <span class="math inline">\(i\)</span> applique à la caractéristique <span class="math inline">\(x_j\)</span>
+<ul>
+<li>le <strong>premier</strong> indice désigne le neurone, le <strong>second</strong> la caractéristique.</li>
+</ul></li>
+<li>Le modèle possède <span class="math inline">\(M(D + 1) + M + 1 = 13\)</span> paramètres : 9 pour la couche cachée (<span class="math inline">\(3 \times 2\)</span> poids et 3 biais), 4 pour la couche de sortie (3 poids et 1 biais).</li>
+</ul>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div id="fig-hidden-layer-2d-graph" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-hidden-layer-2d-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+<pre class="mermaid mermaid-js" data-label="fig-hidden-layer-2d-graph">flowchart LR
+  x1(["x₁"])
+  x2(["x₂"])
+
+  subgraph hidden ["couche cachée"]
+    direction TB
+    h1(["h₁"])
+    h2(["h₂"])
+    h3(["h₃"])
+  end
+
+  subgraph output ["couche de sortie"]
+    f(["f(x)"])
+  end
+
+  x1 -- "w₁₁" --&gt; h1
+  x2 -- "w₁₂" --&gt; h1
+  x1 -- "w₂₁" --&gt; h2
+  x2 -- "w₂₂" --&gt; h2
+  x1 -- "w₃₁" --&gt; h3
+  x2 -- "w₃₂" --&gt; h3
+  h1 -- "v₁" --&gt; f
+  h2 -- "v₂" --&gt; f
+  h3 -- "v₃" --&gt; f
+
+  classDef input fill:#f3f1ec,stroke:#6d6c66,stroke-width:1.5px,color:#2c2c2a;
+  classDef out fill:#e7e3f7,stroke:#5b52c4,stroke-width:1.5px,color:#2c2c2a;
+  classDef n1 fill:#fbeae2,stroke:#c4562c,stroke-width:2px,color:#2c2c2a;
+  classDef n2 fill:#e3edf8,stroke:#2f6fb0,stroke-width:2px,color:#2c2c2a;
+  classDef n3 fill:#e0f0e9,stroke:#12805f,stroke-width:2px,color:#2c2c2a;
+  class x1,x2 input;
+  class f out;
+  class h1 n1;
+  class h2 n2;
+  class h3 n3;
+
+  %% One colour per hidden neuron, carried by the arrows that reach it.
+  linkStyle 0,1,6 stroke:#c4562c,stroke-width:2px;
+  linkStyle 2,3,7 stroke:#2f6fb0,stroke-width:2px;
+  linkStyle 4,5,8 stroke:#12805f,stroke-width:2px;
+
+  style hidden fill:none,stroke:#d8d6cd,stroke-dasharray:4 4;
+  style output fill:none,stroke:#d8d6cd,stroke-dasharray:4 4;
+</pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hidden-layer-2d-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Une couche cachée de 3 neurones, avec 2 caractéristiques en entrée. Chaque neurone caché reçoit les deux entrées, donc chacune de ses flèches porte un poids différent.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="activité-tensorflow-playground" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="activité-tensorflow-playground"><span class="header-section-number">3.4</span> Activité : TensorFlow Playground</h2>
+<p>Cliquez sur ce lien : <a href="./playground.html">Activité TensorFlow Playground</a>.</p>
+<p>L’activité entraîne un modèle avec la même <strong>architecture</strong> que ci-dessus : 2 caractéristiques, une couche cachée.</p>
 </section>
 </section>
-<section id="drafty" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Drafty</h1>
-<section id="classification" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="classification"><span class="header-section-number">2.1</span> Classification</h2>
+<section id="matrices" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Matrices</h1>
+<p>Si on ajoute des caractéristiques et des neurones, le nombre de paramètres explose. Heureusement, un outil mathématique va nous permettre d’avoir une notation plus compacte : les <strong>matrices</strong>.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Nous ne ferons <strong>aucun calcul matriciel à la main</strong> : PyTorch s’en charge.</p>
+<p>Le but de cette partie est uniquement de savoir <strong>lire</strong> les formules associées à un réseau de neurones, et surtout de comprendre les <strong>dimensions</strong>. Il est fréquent de commettre des erreurs d’incompatibilités de dimensions quand on écrit du code.</p>
+</div>
+</div>
+<section id="définition" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="définition"><span class="header-section-number">4.1</span> Définition</h2>
+<p>Une matrice est un tableau rectangulaire de nombres.</p>
+<ul>
+<li>Le nombre de lignes <span class="math inline">\(n\)</span> et le nombre de colonnes <span class="math inline">\(m\)</span> représentent sa <strong>taille</strong> ou ses <strong>dimensions</strong>.</li>
+<li>L’élément <span class="math inline">\(a_{ij}\)</span> est celui de la <strong>ligne <span class="math inline">\(i\)</span></strong> et de la <strong>colonne <span class="math inline">\(j\)</span></strong></li>
+</ul>
+<p>Par exemple, la matrice suivante a les dimensions 2x3 :</p>
+<p><span class="math display">\[
+\mathbf{A} = \begin{pmatrix}
+a_{11} &amp; a_{12} &amp; a_{13} \\
+a_{21} &amp; a_{22} &amp; a_{23}
+\end{pmatrix}
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Avec des nombres
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+\mathbf{A} = \begin{pmatrix}
+2 &amp; -1 &amp; 0 \\
+5 &amp; 3 &amp; 7
+\end{pmatrix}
+\qquad
+a_{13} = 0
+\qquad
+a_{21} = 5
+\]</span></p>
+</div>
+</div>
+</div>
 </section>
-<section id="architecture" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="architecture"><span class="header-section-number">2.2</span> Architecture</h2>
-<p>Combien de couches ? Combien de neurons dans chaque couche ? https://playground.tensorflow.org/#activation=relu&amp;batchSize=15&amp;dataset=xor&amp;regDataset=reg-gauss&amp;learningRate=0.03&amp;regularizationRate=0&amp;noise=25&amp;networkShape=5,2&amp;seed=0.41002&amp;showTestData=false&amp;discretize=false&amp;percTrainData=50&amp;x=true&amp;y=true&amp;xTimesY=false&amp;xSquared=true&amp;ySquared=true&amp;cosX=false&amp;sinX=false&amp;cosY=false&amp;sinY=false&amp;collectStats=false&amp;problem=regression&amp;initZero=false&amp;hideText=false</p>
+<section id="paramètres-du-modèle-sous-forme-de-matrice" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="paramètres-du-modèle-sous-forme-de-matrice"><span class="header-section-number">4.2</span> Paramètres du modèle sous forme de matrice</h2>
+<p>Reprenons l’exemple précédent avec 2 caractéristiques et 3 neurones. Les poids <span class="math inline">\(w_{ij}\)</span> peuvent être représentés sous forme de matrice :</p>
+<p><span class="math display">\[
+\mathbf{W} = \begin{pmatrix}
+\textcolor{#c4562c}{w_{11}} &amp; \textcolor{#c4562c}{w_{12}} \\
+\textcolor{#2f6fb0}{w_{21}} &amp; \textcolor{#2f6fb0}{w_{22}} \\
+\textcolor{#12805f}{w_{31}} &amp; \textcolor{#12805f}{w_{32}}
+\end{pmatrix}
+\]</span></p>
+<p>Cette matrice a 3 lignes (une par neurone caché, <span class="math inline">\(M = 3\)</span>) et 2 colonnes (une par caractéristique en entrée, <span class="math inline">\(D = 2\)</span>). On dit qu’elle est de dimensions 3x2, soit <span class="math inline">\(M \times D\)</span>.</p>
+<p>Les couleurs sont celles du schéma précédent :</p>
+<ul>
+<li>la <span style="color:#c4562c"><strong>première ligne</strong></span> contient les deux poids du neurone <span style="color:#c4562c"><span class="math inline">\(h_1\)</span></span>,</li>
+<li>la <span style="color:#2f6fb0"><strong>deuxième</strong></span> ceux de <span style="color:#2f6fb0"><span class="math inline">\(h_2\)</span></span>,</li>
+<li>la <span style="color:#12805f"><strong>troisième</strong></span> ceux de <span style="color:#12805f"><span class="math inline">\(h_3\)</span></span>.</li>
+</ul>
+<p>La notation <span class="math inline">\(w_{ij}\)</span> désigne la cellule qui est sur la i-ème ligne et la j-ème colonne : c’est le poids que le neurone caché <span class="math inline">\(i\)</span> applique à la caractéristique <span class="math inline">\(x_j\)</span>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Astuce
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Une ligne par neurone, une colonne par caractéristique.</strong></p>
+</div>
+</div>
+<p>Un vecteur est simplement un cas particulier de matrice : il a plusieurs lignes et une seule colonne. Nos biais et notre entrée s’écrivent donc :</p>
+<p><span class="math display">\[
+\mathbf{b} = \begin{pmatrix} \textcolor{#c4562c}{b_1} \\ \textcolor{#2f6fb0}{b_2} \\ \textcolor{#12805f}{b_3} \end{pmatrix}
+\qquad
+\mathbf{x} = \begin{pmatrix} x_1 \\ x_2 \end{pmatrix}
+\]</span></p>
+<p><span class="math inline">\(\mathbf{b}\)</span> est de dimensions 3x1 (un biais par neurone caché) et <span class="math inline">\(\mathbf{x}\)</span> de dimensions 2x1 (une valeur par caractéristique).</p>
+</section>
+<section id="multiplication-de-matrices" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="multiplication-de-matrices"><span class="header-section-number">4.3</span> Multiplication de matrices</h2>
+<p>Soit une matrice <span class="math inline">\(\mathbf{A}\)</span> de dimensions <span class="math inline">\(m \times n\)</span> et une matrice <span class="math inline">\(\mathbf{B}\)</span> de dimensions <span class="math inline">\(n \times o\)</span>. Leur produit <span class="math inline">\(\mathbf{A}\mathbf{B}\)</span> est une matrice <span class="math inline">\(\mathbf{C}\)</span> de dimensions <span class="math inline">\(m \times o\)</span>, dont chaque cellule vaut :</p>
+<p><span class="math display">\[c_{ij} = \sum_{k=1}^{n} a_{ik}\, b_{kj}\]</span></p>
+<p>Autrement dit, <span class="math inline">\(c_{ij}\)</span> est la somme des produits terme à terme de la <strong>ligne <span class="math inline">\(i\)</span> de <span class="math inline">\(\mathbf{A}\)</span></strong> et de la <strong>colonne <span class="math inline">\(j\)</span> de <span class="math inline">\(\mathbf{B}\)</span></strong>.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Pour pouvoir multiplier deux matrices, leurs dimensions doivent être <strong>compatibles</strong> : le nombre de <strong>colonnes</strong> de <span class="math inline">\(\mathbf{A}\)</span> doit être égal au nombre de <strong>lignes</strong> de <span class="math inline">\(\mathbf{B}\)</span>.</p>
+<p><span class="math display">\[(m \times \mathbf{n}) \cdot (\mathbf{n} \times o) \; \longrightarrow \; (m \times o)\]</span></p>
+<p>Les deux <span class="math inline">\(n\)</span> du milieu doivent être égaux, et ils disparaissent du résultat.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Le détail du calcul, pas à pas
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Exemple avec une matrice 2x3 et une matrice 3x2, qui donnent une matrice 2x2 :</p>
+<p><span class="math display">\[
+\begin{pmatrix}
+1 &amp; 2 &amp; 0 \\
+3 &amp; -1 &amp; 4
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+2 &amp; 1 \\
+0 &amp; 5 \\
+1 &amp; -2
+\end{pmatrix}
+=
+\begin{pmatrix}
+2 &amp; 11 \\
+10 &amp; -10
+\end{pmatrix}
+\]</span></p>
+<p>Pour calculer la cellule <span class="math inline">\(c_{21}\)</span> (2ème ligne, 1ère colonne) :</p>
+<ol type="1">
+<li>on prend la 2ème ligne de <span class="math inline">\(A\)</span> et la 1ère colonne de <span class="math inline">\(B\)</span>.</li>
+<li>En disposant <span class="math inline">\(\mathbf{B}\)</span> au-dessus du résultat, la ligne et la colonne se croisent exactement sur la cellule à calculer.</li>
+</ol>
+<div class="matmul">
+  <svg viewbox="0 0 400 340" role="img" aria-label="Disposition de la multiplication de matrices : la ligne 2 de A et la colonne 1 de B se croisent sur la cellule c21 du résultat.">
+    <defs>
+      <marker id="mm-arrow" viewbox="0 0 10 10" refx="9" refy="5" markerwidth="6" markerheight="6" orient="auto">
+        <path d="M 0 0 L 10 5 L 0 10 z" class="mm-head"></path>
+      </marker>
+    </defs>
+
+    <!-- B, placed above the result: its columns line up with the columns of C -->
+    <rect id="mm-band-b" x="230" y="40" width="54" height="120" class="mm-band"></rect>
+    <text x="230" y="32" class="mm-name">B (3×2)</text>
+    <rect x="230" y="40" width="54" height="40" class="mm-cell"></rect>
+    <rect x="284" y="40" width="54" height="40" class="mm-cell"></rect>
+    <rect x="230" y="80" width="54" height="40" class="mm-cell"></rect>
+    <rect x="284" y="80" width="54" height="40" class="mm-cell"></rect>
+    <rect x="230" y="120" width="54" height="40" class="mm-cell"></rect>
+    <rect x="284" y="120" width="54" height="40" class="mm-cell"></rect>
+    <text id="mm-b-1-1" x="257" y="66" class="mm-val mm-k1">2</text>
+    <text id="mm-b-1-2" x="311" y="66" class="mm-val mm-off">1</text>
+    <text id="mm-b-2-1" x="257" y="106" class="mm-val mm-k2">0</text>
+    <text id="mm-b-2-2" x="311" y="106" class="mm-val mm-off">5</text>
+    <text id="mm-b-3-1" x="257" y="146" class="mm-val mm-k3">1</text>
+    <text id="mm-b-3-2" x="311" y="146" class="mm-val mm-off">-2</text>
+
+    <!-- A, placed left of the result: its rows line up with the rows of C -->
+    <rect id="mm-band-a" x="20" y="240" width="162" height="40" class="mm-band"></rect>
+    <text x="20" y="192" class="mm-name">A (2×3)</text>
+    <rect x="20" y="200" width="54" height="40" class="mm-cell"></rect>
+    <rect x="74" y="200" width="54" height="40" class="mm-cell"></rect>
+    <rect x="128" y="200" width="54" height="40" class="mm-cell"></rect>
+    <rect x="20" y="240" width="54" height="40" class="mm-cell"></rect>
+    <rect x="74" y="240" width="54" height="40" class="mm-cell"></rect>
+    <rect x="128" y="240" width="54" height="40" class="mm-cell"></rect>
+    <text id="mm-a-1-1" x="47" y="226" class="mm-val mm-off">1</text>
+    <text id="mm-a-1-2" x="101" y="226" class="mm-val mm-off">2</text>
+    <text id="mm-a-1-3" x="155" y="226" class="mm-val mm-off">0</text>
+    <text id="mm-a-2-1" x="47" y="266" class="mm-val mm-k1">3</text>
+    <text id="mm-a-2-2" x="101" y="266" class="mm-val mm-k2">-1</text>
+    <text id="mm-a-2-3" x="155" y="266" class="mm-val mm-k3">4</text>
+
+    <!-- C -->
+    <text x="230" y="192" class="mm-name">C = A · B (2×2)</text>
+    <rect id="mm-target" x="230" y="240" width="54" height="40" class="mm-target"></rect>
+    <rect x="230" y="200" width="54" height="40" class="mm-cell"></rect>
+    <rect x="284" y="200" width="54" height="40" class="mm-cell"></rect>
+    <rect x="230" y="240" width="54" height="40" class="mm-cell"></rect>
+    <rect x="284" y="240" width="54" height="40" class="mm-cell"></rect>
+    <text id="mm-c-1-1" x="257" y="226" class="mm-val mm-off">2</text>
+    <text id="mm-c-1-2" x="311" y="226" class="mm-val mm-off">11</text>
+    <text id="mm-c-2-1" x="257" y="266" class="mm-val mm-res">10</text>
+    <text id="mm-c-2-2" x="311" y="266" class="mm-val mm-off">-10</text>
+
+    <line id="mm-guide-a" x1="186" y1="260" x2="228" y2="260" class="mm-guide" marker-end="url(#mm-arrow)"></line>
+    <line id="mm-guide-b" x1="257" y1="164" x2="257" y2="198" class="mm-guide" marker-end="url(#mm-arrow)"></line>
+
+    <!-- Transparent hit areas on top of C, one per cell -->
+    <rect class="mm-hit" data-i="1" data-j="1" x="230" y="200" width="54" height="40" tabindex="0"></rect>
+    <rect class="mm-hit" data-i="1" data-j="2" x="284" y="200" width="54" height="40" tabindex="0"></rect>
+    <rect class="mm-hit" data-i="2" data-j="1" x="230" y="240" width="54" height="40" tabindex="0"></rect>
+    <rect class="mm-hit" data-i="2" data-j="2" x="284" y="240" width="54" height="40" tabindex="0"></rect>
+
+    <text id="mm-leg-a" x="20" y="308" class="mm-legend">ligne 2 de A</text>
+    <text id="mm-leg-b" x="230" y="308" class="mm-legend">colonne 1 de B</text>
+    <text x="20" y="328" class="mm-legend">Les couleurs apparient les termes : le 1er de la ligne avec le 1er de la colonne, et ainsi de suite.</text>
+  </svg>
+
+  <p class="mm-eq" id="mm-eq"></p>
+  <p class="mm-hint">Survolez une cellule du résultat pour voir d'où elle vient.</p>
+</div>
+
+<style>
+.matmul {
+  --mm-ink: #2c2c2a;
+  --mm-soft: #6d6c66;
+  --mm-rule: #d8d6cd;
+  --mm-band: #f3f1ec;
+  --mm-target: #e7e3f7;
+  --mm-res: #5b52c4;
+  --mm-k1: #c4562c;
+  --mm-k2: #2f6fb0;
+  --mm-k3: #12805f;
+  max-width: 34rem;
+  margin: 1.2rem 0;
+}
+[data-bs-theme="dark"] .matmul {
+  --mm-ink: #ddddd7;
+  --mm-soft: #9c9a92;
+  --mm-rule: #45443f;
+  --mm-band: #2b2a27;
+  --mm-target: #3a3560;
+  --mm-res: #a79fee;
+  --mm-k1: #e8825a;
+  --mm-k2: #6fa8e0;
+  --mm-k3: #52c9a2;
+}
+.matmul svg { width: 100%; height: auto; display: block; }
+.mm-cell { fill: none; stroke: var(--mm-rule); stroke-width: 1; }
+.mm-band { fill: var(--mm-band); stroke: none; }
+.mm-target { fill: var(--mm-target); }
+.mm-val { font-size: 15px; text-anchor: middle; font-family: inherit; fill: var(--mm-ink); }
+.mm-off { fill: var(--mm-soft); }
+.mm-k1 { fill: var(--mm-k1); font-weight: 700; }
+.mm-k2 { fill: var(--mm-k2); font-weight: 700; }
+.mm-k3 { fill: var(--mm-k3); font-weight: 700; }
+.mm-res { fill: var(--mm-res); font-weight: 700; }
+.mm-name { font-size: 12px; fill: var(--mm-soft); font-family: inherit; }
+.mm-legend { font-size: 11px; fill: var(--mm-soft); font-family: inherit; }
+.mm-guide { stroke: var(--mm-soft); stroke-width: 1; stroke-dasharray: 4 3; }
+.mm-head { fill: var(--mm-soft); }
+.mm-hit { fill: transparent; cursor: pointer; }
+.mm-hit:focus { outline: none; stroke: var(--mm-res); stroke-width: 2; }
+.mm-eq {
+  text-align: center; font-size: 1rem; margin: .4rem 0 0;
+  color: var(--mm-ink); font-variant-numeric: tabular-nums;
+}
+.mm-eq b { font-weight: 700; }
+.mm-c1 { color: var(--mm-k1); font-weight: 700; }
+.mm-c2 { color: var(--mm-k2); font-weight: 700; }
+.mm-c3 { color: var(--mm-k3); font-weight: 700; }
+.mm-cr { color: var(--mm-res); font-weight: 700; }
+.mm-hint { text-align: center; font-size: .78rem; color: var(--mm-soft); margin: .3rem 0 0; }
+</style>
+
+<script>
+(function () {
+  var root = document.querySelector(".matmul");
+  if (!root) return;
+
+  var A = [[1, 2, 0], [3, -1, 4]];
+  var B = [[2, 1], [0, 5], [1, -2]];
+  var SUB = ["", "₁", "₂", "₃"];
+
+  function id(name) { return document.getElementById(name); }
+  function paren(v) { return v < 0 ? "(" + v + ")" : String(v); }
+
+  function select(i, j) {
+    var k;
+
+    // Bands, highlighted cell and the two guide arrows follow the selection.
+    id("mm-band-a").setAttribute("y", 200 + (i - 1) * 40);
+    id("mm-band-b").setAttribute("x", 230 + (j - 1) * 54);
+    id("mm-target").setAttribute("x", 230 + (j - 1) * 54);
+    id("mm-target").setAttribute("y", 200 + (i - 1) * 40);
+    id("mm-guide-a").setAttribute("y1", 220 + (i - 1) * 40);
+    id("mm-guide-a").setAttribute("y2", 220 + (i - 1) * 40);
+    id("mm-guide-b").setAttribute("x1", 257 + (j - 1) * 54);
+    id("mm-guide-b").setAttribute("x2", 257 + (j - 1) * 54);
+
+    for (var r = 1; r <= 2; r++) {
+      for (var c = 1; c <= 3; c++) {
+        id("mm-a-" + r + "-" + c).setAttribute("class",
+          "mm-val " + (r === i ? "mm-k" + c : "mm-off"));
+      }
+    }
+    for (k = 1; k <= 3; k++) {
+      for (var c2 = 1; c2 <= 2; c2++) {
+        id("mm-b-" + k + "-" + c2).setAttribute("class",
+          "mm-val " + (c2 === j ? "mm-k" + k : "mm-off"));
+      }
+    }
+    for (var ci = 1; ci <= 2; ci++) {
+      for (var cj = 1; cj <= 2; cj++) {
+        id("mm-c-" + ci + "-" + cj).setAttribute("class",
+          "mm-val " + (ci === i && cj === j ? "mm-res" : "mm-off"));
+      }
+    }
+
+    id("mm-leg-a").textContent = "ligne " + i + " de A";
+    id("mm-leg-b").textContent = "colonne " + j + " de B";
+
+    var terms = [], total = 0;
+    for (k = 1; k <= 3; k++) {
+      var a = A[i - 1][k - 1], b = B[k - 1][j - 1];
+      total += a * b;
+      terms.push('<span class="mm-c' + k + '">' + paren(a) + " × " + paren(b) + "</span>");
+    }
+    id("mm-eq").innerHTML = "c" + SUB[i] + SUB[j] + " = " + terms.join(" + ") +
+      ' = <span class="mm-cr">' + total + "</span>";
+  }
+
+  root.querySelectorAll(".mm-hit").forEach(function (hit) {
+    var i = +hit.dataset.i, j = +hit.dataset.j;
+    hit.addEventListener("mouseenter", function () { select(i, j); });
+    hit.addEventListener("focus", function () { select(i, j); });
+    hit.addEventListener("click", function () { select(i, j); });
+  });
+
+  select(2, 1);
+})();
+</script>
+</div>
+</div>
+</div>
+<section id="le-cas-qui-nous-intéresse" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="le-cas-qui-nous-intéresse"><span class="header-section-number">4.3.1</span> Le cas qui nous intéresse</h3>
+<p>Notre matrice de poids <span class="math inline">\(\mathbf{W}\)</span> est de dimensions 3x2, notre entrée <span class="math inline">\(\mathbf{x}\)</span> de dimensions 2x1. Le produit est donc possible, et donne un résultat de dimensions 3x1 :</p>
+<p><span class="math display">\[
+\mathbf{W}\mathbf{x} =
+\begin{pmatrix}
+\textcolor{#c4562c}{w_{11}} &amp; \textcolor{#c4562c}{w_{12}} \\
+\textcolor{#2f6fb0}{w_{21}} &amp; \textcolor{#2f6fb0}{w_{22}} \\
+\textcolor{#12805f}{w_{31}} &amp; \textcolor{#12805f}{w_{32}}
+\end{pmatrix}
+\begin{pmatrix} x_1 \\ x_2 \end{pmatrix}
+=
+\begin{pmatrix}
+\textcolor{#c4562c}{w_{11} x_1 + w_{12} x_2} \\
+\textcolor{#2f6fb0}{w_{21} x_1 + w_{22} x_2} \\
+\textcolor{#12805f}{w_{31} x_1 + w_{32} x_2}
+\end{pmatrix}
+\]</span></p>
+<p>Nous retrouvons exactement les trois sommes pondérées de notre couche cachée : <strong>une ligne du résultat par neurone</strong>.</p>
+</section>
+</section>
+<section id="addition" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="addition"><span class="header-section-number">4.4</span> Addition</h2>
+<p>On peut ajouter deux matrices <span class="math inline">\(\mathbf{A}\)</span> et <span class="math inline">\(\mathbf{B}\)</span> si elles ont les <strong>mêmes dimensions</strong>. Cela consiste à ajouter les cellules de mêmes coordonnées :</p>
+<p><span class="math display">\[c_{ij} = a_{ij} + b_{ij}\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Avec des nombres
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+\begin{pmatrix}
+1 &amp; 2 \\
+3 &amp; 4
+\end{pmatrix}
++
+\begin{pmatrix}
+5 &amp; 0 \\
+-1 &amp; 2
+\end{pmatrix}
+=
+\begin{pmatrix}
+6 &amp; 2 \\
+2 &amp; 6
+\end{pmatrix}
+\]</span></p>
+</div>
+</div>
+</div>
+<p>C’est ce qui nous permet d’ajouter les biais : <span class="math inline">\(\mathbf{W}\mathbf{x}\)</span> est de dimensions 3x1, et notre vecteur de biais <span class="math inline">\(\mathbf{b}\)</span> aussi.</p>
+<p><span class="math display">\[
+\mathbf{W}\mathbf{x} + \mathbf{b} =
+\begin{pmatrix}
+\textcolor{#c4562c}{w_{11} x_1 + w_{12} x_2} \\
+\textcolor{#2f6fb0}{w_{21} x_1 + w_{22} x_2} \\
+\textcolor{#12805f}{w_{31} x_1 + w_{32} x_2}
+\end{pmatrix}
++
+\begin{pmatrix} \textcolor{#c4562c}{b_1} \\ \textcolor{#2f6fb0}{b_2} \\ \textcolor{#12805f}{b_3} \end{pmatrix}
+=
+\begin{pmatrix}
+\textcolor{#c4562c}{w_{11} x_1 + w_{12} x_2 + b_1} \\
+\textcolor{#2f6fb0}{w_{21} x_1 + w_{22} x_2 + b_2} \\
+\textcolor{#12805f}{w_{31} x_1 + w_{32} x_2 + b_3}
+\end{pmatrix}
+\]</span></p>
+</section>
+<section id="application-de-fonction" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="application-de-fonction"><span class="header-section-number">4.5</span> Application de fonction</h2>
+<p>Appliquer une fonction <span class="math inline">\(\sigma\)</span> à une matrice consiste à appliquer la fonction à <strong>chaque cellule</strong>, sans changer les dimensions :</p>
+<p><span class="math display">\[\sigma(\mathbf{A}) = \mathbf{C} \quad \text{avec} \quad c_{ij} = \sigma(a_{ij})\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Avec des nombres
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+\mathrm{ReLU}
+\begin{pmatrix}
+-1 &amp; 2 \\
+0.5 &amp; -3
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 &amp; 2 \\
+0.5 &amp; 0
+\end{pmatrix}
+\]</span></p>
+</div>
+</div>
+</div>
+<p>Appliquée à notre couche cachée :</p>
+<p><span class="math display">\[
+\mathbf{h} =
+\sigma
+\begin{pmatrix}
+\textcolor{#c4562c}{w_{11} x_1 + w_{12} x_2 + b_1} \\
+\textcolor{#2f6fb0}{w_{21} x_1 + w_{22} x_2 + b_2} \\
+\textcolor{#12805f}{w_{31} x_1 + w_{32} x_2 + b_3}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\textcolor{#c4562c}{h_1} \\
+\textcolor{#2f6fb0}{h_2} \\
+\textcolor{#12805f}{h_3}
+\end{pmatrix}
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Ce n’est pas une opération mathématique standard
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Contrairement à l’addition et à la multiplication, l’application d’une fonction cellule par cellule est une <strong>convention de notation</strong>, pas une opération classique de l’algèbre linéaire.</p>
+<p>Elle est universelle en apprentissage machine, et c’est exactement ce que font les bibliothèques Python : <code>np.maximum(0, A)</code> applique ReLU à toutes les cellules d’un coup.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="réseau-de-neurones-avec-matrices" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="réseau-de-neurones-avec-matrices"><span class="header-section-number">4.6</span> Réseau de neurones avec matrices</h2>
+<p>Grâce à nos nouveaux outils, nous pouvons réécrire notre modèle de réseau de neurones à une couche cachée avec la notation matricielle :</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+\begin{aligned}
+\mathbf{h} &amp;= \sigma(\mathbf{W}\mathbf{x} + \mathbf{b}) \\
+f(\mathbf{x}) &amp;= \mathbf{V}\mathbf{h} + c
+\end{aligned}
+\]</span></p>
+<p>Couche cachée</p>
+<ul>
+<li><span class="math inline">\(M\)</span> : nombre de neurones dans la couche cachée</li>
+<li><span class="math inline">\(D\)</span> : nombre de caractéristiques</li>
+<li><span class="math inline">\(\mathbf{W}\)</span> : poids de dimensions <span class="math inline">\(M \times D\)</span></li>
+<li><span class="math inline">\(\mathbf{x}\)</span> : vecteur d’entrée de dimensions <span class="math inline">\(D \times 1\)</span></li>
+<li><span class="math inline">\(\mathbf{b}\)</span> : biais de dimensions <span class="math inline">\(M \times 1\)</span></li>
+<li><span class="math inline">\(\sigma\)</span> : fonction d’activation</li>
+</ul>
+<p>Couche de sortie</p>
+<ul>
+<li><span class="math inline">\(\mathbf{h}\)</span> : vecteur résultat de la couche cachée, de dimensions <span class="math inline">\(M \times 1\)</span></li>
+<li><span class="math inline">\(\mathbf{V}\)</span> : poids de la couche de sortie, de dimensions <span class="math inline">\(1 \times M\)</span></li>
+<li><span class="math inline">\(c\)</span> : biais de la couche de sortie, un simple nombre.</li>
+</ul>
+</div>
+</div>
+<p>Cette écriture rappelle la formule du <a href="#sec-neurone-1d">neurone à une dimension</a> : <span class="math inline">\(f(x) = \sigma(wx + b)\)</span>.</p>
+<p>Deux lignes remplacent les treize paramètres écrits un par un. Par ailleurs, la formule reste <strong>la même</strong> quel que soit le nombre de caractéristiques <span class="math inline">\(D\)</span> et de neurones <span class="math inline">\(M\)</span>.</p>
+</section>
+<section id="réseau-de-neurones-avec-pytorch" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="réseau-de-neurones-avec-pytorch"><span class="header-section-number">4.7</span> Réseau de neurones avec PyTorch</h2>
+<p>Les bibliothèques Python modernes sont optimisées pour le calcul matriciel. Elles peuvent effectuer de nombreux calculs en parallèle grâce au GPU. Un modèle PyTorch s’écrit comme une <strong>classe</strong> qui hérite de <code>torch.nn.Module</code>. Deux méthodes suffisent :</p>
+<ul>
+<li><code>__init__</code> déclare les couches, c’est-à-dire les paramètres à entraîner
+<ul>
+<li>On utilise <code>nn.Linear</code> pour instancier les paramètres <span class="math inline">\(W\)</span> et <span class="math inline">\(b\)</span></li>
+<li>On utilise <code>nn.ReLU</code> ou <code>nn.Tanh</code> pour instancier la fonction d’activation</li>
+</ul></li>
+<li><code>forward</code> décrit la passe avant, couche après couche.
+<ul>
+<li>l’appel à chaque élément déclaré précédemment prend en paramètre un vecteur et retourne un vecteur.</li>
+</ul></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> NeuralNetwork(torch.nn.Module):</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, D, M):</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.hidden <span class="op">=</span> nn.Linear(in_features<span class="op">=</span>D, out_features<span class="op">=</span>M, bias<span class="op">=</span><span class="va">True</span>) <span class="co"># W, b</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.activation <span class="op">=</span> nn.ReLU()</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.output <span class="op">=</span> nn.Linear(in_features<span class="op">=</span>M, out_features<span class="op">=</span><span class="dv">1</span>, bias<span class="op">=</span><span class="va">True</span>) <span class="co"># V, c</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        z <span class="op">=</span> <span class="va">self</span>.hidden(x)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        h <span class="op">=</span> <span class="va">self</span>.activation(z)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> <span class="va">self</span>.output(h)       </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> y</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> NeuralNetwork(D<span class="op">=</span><span class="dv">2</span>, M<span class="op">=</span><span class="dv">3</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="apprentissage-profond-deep-learning" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Apprentissage profond (deep learning)</h1>
+<section id="définition-1" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="définition-1"><span class="header-section-number">5.1</span> Définition</h2>
+<p>Nous avons construit un réseau de neurones avec une couche cachée et une couche de sortie. Si on augmente la largeur de la couche cachée, on peut améliorer le coût d’entraînement, jusqu’à un certain point. Une autre manière d’améliorer notre modèle est d’<strong>ajouter des couches cachées</strong>.</p>
+<p>Chaque couche crée une sorte de résumé de la couche précédente. Par exemple si notre entrée est une image et que l’on entraîne notre modèle pour reconnaître des animaux :</p>
+<ul>
+<li>la première couche pourrait reconnaître des formes élémentaires comme des traits, cercles, …</li>
+<li>La deuxième pourrait les combiner pour reconnaître des formes plus complexes comme un bras, une oreille, …</li>
+<li>La troisième pourrait détecter que c’est un mamifère, un insecte, …</li>
+</ul>
+<p>En théorie, une seule couche cachée très large pourrait approximer n’importe quoi. L’avantage d’utiliser plusieurs couches est de réduire les ressources nécessaires.</p>
+<p>La sortie d’une couche cachée est un vecteur, exactement comme l’entrée <span class="math inline">\(\mathbf{x}\)</span>. Rien n’empêche donc de la donner à une <strong>autre</strong> couche cachée, qui la traite de la même manière.</p>
+<p>Notre modèle devient :</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+\begin{aligned}
+\mathbf{h}^{[1]} &amp;= \sigma(\mathbf{W}^{[1]} \mathbf{x} + \mathbf{b}^{[1]}) \\
+\mathbf{h}^{[2]} &amp;= \sigma(\mathbf{W}^{[2]} \mathbf{h}^{[1]} + \mathbf{b}^{[2]}) \\
+&amp;\;\;\vdots \\
+\mathbf{h}^{[L]} &amp;= \sigma(\mathbf{W}^{[L]} \mathbf{h}^{[L-1]} + \mathbf{b}^{[L]}) \\
+f(\mathbf{x}) &amp;= \mathbf{V} \mathbf{h}^{[L]} + c
+\end{aligned}
+\]</span></p>
+<p>Couches cachées</p>
+<ul>
+<li><span class="math inline">\(L\)</span> : nombre de couches cachées (la <strong>profondeur</strong> du réseau)</li>
+<li><span class="math inline">\(M_\ell\)</span> : nombre de neurones de la couche <span class="math inline">\(\ell\)</span> (sa <strong>largeur</strong>), avec <span class="math inline">\(M_0 = D\)</span></li>
+<li><span class="math inline">\(\mathbf{W}^{[\ell]}\)</span> : poids de la couche <span class="math inline">\(\ell\)</span>, de dimensions <span class="math inline">\(M_\ell \times M_{\ell-1}\)</span></li>
+<li><span class="math inline">\(\mathbf{b}^{[\ell]}\)</span> : biais de la couche <span class="math inline">\(\ell\)</span>, de dimensions <span class="math inline">\(M_\ell \times 1\)</span></li>
+<li><span class="math inline">\(\mathbf{h}^{[\ell]}\)</span> : vecteur résultat de la couche cachée <span class="math inline">\(\ell\)</span>, de dimensions <span class="math inline">\(M \times 1\)</span></li>
+</ul>
+<p>Couche de sortie</p>
+<ul>
+<li><span class="math inline">\(\mathbf{V}\)</span> : poids de la couche de sortie, de dimensions <span class="math inline">\(1 \times M_L\)</span></li>
+<li><span class="math inline">\(c\)</span> : biais de la couche de sortie, un simple nombre</li>
+</ul>
+</div>
+</div>
+<p>L’exposant entre crochets <span class="math inline">\([\ell]\)</span> désigne le <strong>numéro de la couche</strong>, pas une puissance. Il ne faut pas le confondre avec l’exposant entre parenthèses <span class="math inline">\(x^{(i)}\)</span>, qui désigne le <span class="math inline">\(i\)</span>-ème exemple du jeu de données.</p>
+<p>Chaque ligne a exactement la même forme que celle de notre réseau à une seule couche cachée : seule l’entrée change. La couche <span class="math inline">\(\ell\)</span> ne voit plus les caractéristiques d’origine, mais la <strong>représentation</strong> construite par la couche précédente.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div id="fig-deep-network-graph" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-deep-network-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+<pre class="mermaid mermaid-js" data-label="fig-deep-network-graph">flowchart LR
+  subgraph inputs ["entrée&lt;br/&gt;D = 2"]
+    direction TB
+    x1(["x&lt;sub&gt;1&lt;/sub&gt;"])
+    x2(["x&lt;sub&gt;2&lt;/sub&gt;"])
+  end
+
+  subgraph hidden1 ["couche cachée 1&lt;br/&gt;M&lt;sub&gt;1&lt;/sub&gt; = 3"]
+    direction TB
+    a1(["h&lt;sup&gt;[1]&lt;/sup&gt;&lt;sub&gt;1&lt;/sub&gt;"])
+    a2(["h&lt;sup&gt;[1]&lt;/sup&gt;&lt;sub&gt;2&lt;/sub&gt;"])
+    a3(["h&lt;sup&gt;[1]&lt;/sup&gt;&lt;sub&gt;3&lt;/sub&gt;"])
+  end
+
+  subgraph hidden2 ["couche cachée 2&lt;br/&gt;M&lt;sub&gt;2&lt;/sub&gt; = 4"]
+    direction TB
+    b1(["h&lt;sup&gt;[2]&lt;/sup&gt;&lt;sub&gt;1&lt;/sub&gt;"])
+    b2(["h&lt;sup&gt;[2]&lt;/sup&gt;&lt;sub&gt;2&lt;/sub&gt;"])
+    b3(["h&lt;sup&gt;[2]&lt;/sup&gt;&lt;sub&gt;3&lt;/sub&gt;"])
+    b4(["h&lt;sup&gt;[2]&lt;/sup&gt;&lt;sub&gt;4&lt;/sub&gt;"])
+  end
+
+  subgraph output ["couche de sortie"]
+    f(["f(x)"])
+  end
+
+  %% W[1] : links 0-5
+  x1 --&gt; a1
+  x1 --&gt; a2
+  x1 --&gt; a3
+  x2 --&gt; a1
+  x2 --&gt; a2
+  x2 --&gt; a3
+
+  %% W[2] : links 6-17
+  a1 --&gt; b1
+  a1 --&gt; b2
+  a1 --&gt; b3
+  a1 --&gt; b4
+  a2 --&gt; b1
+  a2 --&gt; b2
+  a2 --&gt; b3
+  a2 --&gt; b4
+  a3 --&gt; b1
+  a3 --&gt; b2
+  a3 --&gt; b3
+  a3 --&gt; b4
+
+  %% V : links 18-21
+  b1 --&gt; f
+  b2 --&gt; f
+  b3 --&gt; f
+  b4 --&gt; f
+
+  %% Whole-network passes : links 22-23
+  inputs -. "passe avant : on calcule f(x)" .-&gt; output
+  output -. "passe arrière : on calcule les gradients" .-&gt; inputs
+
+  classDef input fill:#f3f1ec,stroke:#6d6c66,stroke-width:1.5px,color:#2c2c2a;
+  classDef out fill:#e7e3f7,stroke:#5b52c4,stroke-width:1.5px,color:#2c2c2a;
+  classDef layer1 fill:#fbeae2,stroke:#c4562c,stroke-width:2px,color:#2c2c2a;
+  classDef layer2 fill:#e3edf8,stroke:#2f6fb0,stroke-width:2px,color:#2c2c2a;
+  class x1,x2 input;
+  class f out;
+  class a1,a2,a3 layer1;
+  class b1,b2,b3,b4 layer2;
+
+  %% One colour per weight matrix.
+  linkStyle 0,1,2,3,4,5 stroke:#c4562c,stroke-width:1.5px;
+  linkStyle 6,7,8,9,10,11,12,13,14,15,16,17 stroke:#2f6fb0,stroke-width:1.5px;
+  linkStyle 18,19,20,21 stroke:#5b52c4,stroke-width:1.5px;
+
+  %% The two passes run across the whole network, not along a single weight.
+  linkStyle 22 stroke:#6d6c66,stroke-width:2.5px;
+  linkStyle 23 stroke:#12805f,stroke-width:2.5px;
+
+  style inputs fill:none,stroke:#d8d6cd,stroke-dasharray:4 4;
+  style hidden1 fill:none,stroke:#d8d6cd,stroke-dasharray:4 4;
+  style hidden2 fill:none,stroke:#d8d6cd,stroke-dasharray:4 4;
+  style output fill:none,stroke:#d8d6cd,stroke-dasharray:4 4;
+</pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-deep-network-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Chaque neurone est relié à <strong>tous</strong> les neurones de la couche précédente : chaque flèche porte son propre poids. Les flèches d’une même couleur forment une seule matrice de poids : les 6 flèches oranges sont <span class="math inline">\(W^{[1]}\)</span>, les 12 bleues <span class="math inline">\(W^{[2]}\)</span>, les 4 violettes <span class="math inline">\(V\)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Une couche dont chaque neurone est relié à tous les neurones de la couche précédente est dite <strong>entièrement connectée</strong> (fully connected, ou dense). Un réseau formé uniquement de telles couches, où l’information ne circule que vers l’avant, s’appelle un <strong>perceptron multicouche (multilayer perceptron, MLP)</strong>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Les dimensions doivent s’enchaîner
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>C’est la règle de la multiplication de matrices qui impose l’architecture : pour calculer <span class="math inline">\(\mathbf{W}^{[\ell]} \mathbf{h}^{[\ell-1]}\)</span>, le nombre de colonnes de <span class="math inline">\(\mathbf{W}^{[\ell]}\)</span> doit être égal au nombre de lignes de <span class="math inline">\(\mathbf{h}^{[\ell-1]}\)</span>, c’est-à-dire <span class="math inline">\(M_{\ell-1}\)</span>. Et comme l’addition exige deux matrices de mêmes dimensions, le biais <span class="math inline">\(\mathbf{b}^{[\ell]}\)</span> a forcément autant de lignes que la couche a de neurones.</p>
+<p>Avec <span class="math inline">\(D = 2\)</span> caractéristiques et deux couches cachées de largeurs <span class="math inline">\(M_1 = 3\)</span> et <span class="math inline">\(M_2 = 4\)</span> :</p>
+<p><span class="math display">\[
+\begin{aligned}
+\underbrace{\mathbf{W}^{[1]}}_{3 \times 2} \;
+\underbrace{\mathbf{x}}_{2 \times 1} +
+\underbrace{\mathbf{b}^{[1]}}_{3 \times 1}
+&amp;\rightarrow
+\underbrace{\mathbf{h}^{[1]}}_{3 \times 1} \\
+\underbrace{\mathbf{W}^{[2]}}_{4 \times 3} \;
+\underbrace{\mathbf{h}^{[1]}}_{3 \times 1} +
+\underbrace{\mathbf{b}^{[2]}}_{4 \times 1}
+&amp;\rightarrow
+\underbrace{\mathbf{h}^{[2]}}_{4 \times 1} \\
+\underbrace{\mathbf{V}}_{1 \times 4} \;
+\underbrace{\mathbf{h}^{[2]}}_{4 \times 1} +
+\underbrace{c}_{1 \times 1}
+&amp;\rightarrow
+\underbrace{f(\mathbf{x})}_{1 \times 1}
+\end{aligned}
+\]</span></p>
+<p>Soit <span class="math inline">\(3 \times 2 + 3 = 9\)</span> paramètres pour la première couche, <span class="math inline">\(4 \times 3 + 4 = 16\)</span> pour la deuxième et <span class="math inline">\(4 + 1 = 5\)</span> pour la sortie : <strong>30 paramètres</strong> au total.</p>
+</div>
+</div>
+</div>
+<p>C’est cet empilement de couches qui donne son nom à l’<strong>apprentissage profond</strong> (deep learning).</p>
+</section>
+<section id="rétropropagation-backpropagation" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="rétropropagation-backpropagation"><span class="header-section-number">5.2</span> Rétropropagation (backpropagation)</h2>
+<ul>
+<li>Lorsqu’on calcule la sortie de chaque couche <span class="math inline">\(\mathbf{h}^{[\ell]}\)</span>, on progresse de gauche à droite dans le graphe de calcul :
+<ul>
+<li>On calcule d’abord <span class="math inline">\(\mathbf{h}^{[1]}\)</span>, puis <span class="math inline">\(\mathbf{h}^{[2]}\)</span>, … jusqu’à obtenir <span class="math inline">\(f(x)\)</span></li>
+<li>Ce processus s’appelle la <strong>passe avant (forward pass)</strong>.</li>
+<li>Nous utilisons ce calcul dans les deux phases du modèle : pendant l’entraînement, puis durant l’inférence.</li>
+</ul></li>
+<li>Lorsqu’on entraîne un modèle, il nous faut à chaque epoch les gradients du coût par rapport à <strong>chaque</strong> paramètre, comme nous l’avons fait lors de la régression linéaire.
+<ul>
+<li>On part du coût <span class="math inline">\(J\)</span>, tout à droite, et on progresse de droite à gauche : on calcule d’abord les gradients de la couche de sortie (<span class="math inline">\(\mathbf{V}, c\)</span>), puis ceux de <span class="math inline">\(\mathbf{W}^{[2]}, \mathbf{b}^{[2]}\)</span>, jusqu’à ceux de la première couche <span class="math inline">\(\mathbf{W}^{[1]}, \mathbf{b}^{[1]}\)</span>.</li>
+<li>Cet algorithme s’appelle la <strong>rétropropagation (backpropagation)</strong>, et l’étape de l’entraînement pendant laquelle on l’exécute s’appelle la <strong>passe arrière (backward pass)</strong>.</li>
+</ul></li>
+</ul>
+<p>Pourquoi de droite à gauche ? Parce qu’un poids de la première couche n’influence le coût qu’<strong>à travers toutes les couches suivantes</strong>. La règle de dérivation en chaîne permet de réutiliser le gradient déjà calculé pour la couche <span class="math inline">\(\ell+1\)</span> afin d’obtenir celui de la couche <span class="math inline">\(\ell\)</span> : chaque gradient n’est calculé qu’une seule fois.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Rétropropagation n’est pas descente de gradient
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Ce sont deux étapes distinctes, souvent confondues :</p>
+<ul>
+<li>la <strong>rétropropagation</strong> <em>calcule</em> les gradients. Elle ne modifie aucun paramètre.</li>
+<li>la <strong>descente de gradient</strong> <em>utilise</em> ces gradients pour mettre à jour les paramètres.</li>
+</ul>
+</div>
+</div>
+</div>
+<p>Une fois tous les gradients connus, la descente de gradient met à jour chaque matrice de paramètres, comme au CM1 :</p>
+<p><span class="math display">\[
+\mathbf{W}^{[\ell]} \leftarrow \mathbf{W}^{[\ell]} - \alpha \frac{\partial J}{\partial \mathbf{W}^{[\ell]}}
+\qquad
+\mathbf{b}^{[\ell]} \leftarrow \mathbf{b}^{[\ell]} - \alpha \frac{\partial J}{\partial \mathbf{b}^{[\ell]}}
+\]</span></p>
+<p>Une <strong>epoch</strong> enchaîne donc toujours les mêmes quatre étapes :</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div id="fig-training-loop" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-training-loop-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+<pre class="mermaid mermaid-js" data-label="fig-training-loop">flowchart LR
+  fw(["passe avant&lt;br/&gt;f(x)"]) --&gt; loss(["coût&lt;br/&gt;J"])
+  loss --&gt; bw(["passe arrière&lt;br/&gt;gradients"])
+  bw --&gt; upd(["mise à jour&lt;br/&gt;des paramètres"])
+  upd -- "epoch suivante" --&gt; fw
+
+  classDef step fill:#f3f1ec,stroke:#6d6c66,stroke-width:1.5px,color:#2c2c2a;
+  classDef back fill:#e3edf8,stroke:#2f6fb0,stroke-width:2px,color:#2c2c2a;
+  class fw,loss step;
+  class bw,upd back;
+</pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-training-loop-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Une epoch : passe avant, calcul du coût, passe arrière, mise à jour des paramètres.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>En Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Vous n’écrirez jamais ces dérivées à la main : PyTorch enregistre les opérations de la passe avant, puis remonte ce graphe pour vous.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(epochs):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  y_pred <span class="op">=</span> model(x)          <span class="co"># passe avant</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  cost <span class="op">=</span> cost_fn(y_pred, y)  <span class="co"># coût</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  cost.backward()            <span class="co"># passe arrière</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  optimizer.step()           <span class="co"># mise à jour des paramètres</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  optimizer.zero_grad()      <span class="co"># remet les gradients à zéro</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="validation-et-test" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Validation et Test</h1>
+<section id="réglage-des-hyperparamètres-hyperparameter-tuning" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="réglage-des-hyperparamètres-hyperparameter-tuning"><span class="header-section-number">6.1</span> Réglage des hyperparamètres (hyperparameter tuning)</h2>
+<ul>
+<li>Les <strong>paramètres d’un modèle</strong> sont ceux utilisés pour calculer la sortie <span class="math inline">\(f(x)\)</span>: poids <span class="math inline">\(W\)</span> et biais <span class="math inline">\(b\)</span>.
+<ul>
+<li>Ils sont calculés lors de la phase d’entraînement</li>
+</ul></li>
+<li>Les <strong>hyperparamètres</strong> sont les variables qui influent sur l’entraînement et la performance du modèle
+<ul>
+<li>Ils sont choisis <strong>manuellement</strong> par l’ingénieur ML</li>
+<li>ils sont ajustés pour obtenir le coût le plus faible</li>
+</ul></li>
+</ul>
+<p>Exemples d’hyperparamètres :</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 45%">
+<col style="width: 54%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Hyperparamètre</th>
+<th>Ce qu’il contrôle</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>taux d’apprentissage (learning rate) <span class="math inline">\(\alpha\)</span></td>
+<td>la taille du pas à chaque mise à jour des paramètres</td>
+</tr>
+<tr class="even">
+<td>nombre d’epochs</td>
+<td>combien de fois on parcourt le jeu d’entraînement</td>
+</tr>
+<tr class="odd">
+<td>taille de batch (batch size) <span class="math inline">\(B\)</span></td>
+<td>combien d’exemples servent à chaque mise à jour des paramètres</td>
+</tr>
+<tr class="even">
+<td>profondeur <span class="math inline">\(L\)</span></td>
+<td>le nombre de couches cachées</td>
+</tr>
+<tr class="odd">
+<td>largeur <span class="math inline">\(M_\ell\)</span></td>
+<td>le nombre de neurones de chaque couche cachée</td>
+</tr>
+<tr class="even">
+<td>fonction d’activation <span class="math inline">\(\sigma\)</span></td>
+<td>ReLU, tanh, sigmoïde</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="surapprentissage-overfitting" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="surapprentissage-overfitting"><span class="header-section-number">6.2</span> Surapprentissage (overfitting)</h2>
+<p>Si nous poussons le nombre de paramètres, le modèle pourrait apprendre tous les exemples d’entraînement par cœur.</p>
+<ul>
+<li>On obtiendra un modèle qui a un coût d’entraînement faible</li>
+<li>Mais est-ce qu’il <strong>généralise</strong> ? C’est-à-dire : est-ce qu’il va prédire correctement la sortie <span class="math inline">\(y\)</span> pour une entrée <span class="math inline">\(x\)</span> qu’il n’a <strong>jamais vue</strong> ?</li>
+</ul>
+</section>
+<section id="validation" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="validation"><span class="header-section-number">6.3</span> Validation</h2>
+<p>Pour savoir si le modèle généralise bien, nous utiliserons cette technique :</p>
+<ol type="1">
+<li>On sépare le dataset d’exemples en 2 datasets, choisis au hasard :
+<ol type="a">
+<li>le <strong>dataset d’entraînement (training dataset)</strong> = 90 % des exemples</li>
+<li>le <strong>dataset de validation (validation dataset or dev dataset)</strong> = 10 % des exemples</li>
+</ol></li>
+<li>On entraîne notre modèle sur le dataset d’entraînement</li>
+<li>On calcule le <strong>coût <span class="math inline">\(J\)</span> pour les deux datasets</strong></li>
+<li>On <strong>compare</strong> ces deux coûts :</li>
+</ol>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 39%">
+<col style="width: 37%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Coût d’entraînement</th>
+<th>Coût de validation</th>
+<th>Diagnostic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>élevé</td>
+<td>élevé</td>
+<td>le modèle est trop simple : il <strong>sous-apprend (underfitting)</strong></td>
+</tr>
+<tr class="even">
+<td>faible</td>
+<td>bien plus élevé</td>
+<td>le modèle <strong>surapprend (overfitting)</strong> : il a appris les exemples par cœur</td>
+</tr>
+<tr class="odd">
+<td>faible</td>
+<td>faible</td>
+<td>le modèle <strong>généralise</strong> : c’est ce que nous cherchons</td>
+</tr>
+</tbody>
+</table>
+<p>Le dataset de validation ne sert <strong>jamais</strong> à l’entraînement : il n’intervient ni dans la passe avant, ni dans le calcul des gradients. C’est ce qui rend son verdict crédible : le modèle n’a aucun moyen d’avoir appris ces exemples par cœur.</p>
+<p>Le ratio 90% / 10% est arbitraire. Si on a peu d’exemples, on choisira plutôt 60% train / 40% validation.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div id="fig-validation-split" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-validation-split-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+<pre class="mermaid mermaid-js" data-label="fig-validation-split">flowchart LR
+  data(["dataset&lt;br/&gt;N exemples"])
+
+  subgraph split ["séparation aléatoire"]
+    direction TB
+    tr(["entraînement&lt;br/&gt;90 %"])
+    va(["validation&lt;br/&gt;10 %"])
+  end
+
+  diag(["comparaison&lt;br/&gt;des deux coûts"])
+
+  data --&gt; tr
+  data --&gt; va
+  tr -- "entraîne les paramètres" --&gt; model(["modèle f"])
+  model -- "évalué sur les 90 %" --&gt; jt(["coût J&lt;br/&gt;entraînement"])
+  model -- "évalué sur les 10 %" --&gt; jv(["coût J&lt;br/&gt;validation"])
+  jt --&gt; diag
+  jv --&gt; diag
+  diag -. "on ajuste les hyperparamètres,&lt;br/&gt;et on ré-entraîne" .-&gt; model
+
+  classDef neutral fill:#f3f1ec,stroke:#6d6c66,stroke-width:1.5px,color:#2c2c2a;
+  classDef train fill:#fbeae2,stroke:#c4562c,stroke-width:2px,color:#2c2c2a;
+  classDef valid fill:#e0f0e9,stroke:#12805f,stroke-width:2px,color:#2c2c2a;
+  classDef out fill:#e7e3f7,stroke:#5b52c4,stroke-width:1.5px,color:#2c2c2a;
+  class data,jt,jv neutral;
+  class tr train;
+  class va valid;
+  class model,diag out;
+
+  %% The training path is orange, the validation path green, all the way through.
+  linkStyle 0,2,3 stroke:#c4562c,stroke-width:1.5px;
+  linkStyle 1,4 stroke:#12805f,stroke-width:1.5px;
+
+  %% The tuning loop closes back onto the model.
+  linkStyle 7 stroke:#5b52c4,stroke-width:2px;
+
+  style split fill:none,stroke:#d8d6cd,stroke-dasharray:4 4;
+</pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-validation-split-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Seul le dataset d’entraînement alimente le modèle (en orange). Le dataset de validation ne sert qu’à l’évaluer (en vert).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="test" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="test"><span class="header-section-number">6.4</span> Test</h2>
+<p>Une fois les hyperparamètres réglés, c’est une bonne pratique d’utiliser un <strong>dataset de test</strong> pour <strong>évaluer</strong> le modèle. Cela permet de donner un score final au modèle. Mais attention ! Le jeu de test ne doit servir en aucun cas à régler les hyperparamètres, sinon vous risquez d’adapter votre modèle au jeu de test.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 76%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dataset</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>train (entraînement)</td>
+<td>phase d’entraînement, ajustement automatique des poids</td>
+</tr>
+<tr class="even">
+<td>validation (ou dev)</td>
+<td>réglage des hyperparamètres, arrêt de l’entraînement (early stopping)</td>
+</tr>
+<tr class="odd">
+<td>test</td>
+<td>score final</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="comment-régler-en-pratique" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="comment-régler-en-pratique"><span class="header-section-number">6.5</span> Comment régler en pratique</h2>
+<p>Il n’existe pas de formule : on procède par essais, mais dans un ordre précis.</p>
+<p>Tous les hyperparamètres n’ont pas la même importance . <strong>Le taux d’apprentissage <span class="math inline">\(\alpha\)</span></strong> est de loin le plus critique. Un mauvais <span class="math inline">\(\alpha\)</span> empêche l’entraînement de converger, alors qu’une largeur de couche mal choisie ne coûte qu’un peu de performance.</p>
+<section id="taux-dapprentissage" class="level3" data-number="6.5.1">
+<h3 data-number="6.5.1" class="anchored" data-anchor-id="taux-dapprentissage"><span class="header-section-number">6.5.1</span> Taux d’apprentissage</h3>
+<p>On le cherche en <strong>puissances de 10</strong> : <span class="math inline">\(0{,}1\)</span>, <span class="math inline">\(0{,}01\)</span>, <span class="math inline">\(0{,}001\)</span>, <span class="math inline">\(0{,}0001\)</span>. La courbe du coût donne le diagnostic :</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Allure de la courbe de coût</th>
+<th>Diagnostic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>le coût explose, ou devient <code>NaN</code></td>
+<td><span class="math inline">\(\alpha\)</span> trop grand</td>
+</tr>
+<tr class="even">
+<td>le coût oscille sans descendre</td>
+<td><span class="math inline">\(\alpha\)</span> trop grand</td>
+</tr>
+<tr class="odd">
+<td>le coût descend tout droit, très lentement</td>
+<td><span class="math inline">\(\alpha\)</span> trop petit</td>
+</tr>
+<tr class="even">
+<td>descente rapide, puis plateau</td>
+<td>correct</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="nombre-depochs" class="level3" data-number="6.5.2">
+<h3 data-number="6.5.2" class="anchored" data-anchor-id="nombre-depochs"><span class="header-section-number">6.5.2</span> Nombre d’epochs</h3>
+<p>Il ne se règle pas vraiment à l’avance : on entraîne longtemps, et on surveille le coût de <strong>validation</strong>. Tant qu’il baisse, on continue ; dès qu’il remonte alors que le coût d’entraînement continue de baisser, le surapprentissage a commencé et on s’arrête. C’est l’<strong>arrêt anticipé (early stopping)</strong>.</p>
+</section>
+<section id="architecture-profondeur-et-largeur-des-couches" class="level3" data-number="6.5.3">
+<h3 data-number="6.5.3" class="anchored" data-anchor-id="architecture-profondeur-et-largeur-des-couches"><span class="header-section-number">6.5.3</span> Architecture (profondeur et largeur des couches)</h3>
+<p>On commence <strong>petit</strong>, puis on grossit tant que le modèle sous-apprend. Le tableau de diagnostic ci-dessus indique quoi faire :</p>
+<ul>
+<li>coût d’entraînement élevé → le modèle est trop simple : ajouter des neurones, puis des couches ;</li>
+<li>coût d’entraînement faible mais coût de validation élevé → surapprentissage : <strong>ne pas</strong> agrandir le modèle, mais réduire sa taille ou trouver plus de données.</li>
+</ul>
+<p>Pour des données comme celles du TP, 1 à 3 couches cachées suffisent largement.</p>
+</section>
+<section id="fonction-dactivation" class="level3" data-number="6.5.4">
+<h3 data-number="6.5.4" class="anchored" data-anchor-id="fonction-dactivation"><span class="header-section-number">6.5.4</span> Fonction d’activation</h3>
+<p><strong>ReLU</strong> dans les couches cachées. Elle atténue la <em>disparition du gradient</em>, qui empêche les premières couches d’apprendre, et elle est rapide à calculer.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>La règle qui compte
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Changez <strong>un seul hyperparamètre à la fois</strong>, et jugez toujours sur le coût de <strong>validation</strong>. Le coût d’entraînement peut s’améliorer même quand le modèle se dégrade.</p>
+</div>
+</div>
 <p>Exercice ici: https://developers.google.com/machine-learning/crash-course/neural-networks/interactive-exercises?hl=fr</p>
-<p>TODO Example ?: je montre 1M de photos de chats à mon programme d’apprentissage. Les photos sont suffisamment variées pour avoir différentes races et positions. Une fois mon modèle entraîné, je peux lui soumettre une photo x….</p>
-<p>training/dev set : dans le TP</p>
 </section>
-<section id="surapprentissage-overfitting" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="surapprentissage-overfitting"><span class="header-section-number">2.3</span> Surapprentissage (overfitting)</h2>
 </section>
-<section id="glossaire" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="glossaire"><span class="header-section-number">2.4</span> Glossaire</h2>
+</section>
+<section id="notations" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Notations</h1>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Symbole</th>
+<th>Signification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(N\)</span></td>
+<td>nombre d’exemples du jeu de données</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(x^{(i)}, y^{(i)}\)</span></td>
+<td>entrée et cible du <span class="math inline">\(i\)</span>-ème exemple</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(D\)</span></td>
+<td>nombre de caractéristiques (dimension de l’entrée)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(M\)</span></td>
+<td>nombre de neurones de la couche cachée</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(x_j\)</span></td>
+<td><span class="math inline">\(j\)</span>-ème caractéristique, <span class="math inline">\(j = 1 \ldots D\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(h_i\)</span></td>
+<td>sortie du <span class="math inline">\(i\)</span>-ème neurone caché, <span class="math inline">\(i = 1 \ldots M\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(w_{ij}, b_i\)</span></td>
+<td>poids et biais du <span class="math inline">\(i\)</span>-ème neurone caché</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(v_i, c\)</span></td>
+<td>poids et biais du neurone de sortie</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\sigma\)</span></td>
+<td>fonction d’activation</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(J\)</span></td>
+<td>fonction de coût (MSE)</td>
+</tr>
+</tbody>
+</table>
+<p>Les <strong>cardinaux</strong> (combien il y en a) sont en majuscules, les <strong>indices</strong> (lequel) en minuscules.</p>
+<!--
+claude --resume f236b263-d27f-463d-9de6-50b5db468ca8
+-->
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

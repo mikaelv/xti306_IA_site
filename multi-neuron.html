@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mikaël Valot">
+
+<title>CM2 - Modèle à plusieurs neurones – 2627 XTI306 Introduction à l’ingénierie IA</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./figures/favicon.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-88e8eab2b9e74ff2b2dcb2dc0227e102.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-35673c1328022ec05f8a1bab69fe76b7.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-88e8eab2b9e74ff2b2dcb2dc0227e102.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-626bc743731229bd8adb76e0f8fa352c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-626bc743731229bd8adb76e0f8fa352c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-626bc743731229bd8adb76e0f8fa352c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Pas de résultats",
+    "search-matching-documents-text": "documents trouvés",
+    "search-copy-link-title": "Copier le lien vers la recherche",
+    "search-hide-matches-text": "Cacher les correspondances additionnelles",
+    "search-more-match-text": "correspondance de plus dans ce document",
+    "search-more-matches-text": "correspondances de plus dans ce document",
+    "search-clear-button-title": "Effacer",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Annuler",
+    "search-submit-button-title": "Envoyer",
+    "search-label": "Recherche"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cours1_gradient_descent.html">Activités</a></li><li class="breadcrumb-item"><a href="./multi-neuron.html">CM2 - Modèle à plusieurs neurones</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Recherche" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./figures/logo-noir.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./figures/logo-noir.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Recherche"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Cours</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Basculer la section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cours1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CM1 - Introduction à l’apprentissage automatique (<em>machine learning</em>)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cours2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CM2 - Réseaux de neurones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./glossaire.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossaire</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Activités</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Basculer la section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cours1_gradient_descent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CM1 - Descente de Gradient</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./single-neuron.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CM2 - Modèle à un neurone</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multi-neuron.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">CM2 - Modèle à plusieurs neurones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./playground.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CM2 - TensorFlow Playground</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">TPs</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Basculer la section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tp1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">TP1 - Introduction à l’apprentissage automatique (<em>machine learning</em>)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Sur cette page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#le-modèle" id="toc-le-modèle" class="nav-link active" data-scroll-target="#le-modèle"><span class="header-section-number">1</span> Le modèle</a></li>
+  <li><a href="#à-tester-en-cours" id="toc-à-tester-en-cours" class="nav-link" data-scroll-target="#à-tester-en-cours"><span class="header-section-number">2</span> À tester en cours</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cours1_gradient_descent.html">Activités</a></li><li class="breadcrumb-item"><a href="./multi-neuron.html">CM2 - Modèle à plusieurs neurones</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">CM2 - Modèle à plusieurs neurones</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Auteur·rice</div>
+    <div class="quarto-title-meta-contents">
+             <p>Mikaël Valot </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="le-modèle" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="le-modèle"><span class="header-section-number">1</span> Le modèle</h2>
+<p>Une <strong>couche cachée</strong> (<strong>hidden layer</strong>) de <span class="math inline">\(M\)</span> neurones reçoit la même entrée <span class="math inline">\(x\)</span>, chaque neurone ayant ses propres paramètres. Un neurone de <strong>sortie</strong> (<strong>output layer</strong>) combine ensuite leurs résultats :</p>
+<p><span class="math display">\[
+\begin{aligned}
+h_i &amp;= \sigma(w_i x + b_i) \qquad (i = 1 \ldots M)\\
+f(x) &amp;= v_1 h_1 + \ldots + v_M h_M + c
+\end{aligned}
+\]</span></p>
+<p>Le modèle possède <span class="math inline">\(3M + 1\)</span> paramètres.</p>
+<p>Chaque neurone caché fabrique un “pli” : son poids <span class="math inline">\(w_i\)</span> règle la raideur du pli, son biais <span class="math inline">\(b_i\)</span> sa position. Le neurone de sortie, lui, décide de la hauteur de chaque pli avec ses poids <span class="math inline">\(v_i\)</span> (et de son sens, si <span class="math inline">\(v_i\)</span> est négatif), puis décale le tout de <span class="math inline">\(c\)</span> : <span class="math inline">\(v_1, \ldots, v_M\)</span> et <span class="math inline">\(c\)</span> sont donc les paramètres <strong>du neurone de sortie</strong>, pas des neurones cachés.</p>
+<p>Les courbes en pointillés de couleur montrent la contribution <span class="math inline">\(v_i h_i\)</span> de chaque neurone caché ; la courbe pleine est le modèle <span class="math inline">\(f\)</span>. Le <strong>graphe de calcul</strong> sous le graphique suit les mêmes couleurs et réagit aux curseurs : plus un poids est grand, plus le trait est épais.</p>
+<div class="multi-neuron" id="multi-neuron">
+  <svg viewbox="0 0 680 340" class="mn-plot" role="img" aria-label="Courbe de sortie d'un réseau à une couche cachée, tracée sur les points d'entraînement.">
+    <line x1="60" y1="100" x2="620" y2="100" class="mn-grid"></line>
+    <line x1="60" y1="220" x2="620" y2="220" class="mn-grid"></line>
+    <line x1="200" y1="40" x2="200" y2="280" class="mn-grid"></line>
+    <line x1="480" y1="40" x2="480" y2="280" class="mn-grid"></line>
+    <line x1="60" y1="160" x2="620" y2="160" class="mn-axis"></line>
+    <line x1="340" y1="40" x2="340" y2="280" class="mn-axis"></line>
+    <rect x="60" y="40" width="560" height="240" class="mn-frame"></rect>
+    <clippath id="mn-clip"><rect x="60" y="40" width="560" height="240"></rect></clippath>
+    <g id="mn-layer" clip-path="url(#mn-clip)"></g>
+    <text x="52" y="44" class="mn-tick mn-end">2</text>
+    <text x="52" y="104" class="mn-tick mn-end">1</text>
+    <text x="52" y="164" class="mn-tick mn-end">0</text>
+    <text x="52" y="224" class="mn-tick mn-end">-1</text>
+    <text x="52" y="284" class="mn-tick mn-end">-2</text>
+    <text x="60" y="298" class="mn-tick mn-mid">-6</text>
+    <text x="200" y="298" class="mn-tick mn-mid">-3</text>
+    <text x="340" y="298" class="mn-tick mn-mid">0</text>
+    <text x="480" y="298" class="mn-tick mn-mid">3</text>
+    <text x="620" y="298" class="mn-tick mn-mid">6</text>
+    <line x1="150" y1="320" x2="176" y2="320" class="mn-key-dash"></line>
+    <text x="184" y="324" class="mn-tick">contribution v·h</text>
+    <line x1="300" y1="320" x2="326" y2="320" class="mn-key-solid"></line>
+    <text x="334" y="324" class="mn-tick">prédiction</text>
+    <circle cx="424" cy="320" r="4" class="mn-key-dot"></circle>
+    <text x="438" y="324" class="mn-tick">données d'entraînement</text>
+  </svg>
+
+  <svg viewbox="0 0 680 300" class="mn-graph" role="img" aria-label="Graphe de calcul du réseau : l'épaisseur des traits reflète la valeur des poids.">
+    <g id="mn-graph-layer"></g>
+  </svg>
+  <p class="mn-legend">épaisseur du trait ∝ |w| et |v| · taille du cercle ∝ |b| et |c| · pointillés = valeur négative</p>
+
+  <div class="mn-row">
+    <span class="mn-label">Neurones cachés</span>
+    <button class="mn-btn" data-size="1">1</button>
+    <button class="mn-btn" data-size="2">2</button>
+    <button class="mn-btn is-on" data-size="3">3</button>
+    <button class="mn-btn" data-size="4">4</button>
+    <button class="mn-btn" data-size="6">6</button>
+    <span class="mn-params" id="mn-params"></span>
+  </div>
+
+  <div class="mn-row">
+    <span class="mn-label">Activation</span>
+    <button class="mn-btn is-on" data-act="tanh">tanh</button>
+    <button class="mn-btn" data-act="relu">ReLU</button>
+    <button class="mn-btn" data-act="sigmoid">sigmoïde</button>
+  </div>
+
+  <div class="mn-row">
+    <span class="mn-label">Données</span>
+    <button class="mn-btn" data-data="step">seuil</button>
+    <button class="mn-btn is-on" data-data="bump">bosse</button>
+    <button class="mn-btn" data-data="wave">vague</button>
+    <button class="mn-btn" data-data="stair">marches</button>
+  </div>
+
+  <div class="mn-row">
+    <span class="mn-label"></span>
+    <button class="mn-btn" id="mn-random">Paramètres au hasard</button>
+    <button class="mn-btn mn-fit" id="mn-descend">Descente de gradient</button>
+  </div>
+
+  <div class="mn-sliders" id="mn-sliders"></div>
+
+  <p class="mn-readout"><span id="mn-note"></span><span class="mn-mse">MSE <strong id="mn-mse">0.000</strong></span></p>
+</div>
+
+<style>
+.multi-neuron {
+  --mn-ink: #2c2c2a;
+  --mn-soft: #6d6c66;
+  --mn-rule: #d8d6cd;
+  --mn-curve: #5b52c4;
+  --mn-point: #12805f;
+  --mn-resid: #c4562c;
+  --mn-chip: #f3f1ec;
+  --mn-chip-on: #e7e3f7;
+  --mn-h1: #c4562c;
+  --mn-h2: #2f6fb0;
+  --mn-h3: #12805f;
+  --mn-h4: #9b5bb8;
+  --mn-h5: #b08d1c;
+  --mn-h6: #3f8f8a;
+  margin: 1.5rem 0 2rem;
+  max-width: 44rem;
+  color: var(--mn-ink);
+}
+[data-bs-theme="dark"] .multi-neuron {
+  --mn-ink: #ddddd7;
+  --mn-soft: #9c9a92;
+  --mn-rule: #45443f;
+  --mn-curve: #a79fee;
+  --mn-point: #52c9a2;
+  --mn-resid: #e8825a;
+  --mn-chip: #2b2a27;
+  --mn-chip-on: #3a3560;
+  --mn-h1: #e8825a;
+  --mn-h2: #6fa8e0;
+  --mn-h3: #52c9a2;
+  --mn-h4: #c393e0;
+  --mn-h5: #d9bb55;
+  --mn-h6: #6fc0ba;
+}
+.mn-plot { width: 100%; height: auto; display: block; }
+.mn-grid { stroke: var(--mn-rule); stroke-width: .5; }
+.mn-axis { stroke: var(--mn-soft); stroke-width: 1; }
+.mn-frame { fill: none; stroke: var(--mn-rule); stroke-width: .5; }
+.mn-tick { font-size: 12px; fill: var(--mn-soft); font-family: inherit; }
+.mn-end { text-anchor: end; }
+.mn-mid { text-anchor: middle; }
+.mn-key-dash { stroke: var(--mn-soft); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.mn-key-solid { stroke: var(--mn-curve); stroke-width: 2.5; }
+.mn-key-dot { fill: var(--mn-point); }
+.mn-graph { width: 100%; height: auto; display: block; margin-top: 1.2rem; }
+.mn-gtext { font-size: 10px; fill: var(--mn-soft); text-anchor: middle; font-family: inherit; }
+.mn-nlabel { font-size: 13px; fill: var(--mn-ink); text-anchor: middle; font-family: inherit; }
+.mn-legend { font-size: .78rem; color: var(--mn-soft); text-align: center; margin: .1rem 0 0; }
+.mn-row { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; margin-top: .9rem; }
+.mn-label { font-size: .8rem; color: var(--mn-soft); width: 7.5rem; }
+.mn-btn {
+  font: inherit; font-size: .82rem; padding: .28rem .7rem;
+  border: 1px solid var(--mn-rule); background: var(--mn-chip);
+  color: var(--mn-soft); border-radius: 6px; cursor: pointer;
+}
+.mn-btn:hover { color: var(--mn-ink); }
+.mn-btn.is-on { background: var(--mn-chip-on); border-color: var(--mn-curve); color: var(--mn-curve); }
+.mn-fit { margin-left: auto; color: var(--mn-ink); }
+.mn-params { font-size: .8rem; color: var(--mn-soft); margin-left: auto; }
+.mn-sliders { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem 1.2rem; margin-top: 1rem; }
+.mn-neuron {
+  border: 1px solid var(--mn-rule); border-left: 3px solid var(--mn-hue, var(--mn-soft));
+  border-radius: 6px; padding: .2rem .7rem .5rem; margin: 0;
+}
+.mn-neuron legend { font-size: .75rem; color: var(--mn-hue, var(--mn-soft)); padding: 0 .3rem; }
+.mn-out { grid-column: 1 / -1; }
+.mn-out-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.2rem; }
+.mn-ctl { display: flex; align-items: center; gap: .5rem; font-size: .8rem; color: var(--mn-soft); }
+.mn-ctl em { font-style: italic; min-width: 1.4rem; }
+.mn-ctl input { flex: 1; min-width: 0; accent-color: var(--mn-hue, var(--mn-curve)); }
+.mn-ctl output { min-width: 2.6rem; text-align: right; font-variant-numeric: tabular-nums; }
+.mn-readout {
+  display: flex; justify-content: space-between; gap: 1rem;
+  margin: .9rem 0 0; padding-top: .7rem; border-top: 1px solid var(--mn-rule);
+  font-size: .85rem; color: var(--mn-soft); font-variant-numeric: tabular-nums;
+}
+.mn-mse strong { color: var(--mn-ink); font-weight: 600; }
+@media (max-width: 560px) {
+  .mn-sliders, .mn-out-grid { grid-template-columns: 1fr; }
+  .mn-label { width: auto; }
+}
+</style>
+
+<script>
+(function () {
+  var root = document.getElementById("multi-neuron");
+  if (!root) return;
+
+  // Gradient descent settings. The gradient is clipped before each update, so a
+  // single learning rate stays stable for the three activations.
+  var LR = 0.02, MAX_STEPS = 20000, STEPS_PER_FRAME = 200, CLIP = 8;
+
+  var M = 3, ACT = "tanh", DATA = "bump";
+  var W = [], B = [], V = [], C = 0;
+  var xs = [], ys = [];
+  var frame = 0;
+
+  var slidersEl = document.getElementById("mn-sliders");
+  var layer = document.getElementById("mn-layer");
+  var graphLayer = document.getElementById("mn-graph-layer");
+  var descendBtn = document.getElementById("mn-descend");
+
+  var SUB = ["₁", "₂", "₃", "₄", "₅", "₆"];
+
+  var RANGE = { w: 4, b: 4, v: 3, c: 2 };
+
+  function activate(z) {
+    if (ACT === "tanh") return Math.tanh(z);
+    if (ACT === "relu") return Math.max(0, z);
+    return 1 / (1 + Math.exp(-z));
+  }
+
+  function activateSlope(z) {
+    if (ACT === "tanh") { var t = Math.tanh(z); return 1 - t * t; }
+    if (ACT === "relu") return z > 0 ? 1 : 0;
+    var s = 1 / (1 + Math.exp(-z));
+    return s * (1 - s);
+  }
+
+  function seeded(a) {
+    return function () {
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      var t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+
+  function target(x) {
+    if (DATA === "step") return Math.tanh(1.8 * (x - 1));
+    if (DATA === "bump") return 1.4 * Math.exp(-x * x / 2) - 0.2;
+    if (DATA === "wave") return 1.1 * Math.sin(0.9 * x);
+    return 0.6 * (Math.sign(x + 2.5) + Math.sign(x - 1.5));
+  }
+
+  function makeData() {
+    var rand = seeded(20240607);
+    xs = []; ys = [];
+    for (var i = 0; i < 36; i++) {
+      var x = -5.5 + 11 * i / 35;
+      xs.push(x);
+      ys.push(target(x) + (rand() - 0.5) * 0.18);
+    }
+  }
+
+  // Spreads the hidden neurons over the x range so that every "fold" starts out
+  // visible, instead of piling up around x = 0.
+  function randomize() {
+    W = []; B = []; V = [];
+    for (var i = 0; i < M; i++) {
+      var centre = -4 + 8 * (i + 0.5) / M;
+      var w = 0.8 + Math.random() * 1.2;
+      W.push(w);
+      B.push(-w * centre);
+      V.push((Math.random() - 0.5) * 1.6);
+    }
+    C = 0;
+  }
+
+  function px(x) { return 60 + (x + 6) / 12 * 560; }
+  function py(y) { return 160 - y / 2 * 120; }
+
+  function predict(x) {
+    var y = C;
+    for (var i = 0; i < M; i++) y += V[i] * activate(W[i] * x + B[i]);
+    return y;
+  }
+
+  function mse() {
+    var s = 0;
+    for (var i = 0; i < xs.length; i++) {
+      var d = predict(xs[i]) - ys[i];
+      s += d * d;
+    }
+    return s / xs.length;
+  }
+
+  function hue(i) { return "var(--mn-h" + (i + 1) + ")"; }
+
+  function curve(fn) {
+    var pts = [];
+    for (var i = 0; i <= 240; i++) {
+      var x = -6 + 12 * i / 240;
+      pts.push(px(x).toFixed(1) + "," + py(fn(x)).toFixed(1));
+    }
+    return pts.join(" ");
+  }
+
+  function draw() {
+    var out = "", i;
+
+    for (i = 0; i < xs.length; i++) {
+      out += '<line x1="' + px(xs[i]).toFixed(1) + '" y1="' + py(ys[i]).toFixed(1) +
+             '" x2="' + px(xs[i]).toFixed(1) + '" y2="' + py(predict(xs[i])).toFixed(1) +
+             '" stroke="var(--mn-resid)" stroke-width="1" opacity=".45"/>';
+    }
+
+    for (i = 0; i < M; i++) {
+      out += '<polyline points="' + curve((function (k) {
+        return function (x) { return V[k] * activate(W[k] * x + B[k]); };
+      })(i)) + '" fill="none" stroke="' + hue(i) +
+      '" stroke-width="1.5" stroke-dasharray="5 4" opacity=".8"/>';
+    }
+
+    out += '<polyline points="' + curve(predict) +
+           '" fill="none" stroke="var(--mn-curve)" stroke-width="2.5"/>';
+
+    for (i = 0; i < xs.length; i++) {
+      out += '<circle cx="' + px(xs[i]).toFixed(1) + '" cy="' + py(ys[i]).toFixed(1) +
+             '" r="4" fill="var(--mn-point)"/>';
+    }
+
+    layer.innerHTML = out;
+    drawGraph();
+    document.getElementById("mn-mse").textContent = mse().toFixed(3);
+    document.getElementById("mn-params").textContent = (3 * M + 1) + " paramètres";
+    refresh();
+  }
+
+  // Computation graph. Every parameter is mapped to a visual size: the weights
+  // to the stroke width of the arrows, the biases to the radius of the circles.
+  function edge(x1, y1, x2, y2, value, range, color, label, at) {
+    var width = 0.8 + 4 * Math.min(Math.abs(value), range) / range;
+    var dash = value < 0 ? ' stroke-dasharray="5 3"' : "";
+    var lx = x1 + at * (x2 - x1), ly = y1 + at * (y2 - y1) - 6;
+    return '<line x1="' + x1 + '" y1="' + y1.toFixed(1) + '" x2="' + x2 + '" y2="' + y2.toFixed(1) +
+           '" stroke="' + color + '" stroke-width="' + width.toFixed(2) + '" opacity=".85"' + dash + '/>' +
+           '<text x="' + lx.toFixed(1) + '" y="' + ly.toFixed(1) + '" class="mn-gtext">' +
+           label + " = " + value.toFixed(2) + "</text>";
+  }
+
+  function node(cx, cy, radius, label, color) {
+    return '<circle cx="' + cx + '" cy="' + cy.toFixed(1) + '" r="' + radius.toFixed(1) +
+           '" fill="var(--mn-chip)" stroke="' + color + '" stroke-width="2"/>' +
+           '<text x="' + cx + '" y="' + cy.toFixed(1) + '" dy=".35em" class="mn-nlabel">' + label + "</text>";
+  }
+
+  function drawGraph() {
+    var out = "", i, y;
+    var gap = Math.min(72, 260 / M);
+    var top = 150 - (M - 1) / 2 * gap;
+    var xIn = 90, xHid = 340, xOut = 590;
+
+    for (i = 0; i < M; i++) {
+      y = top + i * gap;
+      // Staggered along the arrow so the labels of neighbouring edges, which
+      // are only a few pixels apart when the layer is wide, do not overlap.
+      out += edge(xIn, 150, xHid, y, W[i], RANGE.w, hue(i), "w" + SUB[i], 0.36 + 0.12 * (i % 2));
+      out += edge(xHid, y, xOut, 150, V[i], RANGE.v, hue(i), "v" + SUB[i], 0.64 - 0.12 * (i % 2));
+    }
+
+    out += node(xIn, 150, 14, "x", "var(--mn-soft)");
+    for (i = 0; i < M; i++) {
+      y = top + i * gap;
+      var r = 11 + 9 * Math.abs(B[i]) / RANGE.b;
+      out += node(xHid, y, r, "h" + SUB[i], hue(i));
+      // Below 5 neurons there is room to spell the bias out under its circle.
+      if (gap > 55) {
+        out += '<text x="' + xHid + '" y="' + (y + r + 12).toFixed(1) + '" class="mn-gtext">b' +
+               SUB[i] + " = " + B[i].toFixed(2) + "</text>";
+      }
+    }
+    out += node(xOut, 150, 11 + 9 * Math.abs(C) / RANGE.c, "f", "var(--mn-curve)");
+    out += '<text x="' + xOut + '" y="' + (150 + 11 + 9 * Math.abs(C) / RANGE.c + 12).toFixed(1) +
+           '" class="mn-gtext">c = ' + C.toFixed(2) + "</text>";
+
+    graphLayer.innerHTML = out;
+  }
+
+  // `colour` overrides the accent of a single slider: the v sliders belong to the
+  // output neuron, but each one is tinted like the hidden neuron it weighs.
+  function control(kind, i, value, colour) {
+    var name = kind + (kind === "c" ? "" : "<sub>" + (i + 1) + "</sub>");
+    var r = RANGE[kind];
+    return '<label class="mn-ctl"' + (colour ? ' style="--mn-hue:' + colour + '"' : "") +
+      '><em>' + name + '</em>' +
+      '<input type="range" data-kind="' + kind + '" data-idx="' + i + '" min="' + -r +
+      '" max="' + r + '" step="0.02" value="' + value + '">' +
+      '<output>' + value.toFixed(2) + '</output></label>';
+  }
+
+  function buildSliders() {
+    var html = "", i;
+    for (i = 0; i < M; i++) {
+      html += '<fieldset class="mn-neuron" style="--mn-hue:' + hue(i) + '">' +
+        '<legend>neurone caché ' + (i + 1) + '</legend>' +
+        control("w", i, W[i]) + control("b", i, B[i]) +
+        '</fieldset>';
+    }
+    html += '<fieldset class="mn-neuron mn-out" style="--mn-hue:var(--mn-curve)">' +
+      '<legend>neurone de sortie</legend><div class="mn-out-grid">';
+    for (i = 0; i < M; i++) html += control("v", i, V[i], hue(i));
+    html += control("c", 0, C) + '</div></fieldset>';
+    slidersEl.innerHTML = html;
+  }
+
+  // Pushes the current parameters back into the sliders — needed after gradient
+  // descent, which moves them without any user interaction.
+  function refresh() {
+    slidersEl.querySelectorAll("input").forEach(function (input) {
+      var i = +input.dataset.idx;
+      var v = input.dataset.kind === "w" ? W[i]
+            : input.dataset.kind === "b" ? B[i]
+            : input.dataset.kind === "v" ? V[i] : C;
+      input.value = v;
+      input.nextElementSibling.value = v.toFixed(2);
+    });
+  }
+
+  function clamp(v, r) { return v < -r ? -r : v > r ? r : v; }
+
+  // One gradient descent step on the MSE. Returns the gradient magnitude so the
+  // animation can stop once the parameters have settled.
+  function step() {
+    var gw = new Array(M).fill(0), gb = new Array(M).fill(0), gv = new Array(M).fill(0), gc = 0;
+    var i, k, z, e, norm = 0;
+
+    for (k = 0; k < xs.length; k++) {
+      e = predict(xs[k]) - ys[k];
+      gc += e;
+      for (i = 0; i < M; i++) {
+        z = W[i] * xs[k] + B[i];
+        gv[i] += e * activate(z);
+        var d = e * V[i] * activateSlope(z);
+        gw[i] += d * xs[k];
+        gb[i] += d;
+      }
+    }
+
+    var scale = 2 / xs.length;
+    gc *= scale;
+    norm += gc * gc;
+    for (i = 0; i < M; i++) {
+      gw[i] *= scale; gb[i] *= scale; gv[i] *= scale;
+      norm += gw[i] * gw[i] + gb[i] * gb[i] + gv[i] * gv[i];
+    }
+
+    norm = Math.sqrt(norm);
+    var lr = norm > CLIP ? LR * CLIP / norm : LR;
+
+    C = clamp(C - lr * gc, RANGE.c);
+    for (i = 0; i < M; i++) {
+      W[i] = clamp(W[i] - lr * gw[i], RANGE.w);
+      B[i] = clamp(B[i] - lr * gb[i], RANGE.b);
+      V[i] = clamp(V[i] - lr * gv[i], RANGE.v);
+    }
+    return norm;
+  }
+
+  function stopDescent() {
+    if (!frame) return;
+    cancelAnimationFrame(frame);
+    frame = 0;
+    descendBtn.classList.remove("is-on");
+  }
+
+  function descend() {
+    if (frame) { stopDescent(); return; }
+    var done = 0;
+    descendBtn.classList.add("is-on");
+    (function tick() {
+      var g = 0;
+      for (var k = 0; k < STEPS_PER_FRAME && done < MAX_STEPS; k++, done++) g = step();
+      draw();
+      if (done < MAX_STEPS && g > 1e-6) {
+        frame = requestAnimationFrame(tick);
+      } else {
+        frame = 0;
+        descendBtn.classList.remove("is-on");
+      }
+    })();
+  }
+
+  slidersEl.addEventListener("input", function (event) {
+    var input = event.target;
+    if (!input.dataset.kind) return;
+    stopDescent();
+    var i = +input.dataset.idx, v = parseFloat(input.value);
+    if (input.dataset.kind === "w") W[i] = v;
+    else if (input.dataset.kind === "b") B[i] = v;
+    else if (input.dataset.kind === "v") V[i] = v;
+    else C = v;
+    draw();
+  });
+
+  function group(attr, onPick) {
+    root.querySelectorAll("[data-" + attr + "]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        stopDescent();
+        root.querySelectorAll("[data-" + attr + "]").forEach(function (o) {
+          o.classList.toggle("is-on", o === btn);
+        });
+        onPick(btn.dataset[attr]);
+        draw();
+      });
+    });
+  }
+
+  group("size", function (value) { M = +value; randomize(); buildSliders(); });
+  group("act", function (value) { ACT = value; });
+  group("data", function (value) { DATA = value; makeData(); });
+
+  document.getElementById("mn-random").addEventListener("click", function () {
+    stopDescent();
+    randomize();
+    buildSliders();
+    draw();
+  });
+
+  descendBtn.addEventListener("click", descend);
+
+  makeData();
+  randomize();
+  buildSliders();
+  draw();
+})();
+</script>
+</section>
+<section id="à-tester-en-cours" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="à-tester-en-cours"><span class="header-section-number">2</span> À tester en cours</h2>
+<ol type="1">
+<li>Avec <strong>1 seul neurone caché</strong>, essayez d’ajuster la bosse. Pourquoi est-ce impossible ?</li>
+<li>Passez à <strong>2 neurones</strong> et refaites l’essai à la main : placez un pli qui monte, puis un pli qui descend.</li>
+<li>Lancez la <strong>descente de gradient</strong> sur chaque jeu de données, en faisant varier le nombre de neurones. Combien en faut-il au minimum pour la <em>vague</em> ? pour les <em>marches</em> ?</li>
+<li>Comparez les activations sur les <em>marches</em> : <strong>ReLU</strong> donne des segments de droite, <strong>tanh</strong> et <strong>sigmoïde</strong> des transitions douces.</li>
+<li>Lancez la descente de gradient en regardant le <strong>graphe de calcul</strong> : quels traits s’épaississent ? Un neurone dont le trait <span class="math inline">\(v_i\)</span> devient très fin ne sert plus à rien.</li>
+<li>Relancez plusieurs fois <em>Paramètres au hasard</em> puis la descente de gradient sur le même jeu de données. La MSE finale est-elle toujours la même ?</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Ce qu’il faut retenir
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Plus de neurones = plus de plis = plus de formes possibles.</strong> C’est la <em>largeur</em> de la couche cachée qui donne au modèle sa capacité d’expression.</li>
+<li>La descente de gradient ne tombe pas toujours sur la même solution : le point de départ compte. Avec un modèle non-linéaire, il existe plusieurs minima locaux.</li>
+<li>Trop de neurones et le modèle finit par épouser le bruit des données plutôt que leur tendance : c’est le <strong>surapprentissage</strong> (<strong>overfitting</strong>), que nous verrons plus loin.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+// Presentation mode. Turning it on:
+//   - collapses every collapsible callout, each one staying clickable so it
+//     can be opened on demand during the lecture
+//   - scales the document up for projection (see styles.css)
+// Turning it off restores the reading view, with every callout expanded.
+// The choice is stored in localStorage so it survives page navigation.
+(function () {
+  const STORAGE_KEY = "xti306-presentation-mode";
+  const root = document.documentElement;
+
+  // Quarto renders a callout carrying a collapse attribute with the Bootstrap
+  // collapse markup: a .callout-header holding aria-expanded, and a
+  // .callout-collapse holding the body. The chevron is rotated by CSS from
+  // aria-expanded alone, and Bootstrap reads the "show" class back from the
+  // DOM on every click, so setting both by hand keeps later manual clicks
+  // consistent.
+  //
+  // Callouts written without a collapse attribute lack this markup and are
+  // left alone: they stay visible in both modes.
+  function setCalloutsCollapsed(collapsed) {
+    document.querySelectorAll(".callout").forEach(function (callout) {
+      const header = callout.querySelector(".callout-header[aria-expanded]");
+      const body = callout.querySelector(".callout-collapse");
+      if (!header || !body) return;
+
+      body.classList.toggle("show", !collapsed);
+      header.setAttribute("aria-expanded", String(!collapsed));
+    });
+  }
+
+  function render(button, enabled) {
+    root.classList.toggle("presentation-mode", enabled);
+    setCalloutsCollapsed(enabled);
+
+    button.setAttribute("aria-pressed", String(enabled));
+    button.title = enabled
+      ? "Revenir à la vue complète : tous les encadrés dépliés"
+      : "Replier les encadrés et agrandir le texte pour la projection";
+  }
+
+  function init() {
+    const button = document.createElement("button");
+    button.id = "presentation-toggle";
+    button.type = "button";
+    button.innerHTML = '<span class="status-dot"></span>Mode présentation';
+
+    let enabled = localStorage.getItem(STORAGE_KEY) === "true";
+    render(button, enabled);
+
+    button.addEventListener("click", function () {
+      enabled = !enabled;
+      localStorage.setItem(STORAGE_KEY, String(enabled));
+      render(button, enabled);
+    });
+
+    document.body.appendChild(button);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copié");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copié");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mikaelv\.github\.io\/xti306_IA_site\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

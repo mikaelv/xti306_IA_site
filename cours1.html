@@ -24,41 +24,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -198,11 +163,71 @@ window.Quarto = {
  <span class="menu-text">CM1 - Introduction à l’apprentissage automatique (<em>machine learning</em>)</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cours2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CM2 - Réseaux de neurones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./glossaire.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossaire</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">TPs</span></span>
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Activités</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Basculer la section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cours1_gradient_descent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CM1 - Descente de Gradient</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./single-neuron.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CM2 - Modèle à un neurone</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multi-neuron.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CM2 - Modèle à plusieurs neurones</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./playground.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CM2 - TensorFlow Playground</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">TPs</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Basculer la section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tp1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">TP1 - Introduction à l’apprentissage automatique (<em>machine learning</em>)</span></a>
+  </div>
+</li>
+      </ul>
   </li>
     </ul>
     </div>
@@ -231,11 +256,7 @@ window.Quarto = {
   <li><a href="#fonction-de-coût-cost-function" id="toc-fonction-de-coût-cost-function" class="nav-link" data-scroll-target="#fonction-de-coût-cost-function"><span class="header-section-number">3.1</span> Fonction de coût (cost function)</a></li>
   <li><a href="#lire-le-coût-la-rmse" id="toc-lire-le-coût-la-rmse" class="nav-link" data-scroll-target="#lire-le-coût-la-rmse"><span class="header-section-number">3.2</span> Lire le coût : la RMSE</a></li>
   </ul></li>
-  <li><a href="#tp-régression-linéaire" id="toc-tp-régression-linéaire" class="nav-link" data-scroll-target="#tp-régression-linéaire"><span class="header-section-number">4</span> TP régression linéaire</a>
-  <ul class="collapse">
-  <li><a href="#initiation-à-jupyter-dans-pycharm" id="toc-initiation-à-jupyter-dans-pycharm" class="nav-link" data-scroll-target="#initiation-à-jupyter-dans-pycharm"><span class="header-section-number">4.1</span> Initiation à Jupyter dans PyCharm</a></li>
-  <li><a href="#démarrage-du-tp" id="toc-démarrage-du-tp" class="nav-link" data-scroll-target="#démarrage-du-tp"><span class="header-section-number">4.2</span> Démarrage du TP</a></li>
-  </ul></li>
+  <li><a href="#tp-régression-linéaire" id="toc-tp-régression-linéaire" class="nav-link" data-scroll-target="#tp-régression-linéaire"><span class="header-section-number">4</span> TP régression linéaire</a></li>
   <li><a href="#descente-de-gradient-gradient-descent" id="toc-descente-de-gradient-gradient-descent" class="nav-link" data-scroll-target="#descente-de-gradient-gradient-descent"><span class="header-section-number">5</span> Descente de gradient (gradient descent)</a>
   <ul class="collapse">
   <li><a href="#analogie-avec-le-randonneur-dans-le-brouillard" id="toc-analogie-avec-le-randonneur-dans-le-brouillard" class="nav-link" data-scroll-target="#analogie-avec-le-randonneur-dans-le-brouillard"><span class="header-section-number">5.1</span> Analogie avec le randonneur dans le brouillard</a></li>
@@ -358,7 +379,7 @@ window.Quarto = {
 <p>Lorsque les exemples fournissent à la fois une entrée et la sortie attendue, on parle d’<strong>apprentissage supervisé</strong> (<em>supervised learning</em>).</p>
 <p>Un <strong>dataset</strong> de <span class="math inline">\(N\)</span> exemples est alors un ensemble de <span class="math inline">\(N\)</span> paires :</p>
 <p><span class="math display">\[\mathcal{D} = \left\{\, \left(x^{(i)},\ y^{(i)}\right) \,\right\}_{i=1}^{N}\]</span></p>
-<p>Chaque entrée <span class="math inline">\(x^{(i)}\)</span> est associée à sa sortie <strong>cible</strong> (<em>target</em>), aussi appelée <strong>étiquette</strong> (<em>label</em>).</p>
+<p>Chaque entrée <span class="math inline">\(x^{(i)}\)</span> est associée à sa sortie <strong>cible</strong> (<em>target</em>) <span class="math inline">\(y^{(i)}\)</span>, aussi appelée <strong>étiquette</strong> (<em>label</em>).</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -394,6 +415,7 @@ window.Quarto = {
 <p>Le modèle est figé. On lui soumet une entrée <span class="math inline">\(x\)</span> <strong>qu’il n’a jamais vue</strong> et il répond :</p>
 <p><span class="math display">\[\hat{y} = f(x)\]</span></p>
 <p>La capacité à répondre juste sur des entrées nouvelles s’appelle la <strong>généralisation</strong> (<em>generalization</em>).</p>
+<p>La notation ‘chapeau’ est une notation usuelle pour indiquer que <span class="math inline">\(\hat{y}\)</span> est un estimateur, une valeur approchée. Le modèle n’a pas eu d’exemple de l’entrée <span class="math inline">\(x\)</span>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -542,43 +564,43 @@ window.Quarto = {
 Table&nbsp;1: Cinq exemples du jeu de données. Chaque ligne est une paire (entrée, cible).
 </figcaption>
 <div aria-describedby="tbl-examples-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <style type="text/css">
 </style>
 
-<table id="T_386a8" class="cell caption-top table table-sm table-striped small">
+<table id="T_ec6e4" class="cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th id="T_386a8_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Exemple i</th>
-<th id="T_386a8_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Surface (m²)</th>
-<th id="T_386a8_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Prix (€)</th>
+<th id="T_ec6e4_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Exemple i</th>
+<th id="T_ec6e4_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Surface (m²)</th>
+<th id="T_ec6e4_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Prix (€)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_386a8_row0_col0" class="data row0 col0">1</td>
-<td id="T_386a8_row0_col1" class="data row0 col1">93</td>
-<td id="T_386a8_row0_col2" class="data row0 col2">394 000</td>
+<td id="T_ec6e4_row0_col0" class="data row0 col0">1</td>
+<td id="T_ec6e4_row0_col1" class="data row0 col1">93</td>
+<td id="T_ec6e4_row0_col2" class="data row0 col2">394 000</td>
 </tr>
 <tr class="even">
-<td id="T_386a8_row1_col0" class="data row1 col0">2</td>
-<td id="T_386a8_row1_col1" class="data row1 col1">61</td>
-<td id="T_386a8_row1_col2" class="data row1 col2">305 000</td>
+<td id="T_ec6e4_row1_col0" class="data row1 col0">2</td>
+<td id="T_ec6e4_row1_col1" class="data row1 col1">61</td>
+<td id="T_ec6e4_row1_col2" class="data row1 col2">305 000</td>
 </tr>
 <tr class="odd">
-<td id="T_386a8_row2_col0" class="data row2 col0">3</td>
-<td id="T_386a8_row2_col1" class="data row2 col1">101</td>
-<td id="T_386a8_row2_col2" class="data row2 col2">394 000</td>
+<td id="T_ec6e4_row2_col0" class="data row2 col0">3</td>
+<td id="T_ec6e4_row2_col1" class="data row2 col1">101</td>
+<td id="T_ec6e4_row2_col2" class="data row2 col2">394 000</td>
 </tr>
 <tr class="even">
-<td id="T_386a8_row3_col0" class="data row3 col0">4</td>
-<td id="T_386a8_row3_col1" class="data row3 col1">86</td>
-<td id="T_386a8_row3_col2" class="data row3 col2">384 000</td>
+<td id="T_ec6e4_row3_col0" class="data row3 col0">4</td>
+<td id="T_ec6e4_row3_col1" class="data row3 col1">86</td>
+<td id="T_ec6e4_row3_col2" class="data row3 col2">384 000</td>
 </tr>
 <tr class="odd">
-<td id="T_386a8_row4_col0" class="data row4 col0">5</td>
-<td id="T_386a8_row4_col1" class="data row4 col1">27</td>
-<td id="T_386a8_row4_col2" class="data row4 col2">126 000</td>
+<td id="T_ec6e4_row4_col0" class="data row4 col0">5</td>
+<td id="T_ec6e4_row4_col1" class="data row4 col1">27</td>
+<td id="T_ec6e4_row4_col2" class="data row4 col2">126 000</td>
 </tr>
 </tbody>
 </table>
@@ -688,11 +710,12 @@ Figure&nbsp;2: Une droite tracée au milieu du nuage. Elle passe près des point
 <h1 data-number="3"><span class="header-section-number">3</span> Fonction de perte (<strong>loss function</strong>)</h1>
 <p>Dans tous les cas, il nous faut un moyen de juger si nos paramètres sont bons. Pour cela, nous allons calculer une <strong>perte</strong> (<strong>loss</strong>) pour chaque exemple i.</p>
 <p><span class="math display">\[L^{(i)} = L\left(\hat{y}^{(i)},\ y^{(i)}\right)\]</span></p>
-<div class="text-center">
-<p><span class="math inline">\(\hat{y}^{(i)} = f\left(x^{(i)}\right)\)</span> est la prédiction du modèle pour l’exemple <span class="math inline">\(i\)</span>.</p>
-<p><span class="math inline">\(L\)</span> est la fonction de perte.</p>
-</div>
-<p>La perte est une valeur décimale <strong>positive</strong>. Elle exprime la différence entre ce que le modèle prédit et ce qu’il aurait dû prévoir. Plus elle est proche de <strong>0</strong> et mieux c’est.</p>
+<ul>
+<li><span class="math inline">\(\hat{y}^{(i)} = f\left(x^{(i)}\right)\)</span> est la prédiction du modèle pour l’exemple <span class="math inline">\(i\)</span>.</li>
+<li><span class="math inline">\(\hat{y}{(i)}\)</span> est la cible (ou étiquette) pour l’exemple <span class="math inline">\(i\)</span>.</li>
+<li><span class="math inline">\(L\)</span> est la fonction de perte.</li>
+</ul>
+<p>La perte mesure l’écart entre ce que le modèle prédit et la cible (la valeur qu’il aurait dû répondre). La perte est une valeur décimale <strong>positive</strong>. Le but de l’entraînement est d’amener cette perte aussi <strong>proche de 0</strong> que possible.</p>
 <p>Il existe différentes fonctions de perte, adaptées à chaque famille de modèle. Pour notre modèle en transformation linéaire, nous utiliserons la formule :</p>
 <p><span class="math display">\[L\left(\hat{y}^{(i)},\ y^{(i)}\right) = \left(\hat{y}^{(i)} - y^{(i)}\right)^2\]</span></p>
 <section id="fonction-de-coût-cost-function" class="level2" data-number="3.1">
@@ -710,13 +733,15 @@ J(w, b\,;\, X, Y) &amp;= \frac{1}{N} \sum_{i=1}^{N} L\left(\hat{y}^{(i)},\ y^{(i
                   &amp;= \frac{1}{N} \sum_{i=1}^{N} \left(\hat{y}^{(i)} - y^{(i)}\right)^2
 \end{aligned}
 \]</span></p>
+<p>La formule ci-dessus s’appelle l’erreur quadratique moyenne <strong>(mean square error - MSE)</strong>.</p>
 <div class="callout callout-style-simple callout-important">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>On note <span class="math inline">\(\theta\)</span> : ensemble des paramètres du modèle (dans notre cas, <span class="math inline">\(w\)</span> et <span class="math inline">\(b\)</span>).</p>
+<p>La notation suivante généralise le principe à toutes les familles de modèles :</p>
+<p><span class="math inline">\(\theta\)</span> : ensemble des paramètres du modèle (dans notre cas, <span class="math inline">\(w\)</span> et <span class="math inline">\(b\)</span>).</p>
 <p>Les meilleurs <strong>paramètres</strong> <span class="math inline">\(\theta\)</span> sont ceux pour lesquels le coût <span class="math inline">\(J(\theta)\)</span> est le plus proche de <strong>0</strong>.</p>
 </div>
 </div>
@@ -743,43 +768,44 @@ Note
 </section>
 <section id="lire-le-coût-la-rmse" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="lire-le-coût-la-rmse"><span class="header-section-number">3.2</span> Lire le coût : la RMSE</h2>
-<p>Notre coût <span class="math inline">\(J\)</span> est une moyenne de <strong>carrés</strong> d’euros : il s’exprime donc en €². C’est une unité que personne ne sait interpréter. Sur les 60 ventes ci-dessus, la meilleure droite donne un coût de <span class="math inline">\(4{,}9 \times 10^8\)</span> €² — ce nombre ne nous dit rien sur la qualité du modèle.</p>
+<p>Notre coût <span class="math inline">\(J\)</span> est une moyenne de <strong>carrés</strong> d’euros : il s’exprime donc en €². C’est une unité difficile à interpréter.</p>
 <p>Il suffit d’en prendre la <strong>racine carrée</strong> pour revenir en euros :</p>
 <p><span class="math display">\[\mathrm{RMSE} = \sqrt{J} = \sqrt{\frac{1}{N} \sum_{i=1}^{N} \left(\hat{y}^{(i)} - y^{(i)}\right)^2}\]</span></p>
+<p>RMSE = Root Mean Square Error, donc la racine carrée de la MSE.</p>
 <div class="cell" data-execution_count="5">
 <div id="tbl-rmse" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="5">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-rmse-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2: Le même coût, lu de deux façons. La colonne du milieu est illisible, celle de droite se compare à un prix.
+Table&nbsp;2: Le même coût, lu de deux façons. La coût MSE est illisible, la RMSE se compare à un prix.
 </figcaption>
 <div aria-describedby="tbl-rmse-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <style type="text/css">
 </style>
 
-<table id="T_ce167" class="cell caption-top table table-sm table-striped small">
+<table id="T_1fefb" class="cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th id="T_ce167_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Modèle</th>
-<th id="T_ce167_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Coût J (€²)</th>
-<th id="T_ce167_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">RMSE (€)</th>
+<th id="T_1fefb_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Modèle</th>
+<th id="T_1fefb_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Coût J MSE (€²)</th>
+<th id="T_1fefb_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">RMSE (€)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_ce167_row0_col0" class="data row0 col0">droite ajustée (w = 4 509, b = 162)</td>
-<td id="T_ce167_row0_col1" class="data row0 col1">4.94e+08</td>
-<td id="T_ce167_row0_col2" class="data row0 col2">22 222</td>
+<td id="T_1fefb_row0_col0" class="data row0 col0">droite ajustée (w = 4 509, b = 162)</td>
+<td id="T_1fefb_row0_col1" class="data row0 col1">4.94e+08</td>
+<td id="T_1fefb_row0_col2" class="data row0 col2">22 222</td>
 </tr>
 <tr class="even">
-<td id="T_ce167_row1_col0" class="data row1 col0">trop plat (w = 3 000, b = 0)</td>
-<td id="T_ce167_row1_col1" class="data row1 col1">1.29e+10</td>
-<td id="T_ce167_row1_col2" class="data row1 col2">113 512</td>
+<td id="T_1fefb_row1_col0" class="data row1 col0">trop plat (w = 3 000, b = 0)</td>
+<td id="T_1fefb_row1_col1" class="data row1 col1">1.29e+10</td>
+<td id="T_1fefb_row1_col2" class="data row1 col2">113 512</td>
 </tr>
 <tr class="odd">
-<td id="T_ce167_row2_col0" class="data row2 col0">trop pentu (w = 6 000, b = 0)</td>
-<td id="T_ce167_row2_col1" class="data row2 col1">1.25e+10</td>
-<td id="T_ce167_row2_col2" class="data row2 col2">111 941</td>
+<td id="T_1fefb_row2_col0" class="data row2 col0">trop pentu (w = 6 000, b = 0)</td>
+<td id="T_1fefb_row2_col1" class="data row2 col1">1.25e+10</td>
+<td id="T_1fefb_row2_col2" class="data row2 col2">111 941</td>
 </tr>
 </tbody>
 </table>
@@ -795,15 +821,14 @@ Table&nbsp;2: Le même coût, lu de deux façons. La colonne du milieu est illis
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Vocabulaire et précautions
+<span class="screen-reader-only">Note</span>Notes
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
-<li>Notre fonction de coût <span class="math inline">\(J\)</span> porte un nom : l’<strong>erreur quadratique moyenne</strong> (<em>mean squared error</em>, <strong>MSE</strong>). Sa racine est la <strong>RMSE</strong> (<em>root mean squared error</em>).</li>
-<li>La RMSE sert à <strong>lire</strong> le coût, pas à l’optimiser. Comme la racine carrée est croissante, minimiser <span class="math inline">\(J\)</span> ou minimiser la RMSE revient exactement au même — mais <span class="math inline">\(J\)</span> se dérive bien plus simplement, et c’est donc <span class="math inline">\(J\)</span> que l’algorithme de la descente de gradient va chercher à minimiser.</li>
+<li>La RMSE sert à <strong>lire</strong> le coût, pas à l’optimiser. Comme la racine carrée est croissante, minimiser <span class="math inline">\(J\)</span> ou minimiser la RMSE revient exactement au même. Cependant, <span class="math inline">\(J\)</span> se dérive bien plus simplement, et c’est donc <span class="math inline">\(J\)</span> que l’algorithme de la descente de gradient va chercher à minimiser.</li>
 <li>La RMSE n’est pas la moyenne des erreurs : elle est toujours plus grande, parce que le carré donne plus de poids aux grosses erreurs. Ici, l’erreur moyenne en valeur absolue n’est que de 17 600 €.</li>
 </ul>
 </div>
@@ -813,132 +838,7 @@ Table&nbsp;2: Le même coût, lu de deux façons. La colonne du milieu est illis
 </section>
 <section id="tp-régression-linéaire" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> TP régression linéaire</h1>
-<section id="initiation-à-jupyter-dans-pycharm" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="initiation-à-jupyter-dans-pycharm"><span class="header-section-number">4.1</span> Initiation à Jupyter dans PyCharm</h2>
-<p>Un notebook Jupyter est un document interactif qui combine code, texte et résultats dans le navigateur. On écrit du code par petits blocs, on l’exécute, et le résultat s’affiche juste en dessous.</p>
-<p>Bien qu’il soit possible d’utiliser un navigateur pour travailler avec Jupyter, nous utiliserons PyCharm car il offre des fonctionnalités plus avancées :</p>
-<ul>
-<li>souligne les erreurs potentielles en rouge</li>
-<li>autocomplétion du code avec <strong>ctrl-space</strong></li>
-<li>navigation avec <strong>ctrl-click</strong></li>
-<li>documentation avec <strong>ctrl-Q</strong></li>
-<li>inspection des variables</li>
-</ul>
-<section id="créer-un-notebook" class="level3" data-number="4.1.1">
-<h3 data-number="4.1.1" class="anchored" data-anchor-id="créer-un-notebook"><span class="header-section-number">4.1.1</span> Créer un notebook</h3>
-<ol type="1">
-<li>Lancez PyCharm</li>
-<li>Créer un nouveau projet Python.
-<ol type="a">
-<li>Location : choisissez un répertoire, en nommant le projet <code>tp0_jupyter</code></li>
-<li>Interpreter type: venv</li>
-</ol></li>
-<li>File -&gt; New File or Directory -&gt; Jupyter Notebook. Nommez le “initiation”</li>
-</ol>
-</section>
-<section id="ajouter-du-code" class="level3" data-number="4.1.2">
-<h3 data-number="4.1.2" class="anchored" data-anchor-id="ajouter-du-code"><span class="header-section-number">4.1.2</span> Ajouter du code</h3>
-<ol type="1">
-<li>La première cellule est de type code. Collez le code suivant et cliquez sur le bouton vert à gauche :</li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>greeting<span class="op">=</span><span class="st">'Bonjour'</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(greeting)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Le résultat s’affiche sous la cellule, et la fenêtre “jupyter variables” affiche le contenu de <code>greeting</code>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/jupyter_initiation.png" class="img-fluid figure-img"></p>
-<figcaption>Cellule jupyter</figcaption>
-</figure>
-</div>
-<p>Le point fort de Jupyter : les variables restent en mémoire d’une cellule à l’autre, dans l’ordre où vous les exécutez. Une valeur calculée dans une cellule est réutilisable dans les suivantes.</p>
-<ol start="2" type="1">
-<li>Ajoutez une nouvelle cellule (bouton +), et collez le code qui suit. Ensuite, exécutez le avec <strong>ctrl-enter</strong></li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>greeting <span class="op">+=</span> <span class="st">' depuis Jupyter'</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(greeting)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Une cellule utilise les variables déjà exécutées, pas leur position dans le notebook. Si vous obtenez une erreur NameError, vérifiez que vous avez bien exécuté les cellules dans le bon ordre, ou redémarrez le kernel.</p>
-</div>
-</div>
-<p>On peut exécuter une cellule plusieurs fois, mais attention ! Si votre cellule modifie des variables, l’exécuter plusieurs fois peut créer des problèmes.</p>
-</section>
-<section id="installer-une-bibliothèque" class="level3" data-number="4.1.3">
-<h3 data-number="4.1.3" class="anchored" data-anchor-id="installer-une-bibliothèque"><span class="header-section-number">4.1.3</span> Installer une bibliothèque</h3>
-<p>Nous aurons besoin de <code>matplotlib</code> pour tracer des graphiques. Pour l’installer :</p>
-<ol type="1">
-<li>Créez un nouveau fichier <code>requirements.txt</code></li>
-<li>Collez ce contenu dans le fichier :</li>
-</ol>
-<pre><code>matplotlib==0.4.3</code></pre>
-<ol start="3" type="1">
-<li>Cliquez sur le bouton en haut à gauche de l’éditeur “pip update from requirements.txt”</li>
-</ol>
-</section>
-<section id="créer-un-graphique" class="level3" data-number="4.1.4">
-<h3 data-number="4.1.4" class="anchored" data-anchor-id="créer-un-graphique"><span class="header-section-number">4.1.4</span> Créer un graphique</h3>
-<p>Créez une nouvelle cellule pour tracer un graphique :</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>]</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y, marker<span class="op">=</span><span class="st">"o"</span>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Mon premier graphique"</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Après exécution, le graphique s’affiche sous la cellule.</p>
-</section>
-<section id="ajouter-du-texte" class="level3" data-number="4.1.5">
-<h3 data-number="4.1.5" class="anchored" data-anchor-id="ajouter-du-texte"><span class="header-section-number">4.1.5</span> Ajouter du texte</h3>
-<p>Créez une cellule, puis changez son type de code à <strong>markdown</strong>. Collez le contenu suivant :</p>
-<pre><code># Mon analyse
-
-Ceci est une **cellule Markdown** pour expliquer mon travail.
-
-## Objectifs
-- Apprendre Jupyter
-- Créer des graphiques</code></pre>
-<p>Après exécution, jupyter affiche le contenu formatté.</p>
-</section>
-<section id="comprendre-le-kernel" class="level3" data-number="4.1.6">
-<h3 data-number="4.1.6" class="anchored" data-anchor-id="comprendre-le-kernel"><span class="header-section-number">4.1.6</span> Comprendre le kernel</h3>
-<p>Le kernel est le processus qui exécute votre code Python en arrière-plan. Quand une cellule reste bloquée sur [*] ou que l’interface ne répond plus, le kernel est occupé ou planté. Le menu en haut permet de le reprendre en main :</p>
-<ul>
-<li>Interrupt : arrêter l’exécution en cours.</li>
-<li>Restart : redémarrer le kernel (les variables sont perdues).</li>
-<li><strong>Restart Kernel &amp; Run All</strong> : redémarrage complet et exécute toutes les cellules une par une. A utiliser pour vérifier que votre notebook s’exécute sans erreurs.</li>
-<li>Clear output: efface les sorties, utile si on veut committer le notebook sans les résultats.</li>
-</ul>
-<p>En cas de doute après beaucoup de modifications, redémarrez le kernel et réexécutez les cellules dans l’ordre pour repartir sur une base saine.</p>
-</section>
-<section id="à-retenir" class="level3" data-number="4.1.7">
-<h3 data-number="4.1.7" class="anchored" data-anchor-id="à-retenir"><span class="header-section-number">4.1.7</span> À retenir</h3>
-<ul>
-<li>Un notebook est une suite de cellules de code et de texte, exécutées une par une.</li>
-<li>Les variables persistent entre cellules selon l’ordre d’exécution. En cas d’erreur, redémarrez le kernel.</li>
-<li>Le fichier <code>.ipynb</code> stocke code, texte et résultats au format JSON, portable.</li>
-</ul>
-</section>
-</section>
-<section id="démarrage-du-tp" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="démarrage-du-tp"><span class="header-section-number">4.2</span> Démarrage du TP</h2>
-<ol type="1">
-<li>Cliquez sur le lien GitHub classroom pour créer votre repository GitHub</li>
-<li>Lancez PyCharm</li>
-<li>File -&gt; Project from version control…</li>
-<li>Collez l’URL de votre repository GitHub et choisissez un répertoire de destination.</li>
-<li>Ouvrez le fichier <code>tp1a_linear_regression.ipynb</code></li>
-<li>Exécutez les cellules une par une, en complétant le code qui suit les <code># TODO ...</code></li>
-</ol>
-</section>
+<p>Voir <a href="./tp1.html">TP1</a>.</p>
 </section>
 <section id="descente-de-gradient-gradient-descent" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Descente de gradient (gradient descent)</h1>
@@ -973,7 +873,7 @@ Ceci est une **cellule Markdown** pour expliquer mon travail.
 </figure>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -982,7 +882,7 @@ Ceci est une **cellule Markdown** pour expliquer mon travail.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Si le pas est trop grand, vous risquez de rater le point le plus bas. Vous risquez également de <strong>diverger</strong>, c’est-à-dire de monter de plus en plus, au lieu de descendre. Imaginez un géant qui passe d’une montagne à l’autre à chaque pas.</p>
 <p>Si le pas est trop petit, cela va prendre beaucoup de temps.</p>
@@ -1064,7 +964,7 @@ Figure&nbsp;3: Descente de gradient sur le seul paramètre <span class="math inl
 <li>À chaque epoch la pente s’aplatit, donc les pas raccourcissent. L’algorithme ralentit tout seul en approchant du minimum.</li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1073,7 +973,7 @@ Figure&nbsp;3: Descente de gradient sur le seul paramètre <span class="math inl
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>La courbe est une <strong>parabole</strong> : elle n’a qu’un seul creux. C’est une propriété de notre fonction de coût appliquée à une transformation linéaire. Cela fonctionne aussi avec 2 paramètres <span class="math inline">\(w\)</span> et <span class="math inline">\(b\)</span>.</p>
 <p>Contrairement au randonneur, notre algorithme ne risque donc pas de se retrouver piégé dans une vallée secondaire. Mais avec les réseaux de neurones le paysage sera plus accidenté.</p>
@@ -1081,7 +981,7 @@ Figure&nbsp;3: Descente de gradient sur le seul paramètre <span class="math inl
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1090,7 +990,7 @@ Figure&nbsp;3: Descente de gradient sur le seul paramètre <span class="math inl
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Pour une régression linéaire, on les obtient avec les règles de dérivation vues en terminale. Elles se calculent en trois lignes :</p>
 <p><span class="math display">\[\frac{\partial J}{\partial w} = \frac{2}{N} \sum_{i=1}^{N} \left(w x^{(i)} + b - y^{(i)}\right) x^{(i)}
@@ -1108,10 +1008,15 @@ Figure&nbsp;3: Descente de gradient sur le seul paramètre <span class="math inl
 </div>
 </div>
 </section>
+<section id="activité" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="activité"><span class="header-section-number">5.2.2</span> Activité</h3>
+<p>Voir <a href="./cours1_gradient_descent.html">Gradient Descent Visualization</a></p>
+</section>
 </section>
 </section>
 <section id="tp-descente-de-gradient" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> TP descente de gradient</h1>
+<p>Voir <a href="./tp1.html">TP1</a>.</p>
 <ol type="1">
 <li>Dans le projet tp1_ml, ouvrez le notebook <code>tp1b_gradient_descent.ipynb</code></li>
 <li>Suivez les instructions</li>
