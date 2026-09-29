@@ -8,7 +8,7 @@
 
 <meta name="author" content="Mikaël Valot">
 
-<title>CM2 - Modèle à plusieurs neurones – 2627 XTI306 Introduction à l’ingénierie IA</title>
+<title>CM3 - Le mécanisme d’attention – 2627 XTI306 Introduction à l'ingénierie IA</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -110,7 +110,7 @@ window.Quarto = {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-sidebar floating quarto-light">
+<body class="nav-sidebar floating collapsed-by-default quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -119,7 +119,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cours1_gradient_descent.html">Activités</a></li><li class="breadcrumb-item"><a href="./multi-neuron.html">CM2 - Modèle à plusieurs neurones</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cours1_gradient_descent.html">Activités</a></li><li class="breadcrumb-item"><a href="./cours3_attention.html">CM3 - Le mécanisme d’attention</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Recherche" onclick="window.quartoOpenSearch();">
@@ -203,7 +203,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./multi-neuron.html" class="sidebar-item-text sidebar-link active">
+  <a href="./multi-neuron.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">CM2 - Modèle à plusieurs neurones</span></a>
   </div>
 </li>
@@ -215,7 +215,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./cours3_attention.html" class="sidebar-item-text sidebar-link">
+  <a href="./cours3_attention.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">CM3 - Le mécanisme d’attention</span></a>
   </div>
 </li>
@@ -248,17 +248,20 @@ window.Quarto = {
     <h2 id="toc-title">Sur cette page</h2>
    
   <ul class="collapse">
-  <li><a href="#le-modèle" id="toc-le-modèle" class="nav-link active" data-scroll-target="#le-modèle"><span class="header-section-number">1</span> Le modèle</a></li>
-  <li><a href="#à-tester-en-cours" id="toc-à-tester-en-cours" class="nav-link" data-scroll-target="#à-tester-en-cours"><span class="header-section-number">2</span> À tester en cours</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#lire-la-matrice-dattention" id="toc-lire-la-matrice-dattention" class="nav-link" data-scroll-target="#lire-la-matrice-dattention"><span class="header-section-number">2</span> Lire la matrice d’attention</a></li>
+  <li><a href="#loutil" id="toc-loutil" class="nav-link" data-scroll-target="#loutil"><span class="header-section-number">3</span> L’outil</a></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions"><span class="header-section-number">4</span> Questions</a></li>
+  <li><a href="#simplifications" id="toc-simplifications" class="nav-link" data-scroll-target="#simplifications"><span class="header-section-number">5</span> Simplifications</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cours1_gradient_descent.html">Activités</a></li><li class="breadcrumb-item"><a href="./multi-neuron.html">CM2 - Modèle à plusieurs neurones</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cours1_gradient_descent.html">Activités</a></li><li class="breadcrumb-item"><a href="./cours3_attention.html">CM3 - Le mécanisme d’attention</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">CM2 - Modèle à plusieurs neurones</h1>
+<h1 class="title">CM3 - Le mécanisme d’attention</h1>
 </div>
 
 
@@ -281,538 +284,460 @@ window.Quarto = {
 </header>
 
 
-<section id="le-modèle" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="le-modèle"><span class="header-section-number">1</span> Le modèle</h2>
-<p>Une <strong>couche cachée</strong> (<strong>hidden layer</strong>) de <span class="math inline">\(M\)</span> neurones reçoit la même entrée <span class="math inline">\(x\)</span>, chaque neurone ayant ses propres paramètres. Un neurone de <strong>sortie</strong> (<strong>output layer</strong>) combine ensuite leurs résultats :</p>
+<section id="introduction" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
+<p>Dans un vrai LLM, les matrices <span class="math inline">\(\mathbf{W}_Q\)</span>, <span class="math inline">\(\mathbf{W}_K\)</span> et <span class="math inline">\(\mathbf{W}_V\)</span> de chaque head sont <strong>apprises</strong> : personne ne décide à l’avance quelle relation une head va repérer. Mais afin d’illustrer le mécanisme, nous avons attribué à chaque head un rôle particulier. Dans un véritable LLM, on pourrait retrouver des rôles semblables, mais de manière moins nette.</p>
+<p>L’objectif est de savoir <strong>lire</strong> une matrice d’attention.</p>
+<p>Nous allons observer comment nos heads vont traiter la phrase suivante :</p>
+<blockquote class="blockquote">
+<p><strong>le chat gris boit du lait froid</strong></p>
+</blockquote>
+</section>
+<section id="lire-la-matrice-dattention" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="lire-la-matrice-dattention"><span class="header-section-number">2</span> Lire la matrice d’attention</h2>
+<p>La phrase donne <span class="math inline">\(T = 7\)</span> tokens, donc une matrice d’attention <span class="math inline">\(\mathbf{A}\)</span> de dimensions <span class="math inline">\(7 \times 7\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><span class="math display">\[
-\begin{aligned}
-h_i &amp;= \sigma(w_i x + b_i) \qquad (i = 1 \ldots M)\\
-f(x) &amp;= v_1 h_1 + \ldots + v_M h_M + c
-\end{aligned}
+\mathbf{A} = \mathrm{softmax}_{\text{colonne}}\!\left(\frac{\mathbf{K}^\top \mathbf{Q}}{\sqrt{d_h}} + \mathbf{M}\right)
 \]</span></p>
-<p>Le modèle possède <span class="math inline">\(3M + 1\)</span> paramètres.</p>
-<p>Chaque neurone caché fabrique un “pli” : son poids <span class="math inline">\(w_i\)</span> règle la raideur du pli, son biais <span class="math inline">\(b_i\)</span> sa position. Le neurone de sortie, lui, décide de la hauteur de chaque pli avec ses poids <span class="math inline">\(v_i\)</span> (et de son sens, si <span class="math inline">\(v_i\)</span> est négatif), puis décale le tout de <span class="math inline">\(c\)</span> : <span class="math inline">\(v_1, \ldots, v_M\)</span> et <span class="math inline">\(c\)</span> sont donc les paramètres <strong>du neurone de sortie</strong>, pas des neurones cachés.</p>
-<p>Les courbes en pointillés de couleur montrent la contribution <span class="math inline">\(v_i h_i\)</span> de chaque neurone caché ; la courbe pleine est le modèle <span class="math inline">\(f\)</span>. Le <strong>graphe de calcul</strong> sous le graphique suit les mêmes couleurs et réagit aux curseurs : plus un poids est grand, plus le trait est épais.</p>
-<div class="multi-neuron" id="multi-neuron">
-  <svg viewbox="0 0 680 340" class="mn-plot" role="img" aria-label="Courbe de sortie d'un réseau à une couche cachée, tracée sur les points d'entraînement.">
-    <line x1="60" y1="100" x2="620" y2="100" class="mn-grid"></line>
-    <line x1="60" y1="220" x2="620" y2="220" class="mn-grid"></line>
-    <line x1="200" y1="40" x2="200" y2="280" class="mn-grid"></line>
-    <line x1="480" y1="40" x2="480" y2="280" class="mn-grid"></line>
-    <line x1="60" y1="160" x2="620" y2="160" class="mn-axis"></line>
-    <line x1="340" y1="40" x2="340" y2="280" class="mn-axis"></line>
-    <rect x="60" y="40" width="560" height="240" class="mn-frame"></rect>
-    <clippath id="mn-clip"><rect x="60" y="40" width="560" height="240"></rect></clippath>
-    <g id="mn-layer" clip-path="url(#mn-clip)"></g>
-    <text x="52" y="44" class="mn-tick mn-end">2</text>
-    <text x="52" y="104" class="mn-tick mn-end">1</text>
-    <text x="52" y="164" class="mn-tick mn-end">0</text>
-    <text x="52" y="224" class="mn-tick mn-end">-1</text>
-    <text x="52" y="284" class="mn-tick mn-end">-2</text>
-    <text x="60" y="298" class="mn-tick mn-mid">-6</text>
-    <text x="200" y="298" class="mn-tick mn-mid">-3</text>
-    <text x="340" y="298" class="mn-tick mn-mid">0</text>
-    <text x="480" y="298" class="mn-tick mn-mid">3</text>
-    <text x="620" y="298" class="mn-tick mn-mid">6</text>
-    <line x1="150" y1="320" x2="176" y2="320" class="mn-key-dash"></line>
-    <text x="184" y="324" class="mn-tick">contribution v·h</text>
-    <line x1="300" y1="320" x2="326" y2="320" class="mn-key-solid"></line>
-    <text x="334" y="324" class="mn-tick">prédiction</text>
-    <circle cx="424" cy="320" r="4" class="mn-key-dot"></circle>
-    <text x="438" y="324" class="mn-tick">données d'entraînement</text>
+<ul>
+<li>une <strong>colonne</strong> par token qui cherche : c’est sa <strong>query</strong></li>
+<li>une <strong>ligne</strong> par token regardé : c’est sa <strong>key</strong></li>
+<li><span class="math inline">\(\mathbf{M}\)</span> est le <strong>masque causal</strong> : il met <span class="math inline">\(-\infty\)</span> dans les cases où la key est <strong>après</strong> la query</li>
+<li>chaque <strong>colonne</strong> somme à <strong>1</strong> : le softmax est appliqué colonne par colonne</li>
+</ul>
+</div>
+</div>
+<p>On garde donc la convention du cours : <strong>un token de la phrase par colonne</strong>, comme pour <span class="math inline">\(\mathbf{X}\)</span> et <span class="math inline">\(\mathbf{E}\)</span>.</p>
+<p>La case en ligne <span class="math inline">\(i\)</span>, colonne <span class="math inline">\(j\)</span> répond à la question :</p>
+<blockquote class="blockquote">
+<p><em>Quelle part de son attention le token <span class="math inline">\(j\)</span> accorde-t-il au token <span class="math inline">\(i\)</span> ?</em> Plus le point est <strong>foncé</strong>, plus le poids est proche de 1.</p>
+</blockquote>
+</section>
+<section id="loutil" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="loutil"><span class="header-section-number">3</span> L’outil</h2>
+<p>Cliquez sur un onglet pour changer de head, et sur une colonne pour voir le détail.</p>
+<p>Boutons :</p>
+<ul>
+<li><strong>poids A / scores</strong> : les scores sont les valeurs <em>avant</em> le softmax, celles qu’un vrai modèle calcule avec <span class="math inline">\(\mathbf{K}^\top \mathbf{Q} / \sqrt{d_h}\)</span>. Passez de l’un à l’autre pour voir ce que le softmax fabrique : des scores quelconques deviennent des poids positifs dont la colonne somme à 1.</li>
+<li><strong>masque causal</strong> : le désactiver revient à laisser chaque token voir toute la phrase, comme dans un <strong>encodeur</strong> (BERT). Un LLM décodeur, lui, garde toujours le masque.</li>
+</ul>
+<div class="attn" id="attn">
+  <div class="attn-tabs" id="attn-tabs" role="tablist"></div>
+  <p class="attn-role" id="attn-role"></p>
+
+  <div class="attn-controls">
+    <span class="attn-ctl-label">Affichage</span>
+    <button class="attn-btn is-on" data-view="weights">poids A</button>
+    <button class="attn-btn" data-view="scores">scores</button>
+    <button class="attn-btn is-on attn-mask" id="attn-mask">masque causal</button>
+  </div>
+
+  <svg viewbox="0 0 480 462" class="attn-grid" role="img" aria-label="Matrice d'attention : une colonne par token qui cherche, une ligne par token regardé.">
+    <g id="attn-layer"></g>
   </svg>
 
-  <svg viewbox="0 0 680 300" class="mn-graph" role="img" aria-label="Graphe de calcul du réseau : l'épaisseur des traits reflète la valeur des poids.">
-    <g id="mn-graph-layer"></g>
-  </svg>
-  <p class="mn-legend">épaisseur du trait ∝ |w| et |v| · taille du cercle ∝ |b| et |c| · pointillés = valeur négative</p>
-
-  <div class="mn-row">
-    <span class="mn-label">Neurones cachés</span>
-    <button class="mn-btn" data-size="1">1</button>
-    <button class="mn-btn" data-size="2">2</button>
-    <button class="mn-btn is-on" data-size="3">3</button>
-    <button class="mn-btn" data-size="4">4</button>
-    <button class="mn-btn" data-size="6">6</button>
-    <span class="mn-params" id="mn-params"></span>
-  </div>
-
-  <div class="mn-row">
-    <span class="mn-label">Activation</span>
-    <button class="mn-btn is-on" data-act="tanh">tanh</button>
-    <button class="mn-btn" data-act="relu">ReLU</button>
-    <button class="mn-btn" data-act="sigmoid">sigmoïde</button>
-  </div>
-
-  <div class="mn-row">
-    <span class="mn-label">Données</span>
-    <button class="mn-btn" data-data="step">seuil</button>
-    <button class="mn-btn is-on" data-data="bump">bosse</button>
-    <button class="mn-btn" data-data="wave">vague</button>
-    <button class="mn-btn" data-data="stair">marches</button>
-  </div>
-
-  <div class="mn-row">
-    <span class="mn-label"></span>
-    <button class="mn-btn" id="mn-random">Paramètres au hasard</button>
-    <button class="mn-btn mn-fit" id="mn-descend">Descente de gradient</button>
-  </div>
-
-  <div class="mn-sliders" id="mn-sliders"></div>
-
-  <p class="mn-readout"><span id="mn-note"></span><span class="mn-mse">MSE <strong id="mn-mse">0.000</strong></span></p>
+  <div class="attn-detail" id="attn-detail"></div>
 </div>
 
 <style>
-.multi-neuron {
-  --mn-ink: #2c2c2a;
-  --mn-soft: #6d6c66;
-  --mn-rule: #d8d6cd;
-  --mn-curve: #5b52c4;
-  --mn-point: #12805f;
-  --mn-resid: #c4562c;
-  --mn-chip: #f3f1ec;
-  --mn-chip-on: #e7e3f7;
-  --mn-h1: #c4562c;
-  --mn-h2: #2f6fb0;
-  --mn-h3: #12805f;
-  --mn-h4: #9b5bb8;
-  --mn-h5: #b08d1c;
-  --mn-h6: #3f8f8a;
+.attn {
+  --attn-ink: #2c2c2a;
+  --attn-soft: #6d6c66;
+  --attn-rule: #d8d6cd;
+  --attn-bg: #ffffff;
+  --attn-dot: #5b52c4;
+  --attn-mask-fill: #eceae4;
+  --attn-chip: #f3f1ec;
+  --attn-chip-on: #e7e3f7;
+  --attn-sel: #c4562c;
   margin: 1.5rem 0 2rem;
   max-width: 44rem;
-  color: var(--mn-ink);
+  color: var(--attn-ink);
 }
-[data-bs-theme="dark"] .multi-neuron {
-  --mn-ink: #ddddd7;
-  --mn-soft: #9c9a92;
-  --mn-rule: #45443f;
-  --mn-curve: #a79fee;
-  --mn-point: #52c9a2;
-  --mn-resid: #e8825a;
-  --mn-chip: #2b2a27;
-  --mn-chip-on: #3a3560;
-  --mn-h1: #e8825a;
-  --mn-h2: #6fa8e0;
-  --mn-h3: #52c9a2;
-  --mn-h4: #c393e0;
-  --mn-h5: #d9bb55;
-  --mn-h6: #6fc0ba;
+[data-bs-theme="dark"] .attn {
+  --attn-ink: #ddddd7;
+  --attn-soft: #9c9a92;
+  --attn-rule: #45443f;
+  --attn-bg: #1f1e1c;
+  --attn-dot: #a79fee;
+  --attn-mask-fill: #2b2a27;
+  --attn-chip: #2b2a27;
+  --attn-chip-on: #3a3560;
+  --attn-sel: #e8825a;
 }
-.mn-plot { width: 100%; height: auto; display: block; }
-.mn-grid { stroke: var(--mn-rule); stroke-width: .5; }
-.mn-axis { stroke: var(--mn-soft); stroke-width: 1; }
-.mn-frame { fill: none; stroke: var(--mn-rule); stroke-width: .5; }
-.mn-tick { font-size: 12px; fill: var(--mn-soft); font-family: inherit; }
-.mn-end { text-anchor: end; }
-.mn-mid { text-anchor: middle; }
-.mn-key-dash { stroke: var(--mn-soft); stroke-width: 1.5; stroke-dasharray: 5 4; }
-.mn-key-solid { stroke: var(--mn-curve); stroke-width: 2.5; }
-.mn-key-dot { fill: var(--mn-point); }
-.mn-graph { width: 100%; height: auto; display: block; margin-top: 1.2rem; }
-.mn-gtext { font-size: 10px; fill: var(--mn-soft); text-anchor: middle; font-family: inherit; }
-.mn-nlabel { font-size: 13px; fill: var(--mn-ink); text-anchor: middle; font-family: inherit; }
-.mn-legend { font-size: .78rem; color: var(--mn-soft); text-align: center; margin: .1rem 0 0; }
-.mn-row { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; margin-top: .9rem; }
-.mn-label { font-size: .8rem; color: var(--mn-soft); width: 7.5rem; }
-.mn-btn {
+.attn-tabs { display: flex; gap: .4rem; flex-wrap: wrap; }
+.attn-controls { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; margin: .9rem 0 .4rem; }
+.attn-ctl-label { font-size: .8rem; color: var(--attn-soft); width: 5.5rem; }
+.attn-btn {
   font: inherit; font-size: .82rem; padding: .28rem .7rem;
-  border: 1px solid var(--mn-rule); background: var(--mn-chip);
-  color: var(--mn-soft); border-radius: 6px; cursor: pointer;
+  border: 1px solid var(--attn-rule); background: var(--attn-chip);
+  color: var(--attn-soft); border-radius: 6px; cursor: pointer;
 }
-.mn-btn:hover { color: var(--mn-ink); }
-.mn-btn.is-on { background: var(--mn-chip-on); border-color: var(--mn-curve); color: var(--mn-curve); }
-.mn-fit { margin-left: auto; color: var(--mn-ink); }
-.mn-params { font-size: .8rem; color: var(--mn-soft); margin-left: auto; }
-.mn-sliders { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem 1.2rem; margin-top: 1rem; }
-.mn-neuron {
-  border: 1px solid var(--mn-rule); border-left: 3px solid var(--mn-hue, var(--mn-soft));
-  border-radius: 6px; padding: .2rem .7rem .5rem; margin: 0;
+.attn-btn:hover { color: var(--attn-ink); }
+.attn-btn.is-on { background: var(--attn-chip-on); border-color: var(--attn-dot); color: var(--attn-dot); }
+.attn-tab { font-size: .85rem; padding: .35rem .8rem; }
+.attn-mask { margin-left: auto; }
+.attn-role {
+  font-size: .88rem; color: var(--attn-soft); margin: .7rem 0 0;
+  border-left: 3px solid var(--attn-dot); padding: .1rem 0 .1rem .7rem;
 }
-.mn-neuron legend { font-size: .75rem; color: var(--mn-hue, var(--mn-soft)); padding: 0 .3rem; }
-.mn-out { grid-column: 1 / -1; }
-.mn-out-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.2rem; }
-.mn-ctl { display: flex; align-items: center; gap: .5rem; font-size: .8rem; color: var(--mn-soft); }
-.mn-ctl em { font-style: italic; min-width: 1.4rem; }
-.mn-ctl input { flex: 1; min-width: 0; accent-color: var(--mn-hue, var(--mn-curve)); }
-.mn-ctl output { min-width: 2.6rem; text-align: right; font-variant-numeric: tabular-nums; }
-.mn-readout {
-  display: flex; justify-content: space-between; gap: 1rem;
-  margin: .9rem 0 0; padding-top: .7rem; border-top: 1px solid var(--mn-rule);
-  font-size: .85rem; color: var(--mn-soft); font-variant-numeric: tabular-nums;
+.attn-grid { width: 100%; height: auto; display: block; margin-top: .6rem; }
+.attn-label { font-size: 13px; fill: var(--attn-ink); font-family: inherit; }
+.attn-label.is-sel { fill: var(--attn-sel); font-weight: 600; }
+.attn-axis { font-size: 12px; fill: var(--attn-soft); font-family: inherit; text-anchor: middle; }
+.attn-val { font-size: 11px; font-family: inherit; text-anchor: middle; pointer-events: none; }
+.attn-cell { cursor: pointer; }
+.attn-detail {
+  margin-top: 1rem; padding-top: .8rem; border-top: 1px solid var(--attn-rule);
+  font-size: .88rem;
 }
-.mn-mse strong { color: var(--mn-ink); font-weight: 600; }
+.attn-detail h4 { font-size: .95rem; margin: 0 0 .6rem; font-weight: 600; }
+.attn-bars { display: grid; grid-template-columns: 4.5rem 1fr 3rem; gap: .25rem .6rem; align-items: center; }
+.attn-bars span { font-size: .82rem; color: var(--attn-soft); }
+.attn-bars .attn-key { text-align: right; color: var(--attn-ink); }
+.attn-bars .attn-num { text-align: right; font-variant-numeric: tabular-nums; }
+.attn-bar { height: .7rem; border-radius: 3px; background: var(--attn-dot); }
+.attn-mix { margin: .8rem 0 0; font-size: .85rem; color: var(--attn-soft); }
+.attn-mix code { font-size: .85rem; }
 @media (max-width: 560px) {
-  .mn-sliders, .mn-out-grid { grid-template-columns: 1fr; }
-  .mn-label { width: auto; }
+  .attn-ctl-label { width: auto; }
+  .attn-mask { margin-left: 0; }
 }
 </style>
 
 <script>
 (function () {
-  var root = document.getElementById("multi-neuron");
+  var root = document.getElementById("attn");
   if (!root) return;
 
-  // Gradient descent settings. The gradient is clipped before each update, so a
-  // single learning rate stays stable for the three activations.
-  var LR = 0.02, MAX_STEPS = 20000, STEPS_PER_FRAME = 200, CLIP = 8;
+  var TOKENS = ["le", "chat", "gris", "boit", "du", "lait", "froid"];
+  var T = TOKENS.length;
 
-  var M = 3, ACT = "tanh", DATA = "bump";
-  var W = [], B = [], V = [], C = 0;
-  var xs = [], ys = [];
-  var frame = 0;
+  // A head is described by the score it gives to a (key i, query j) pair,
+  // before the causal mask and the softmax. Real heads compute these scores
+  // from Q and K; here they are imposed by hand.
+  //
+  // `links` holds [key, query] pairs that the head is built to connect. A query
+  // with no link falls back on itself, which keeps every column readable.
+  var SELF_ALONE = 4, SELF_LINKED = 1, LINK = 5;
 
-  var slidersEl = document.getElementById("mn-sliders");
-  var layer = document.getElementById("mn-layer");
-  var graphLayer = document.getElementById("mn-graph-layer");
-  var descendBtn = document.getElementById("mn-descend");
-
-  var SUB = ["₁", "₂", "₃", "₄", "₅", "₆"];
-
-  var RANGE = { w: 4, b: 4, v: 3, c: 2 };
-
-  function activate(z) {
-    if (ACT === "tanh") return Math.tanh(z);
-    if (ACT === "relu") return Math.max(0, z);
-    return 1 / (1 + Math.exp(-z));
-  }
-
-  function activateSlope(z) {
-    if (ACT === "tanh") { var t = Math.tanh(z); return 1 - t * t; }
-    if (ACT === "relu") return z > 0 ? 1 : 0;
-    var s = 1 / (1 + Math.exp(-z));
-    return s * (1 - s);
-  }
-
-  function seeded(a) {
-    return function () {
-      a |= 0; a = a + 0x6D2B79F5 | 0;
-      var t = Math.imul(a ^ a >>> 15, 1 | a);
-      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  function linkScorer(links) {
+    var sources = {};
+    links.forEach(function (l) { sources[l[1]] = true; });
+    return function (i, j) {
+      for (var k = 0; k < links.length; k++) {
+        if (links[k][0] === i && links[k][1] === j) return LINK;
+      }
+      if (i === j) return sources[j] ? SELF_LINKED : SELF_ALONE;
+      return 0;
     };
   }
 
-  function target(x) {
-    if (DATA === "step") return Math.tanh(1.8 * (x - 1));
-    if (DATA === "bump") return 1.4 * Math.exp(-x * x / 2) - 0.2;
-    if (DATA === "wave") return 1.1 * Math.sin(0.9 * x);
-    return 0.6 * (Math.sign(x + 2.5) + Math.sign(x - 1.5));
-  }
-
-  function makeData() {
-    var rand = seeded(20240607);
-    xs = []; ys = [];
-    for (var i = 0; i < 36; i++) {
-      var x = -5.5 + 11 * i / 35;
-      xs.push(x);
-      ys.push(target(x) + (rand() - 0.5) * 0.18);
+  var HEADS = [
+    {
+      name: "1 · token précédent",
+      role: "Cette head ne regarde pas le sens : elle recopie la position. Chaque query donne presque toute son attention au token qui la précède. Une head purement positionnelle comme celle-ci existe bel et bien dans les vrais modèles.",
+      score: function (i, j) { return i === j - 1 ? LINK : (i === j ? SELF_LINKED : 0); }
+    },
+    {
+      name: "2 · adjectif → nom",
+      role: "Ici, un adjectif cherche le nom qu'il qualifie : « gris » regarde « chat », « froid » regarde « lait ». Les autres tokens n'ont rien à chercher, ils restent sur eux-mêmes.",
+      score: linkScorer([[1, 2], [2, 1], [5, 6], [6, 5]])
+    },
+    {
+      name: "3 · verbe et arguments",
+      role: "Cette head relie le verbe à ce qui l'entoure : « boit » cherche son sujet « chat », et « lait » cherche le verbe dont il est le complément.",
+      score: linkScorer([[1, 3], [3, 1], [3, 5], [5, 3]])
+    },
+    {
+      name: "4 · contexte global",
+      role: "Tous les scores sont égaux : chaque query répartit son attention uniformément sur tout ce qu'elle a le droit de voir. La head calcule donc la moyenne du contexte, et le masque causal devient parfaitement visible.",
+      score: function () { return 0; }
     }
-  }
+  ];
 
-  // Spreads the hidden neurons over the x range so that every "fold" starts out
-  // visible, instead of piling up around x = 0.
-  function randomize() {
-    W = []; B = []; V = [];
-    for (var i = 0; i < M; i++) {
-      var centre = -4 + 8 * (i + 0.5) / M;
-      var w = 0.8 + Math.random() * 1.2;
-      W.push(w);
-      B.push(-w * centre);
-      V.push((Math.random() - 0.5) * 1.6);
+  var head = 0, view = "weights", masked = true, selected = 3;
+
+  var CELL = 52, X0 = 96, Y0 = 62;
+
+  function fr(x, digits) { return x.toFixed(digits).replace(".", ","); }
+
+  function allowed(i, j) { return masked ? i <= j : true; }
+
+  // Softmax over one column: the query j shares 1.0 between the keys it may see.
+  function column(j) {
+    var raw = [], sum = 0, i;
+    for (i = 0; i < T; i++) {
+      var e = allowed(i, j) ? Math.exp(HEADS[head].score(i, j)) : 0;
+      raw.push(e);
+      sum += e;
     }
-    C = 0;
+    for (i = 0; i < T; i++) raw[i] /= sum;
+    return raw;
   }
 
-  function px(x) { return 60 + (x + 6) / 12 * 560; }
-  function py(y) { return 160 - y / 2 * 120; }
-
-  function predict(x) {
-    var y = C;
-    for (var i = 0; i < M; i++) y += V[i] * activate(W[i] * x + B[i]);
-    return y;
+  function weights() {
+    var a = [];
+    for (var j = 0; j < T; j++) a.push(column(j));
+    return a;
   }
 
-  function mse() {
-    var s = 0;
-    for (var i = 0; i < xs.length; i++) {
-      var d = predict(xs[i]) - ys[i];
-      s += d * d;
-    }
-    return s / xs.length;
-  }
-
-  function hue(i) { return "var(--mn-h" + (i + 1) + ")"; }
-
-  function curve(fn) {
-    var pts = [];
-    for (var i = 0; i <= 240; i++) {
-      var x = -6 + 12 * i / 240;
-      pts.push(px(x).toFixed(1) + "," + py(fn(x)).toFixed(1));
-    }
-    return pts.join(" ");
-  }
+  function cx(j) { return X0 + (j + 0.5) * CELL; }
+  function cy(i) { return Y0 + (i + 0.5) * CELL; }
 
   function draw() {
-    var out = "", i;
+    var A = weights(), out = "", i, j;
 
-    for (i = 0; i < xs.length; i++) {
-      out += '<line x1="' + px(xs[i]).toFixed(1) + '" y1="' + py(ys[i]).toFixed(1) +
-             '" x2="' + px(xs[i]).toFixed(1) + '" y2="' + py(predict(xs[i])).toFixed(1) +
-             '" stroke="var(--mn-resid)" stroke-width="1" opacity=".45"/>';
+    out += '<text x="' + (X0 + T * CELL / 2) + '" y="20" class="attn-axis">' +
+           'query : le token qui cherche</text>';
+    out += '<text x="22" y="' + (Y0 + T * CELL / 2) + '" class="attn-axis" ' +
+           'transform="rotate(-90 22 ' + (Y0 + T * CELL / 2) + ')">key : le token regardé</text>';
+
+    for (j = 0; j < T; j++) {
+      out += '<text x="' + cx(j) + '" y="' + (Y0 - 10) + '" class="attn-label' +
+             (j === selected ? " is-sel" : "") + '" text-anchor="middle">' + TOKENS[j] + "</text>";
+    }
+    for (i = 0; i < T; i++) {
+      out += '<text x="' + (X0 - 12) + '" y="' + (cy(i) + 4) +
+             '" class="attn-label" text-anchor="end">' + TOKENS[i] + "</text>";
     }
 
-    for (i = 0; i < M; i++) {
-      out += '<polyline points="' + curve((function (k) {
-        return function (x) { return V[k] * activate(W[k] * x + B[k]); };
-      })(i)) + '" fill="none" stroke="' + hue(i) +
-      '" stroke-width="1.5" stroke-dasharray="5 4" opacity=".8"/>';
-    }
+    for (j = 0; j < T; j++) {
+      for (i = 0; i < T; i++) {
+        var x = X0 + j * CELL, y = Y0 + i * CELL;
+        var w = A[j][i];
 
-    out += '<polyline points="' + curve(predict) +
-           '" fill="none" stroke="var(--mn-curve)" stroke-width="2.5"/>';
+        out += '<rect class="attn-cell" data-col="' + j + '" x="' + x + '" y="' + y +
+               '" width="' + CELL + '" height="' + CELL + '" fill="' +
+               (allowed(i, j) ? "transparent" : "var(--attn-mask-fill)") +
+               '" stroke="var(--attn-rule)" stroke-width=".5"><title>' +
+               'A[' + TOKENS[i] + ', ' + TOKENS[j] + '] = ' +
+               (allowed(i, j) ? fr(w, 3) : "0 (masqué)") + '</title></rect>';
 
-    for (i = 0; i < xs.length; i++) {
-      out += '<circle cx="' + px(xs[i]).toFixed(1) + '" cy="' + py(ys[i]).toFixed(1) +
-             '" r="4" fill="var(--mn-point)"/>';
-    }
-
-    layer.innerHTML = out;
-    drawGraph();
-    document.getElementById("mn-mse").textContent = mse().toFixed(3);
-    document.getElementById("mn-params").textContent = (3 * M + 1) + " paramètres";
-    refresh();
-  }
-
-  // Computation graph. Every parameter is mapped to a visual size: the weights
-  // to the stroke width of the arrows, the biases to the radius of the circles.
-  function edge(x1, y1, x2, y2, value, range, color, label, at) {
-    var width = 0.8 + 4 * Math.min(Math.abs(value), range) / range;
-    var dash = value < 0 ? ' stroke-dasharray="5 3"' : "";
-    var lx = x1 + at * (x2 - x1), ly = y1 + at * (y2 - y1) - 6;
-    return '<line x1="' + x1 + '" y1="' + y1.toFixed(1) + '" x2="' + x2 + '" y2="' + y2.toFixed(1) +
-           '" stroke="' + color + '" stroke-width="' + width.toFixed(2) + '" opacity=".85"' + dash + '/>' +
-           '<text x="' + lx.toFixed(1) + '" y="' + ly.toFixed(1) + '" class="mn-gtext">' +
-           label + " = " + value.toFixed(2) + "</text>";
-  }
-
-  function node(cx, cy, radius, label, color) {
-    return '<circle cx="' + cx + '" cy="' + cy.toFixed(1) + '" r="' + radius.toFixed(1) +
-           '" fill="var(--mn-chip)" stroke="' + color + '" stroke-width="2"/>' +
-           '<text x="' + cx + '" y="' + cy.toFixed(1) + '" dy=".35em" class="mn-nlabel">' + label + "</text>";
-  }
-
-  function drawGraph() {
-    var out = "", i, y;
-    var gap = Math.min(72, 260 / M);
-    var top = 150 - (M - 1) / 2 * gap;
-    var xIn = 90, xHid = 340, xOut = 590;
-
-    for (i = 0; i < M; i++) {
-      y = top + i * gap;
-      // Staggered along the arrow so the labels of neighbouring edges, which
-      // are only a few pixels apart when the layer is wide, do not overlap.
-      out += edge(xIn, 150, xHid, y, W[i], RANGE.w, hue(i), "w" + SUB[i], 0.36 + 0.12 * (i % 2));
-      out += edge(xHid, y, xOut, 150, V[i], RANGE.v, hue(i), "v" + SUB[i], 0.64 - 0.12 * (i % 2));
-    }
-
-    out += node(xIn, 150, 14, "x", "var(--mn-soft)");
-    for (i = 0; i < M; i++) {
-      y = top + i * gap;
-      var r = 11 + 9 * Math.abs(B[i]) / RANGE.b;
-      out += node(xHid, y, r, "h" + SUB[i], hue(i));
-      // Below 5 neurons there is room to spell the bias out under its circle.
-      if (gap > 55) {
-        out += '<text x="' + xHid + '" y="' + (y + r + 12).toFixed(1) + '" class="mn-gtext">b' +
-               SUB[i] + " = " + B[i].toFixed(2) + "</text>";
+        if (view === "weights") {
+          if (allowed(i, j)) {
+            // Darkness carries the weight: the opacity floor keeps a 0.02 dot visible.
+            out += '<circle cx="' + cx(j) + '" cy="' + cy(i) + '" r="20" fill="var(--attn-dot)" ' +
+                   'opacity="' + (0.06 + 0.94 * w).toFixed(3) + '" pointer-events="none"/>';
+            out += '<text x="' + cx(j) + '" y="' + (cy(i) + 4) + '" class="attn-val" fill="' +
+                   (w > 0.55 ? "var(--attn-bg)" : "var(--attn-ink)") + '">' + fr(w, 2) + "</text>";
+          }
+        } else {
+          out += '<text x="' + cx(j) + '" y="' + (cy(i) + 4) + '" class="attn-val" fill="' +
+                 (allowed(i, j) ? "var(--attn-ink)" : "var(--attn-soft)") + '">' +
+                 (allowed(i, j) ? fr(HEADS[head].score(i, j), 1) : "−∞") + "</text>";
+        }
       }
     }
-    out += node(xOut, 150, 11 + 9 * Math.abs(C) / RANGE.c, "f", "var(--mn-curve)");
-    out += '<text x="' + xOut + '" y="' + (150 + 11 + 9 * Math.abs(C) / RANGE.c + 12).toFixed(1) +
-           '" class="mn-gtext">c = ' + C.toFixed(2) + "</text>";
 
-    graphLayer.innerHTML = out;
-  }
+    // Selected column, drawn last so its outline stays above the cell strokes.
+    out += '<rect x="' + (X0 + selected * CELL) + '" y="' + (Y0 - 24) + '" width="' + CELL +
+           '" height="' + (T * CELL + 24) + '" fill="none" stroke="var(--attn-sel)" ' +
+           'stroke-width="1.5" rx="4" pointer-events="none"/>';
 
-  // `colour` overrides the accent of a single slider: the v sliders belong to the
-  // output neuron, but each one is tinted like the hidden neuron it weighs.
-  function control(kind, i, value, colour) {
-    var name = kind + (kind === "c" ? "" : "<sub>" + (i + 1) + "</sub>");
-    var r = RANGE[kind];
-    return '<label class="mn-ctl"' + (colour ? ' style="--mn-hue:' + colour + '"' : "") +
-      '><em>' + name + '</em>' +
-      '<input type="range" data-kind="' + kind + '" data-idx="' + i + '" min="' + -r +
-      '" max="' + r + '" step="0.02" value="' + value + '">' +
-      '<output>' + value.toFixed(2) + '</output></label>';
-  }
-
-  function buildSliders() {
-    var html = "", i;
-    for (i = 0; i < M; i++) {
-      html += '<fieldset class="mn-neuron" style="--mn-hue:' + hue(i) + '">' +
-        '<legend>neurone caché ' + (i + 1) + '</legend>' +
-        control("w", i, W[i]) + control("b", i, B[i]) +
-        '</fieldset>';
+    // Column sums, to make the softmax visible.
+    for (j = 0; j < T; j++) {
+      out += '<text x="' + cx(j) + '" y="' + (Y0 + T * CELL + 18) + '" class="attn-axis">' +
+             (view === "weights" ? "1,00" : "") + "</text>";
     }
-    html += '<fieldset class="mn-neuron mn-out" style="--mn-hue:var(--mn-curve)">' +
-      '<legend>neurone de sortie</legend><div class="mn-out-grid">';
-    for (i = 0; i < M; i++) html += control("v", i, V[i], hue(i));
-    html += control("c", 0, C) + '</div></fieldset>';
-    slidersEl.innerHTML = html;
+    out += '<text x="' + (X0 - 12) + '" y="' + (Y0 + T * CELL + 18) +
+           '" class="attn-axis" text-anchor="end">' +
+           (view === "weights" ? "somme" : "") + "</text>";
+
+    document.getElementById("attn-layer").innerHTML = out;
+    document.getElementById("attn-role").textContent = HEADS[head].role;
+    detail(A[selected]);
   }
 
-  // Pushes the current parameters back into the sliders — needed after gradient
-  // descent, which moves them without any user interaction.
-  function refresh() {
-    slidersEl.querySelectorAll("input").forEach(function (input) {
-      var i = +input.dataset.idx;
-      var v = input.dataset.kind === "w" ? W[i]
-            : input.dataset.kind === "b" ? B[i]
-            : input.dataset.kind === "v" ? V[i] : C;
-      input.value = v;
-      input.nextElementSibling.value = v.toFixed(2);
+  function detail(col) {
+    var order = [], i;
+    for (i = 0; i < T; i++) order.push(i);
+    order.sort(function (a, b) { return col[b] - col[a]; });
+
+    var bars = "", terms = [];
+    for (i = 0; i < T; i++) {
+      var k = order[i];
+      if (col[k] < 0.005) continue;
+      bars += '<span class="attn-key">' + TOKENS[k] + "</span>" +
+              '<span><span class="attn-bar" style="display:block;width:' +
+              (col[k] * 100).toFixed(1) + '%"></span></span>' +
+              '<span class="attn-num">' + fr(col[k], 2) + "</span>";
+      if (col[k] >= 0.02) terms.push(fr(col[k], 2) + " · v(" + TOKENS[k] + ")");
+    }
+
+    document.getElementById("attn-detail").innerHTML =
+      "<h4>La query « " + TOKENS[selected] + " » regarde :</h4>" +
+      '<div class="attn-bars">' + bars + "</div>" +
+      '<p class="attn-mix">Sortie de la head pour ce token : <code>' +
+      terms.join(" + ") + (terms.length < T ? " + …" : "") + "</code></p>";
+  }
+
+  function buildTabs() {
+    var html = "";
+    HEADS.forEach(function (h, k) {
+      html += '<button class="attn-btn attn-tab' + (k === 0 ? " is-on" : "") +
+              '" role="tab" data-head="' + k + '">' + h.name + "</button>";
     });
+    document.getElementById("attn-tabs").innerHTML = html;
   }
 
-  function clamp(v, r) { return v < -r ? -r : v > r ? r : v; }
+  root.addEventListener("click", function (ev) {
+    var el = ev.target.closest("[data-head], [data-view], [data-col], #attn-mask");
+    if (!el) return;
 
-  // One gradient descent step on the MSE. Returns the gradient magnitude so the
-  // animation can stop once the parameters have settled.
-  function step() {
-    var gw = new Array(M).fill(0), gb = new Array(M).fill(0), gv = new Array(M).fill(0), gc = 0;
-    var i, k, z, e, norm = 0;
-
-    for (k = 0; k < xs.length; k++) {
-      e = predict(xs[k]) - ys[k];
-      gc += e;
-      for (i = 0; i < M; i++) {
-        z = W[i] * xs[k] + B[i];
-        gv[i] += e * activate(z);
-        var d = e * V[i] * activateSlope(z);
-        gw[i] += d * xs[k];
-        gb[i] += d;
-      }
-    }
-
-    var scale = 2 / xs.length;
-    gc *= scale;
-    norm += gc * gc;
-    for (i = 0; i < M; i++) {
-      gw[i] *= scale; gb[i] *= scale; gv[i] *= scale;
-      norm += gw[i] * gw[i] + gb[i] * gb[i] + gv[i] * gv[i];
-    }
-
-    norm = Math.sqrt(norm);
-    var lr = norm > CLIP ? LR * CLIP / norm : LR;
-
-    C = clamp(C - lr * gc, RANGE.c);
-    for (i = 0; i < M; i++) {
-      W[i] = clamp(W[i] - lr * gw[i], RANGE.w);
-      B[i] = clamp(B[i] - lr * gb[i], RANGE.b);
-      V[i] = clamp(V[i] - lr * gv[i], RANGE.v);
-    }
-    return norm;
-  }
-
-  function stopDescent() {
-    if (!frame) return;
-    cancelAnimationFrame(frame);
-    frame = 0;
-    descendBtn.classList.remove("is-on");
-  }
-
-  function descend() {
-    if (frame) { stopDescent(); return; }
-    var done = 0;
-    descendBtn.classList.add("is-on");
-    (function tick() {
-      var g = 0;
-      for (var k = 0; k < STEPS_PER_FRAME && done < MAX_STEPS; k++, done++) g = step();
-      draw();
-      if (done < MAX_STEPS && g > 1e-6) {
-        frame = requestAnimationFrame(tick);
-      } else {
-        frame = 0;
-        descendBtn.classList.remove("is-on");
-      }
-    })();
-  }
-
-  slidersEl.addEventListener("input", function (event) {
-    var input = event.target;
-    if (!input.dataset.kind) return;
-    stopDescent();
-    var i = +input.dataset.idx, v = parseFloat(input.value);
-    if (input.dataset.kind === "w") W[i] = v;
-    else if (input.dataset.kind === "b") B[i] = v;
-    else if (input.dataset.kind === "v") V[i] = v;
-    else C = v;
-    draw();
-  });
-
-  function group(attr, onPick) {
-    root.querySelectorAll("[data-" + attr + "]").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        stopDescent();
-        root.querySelectorAll("[data-" + attr + "]").forEach(function (o) {
-          o.classList.toggle("is-on", o === btn);
-        });
-        onPick(btn.dataset[attr]);
-        draw();
+    if (el.dataset.head !== undefined) {
+      head = +el.dataset.head;
+      root.querySelectorAll("[data-head]").forEach(function (b) {
+        b.classList.toggle("is-on", +b.dataset.head === head);
       });
-    });
-  }
-
-  group("size", function (value) { M = +value; randomize(); buildSliders(); });
-  group("act", function (value) { ACT = value; });
-  group("data", function (value) { DATA = value; makeData(); });
-
-  document.getElementById("mn-random").addEventListener("click", function () {
-    stopDescent();
-    randomize();
-    buildSliders();
+    } else if (el.dataset.view !== undefined) {
+      view = el.dataset.view;
+      root.querySelectorAll("[data-view]").forEach(function (b) {
+        b.classList.toggle("is-on", b.dataset.view === view);
+      });
+    } else if (el.id === "attn-mask") {
+      masked = !masked;
+      el.classList.toggle("is-on", masked);
+    } else {
+      selected = +el.dataset.col;
+    }
     draw();
   });
 
-  descendBtn.addEventListener("click", descend);
-
-  makeData();
-  randomize();
-  buildSliders();
+  buildTabs();
   draw();
 })();
 </script>
 </section>
-<section id="à-tester-en-cours" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="à-tester-en-cours"><span class="header-section-number">2</span> À tester en cours</h2>
-<ol type="1">
-<li>Avec <strong>1 seul neurone caché</strong>, essayez d’ajuster la bosse. Pourquoi est-ce impossible ?</li>
-<li>Passez à <strong>2 neurones</strong> et refaites l’essai à la main : placez un pli qui monte, puis un pli qui descend.</li>
-<li>Lancez la <strong>descente de gradient</strong> sur chaque jeu de données, en faisant varier le nombre de neurones. Combien en faut-il au minimum pour la <em>vague</em> ? pour les <em>marches</em> ?</li>
-<li>Comparez les activations sur les <em>marches</em> : <strong>ReLU</strong> donne des segments de droite, <strong>tanh</strong> et <strong>sigmoïde</strong> des transitions douces.</li>
-<li>Lancez la descente de gradient en regardant le <strong>graphe de calcul</strong> : quels traits s’épaississent ? Un neurone dont le trait <span class="math inline">\(v_i\)</span> devient très fin ne sert plus à rien.</li>
-<li>Relancez plusieurs fois <em>Paramètres au hasard</em> puis la descente de gradient sur le même jeu de données. La MSE finale est-elle toujours la même ?</li>
-</ol>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<section id="questions" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="questions"><span class="header-section-number">4</span> Questions</h2>
+<p>Essayez de répondre aux questions suivantes en utilisant l’outil, puis dépliez pour voir la réponse.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Ce qu’il faut retenir
+<span class="screen-reader-only">Astuce</span>Pourquoi la colonne « le » est-elle toujours entièrement noire sur sa case du haut ?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<p>Le premier token n’a <strong>rien</strong> à regarder d’autre que lui-même : le masque causal annule toutes les autres cases de sa colonne. Le softmax porte alors sur une seule valeur, qui vaut forcément 1.</p>
+<p>C’est vrai pour <strong>toutes</strong> les heads, quelles que soient leurs matrices <span class="math inline">\(\mathbf{W}_Q\)</span> et <span class="math inline">\(\mathbf{W}_K\)</span>. La première colonne d’une matrice d’attention ne contient aucune information.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Head 2, masque activé : pourquoi « chat » ne regarde-t-il pas « gris » ?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>La head est bien construite pour relier les deux, dans les deux sens : désactivez le masque causal et la case apparaît.</p>
+<p>Mais « gris » arrive <strong>après</strong> « chat » dans la phrase. Le masque interdit à la query « chat » de le voir, et son attention retombe sur elle-même.</p>
+<p>C’est exactement la limite d’un modèle décodeur : au moment où il traite « chat », il ne sait pas encore que le chat sera gris. Seul « gris » pourra faire le lien, dans l’autre sens.</p>
+<p>Même chose pour « lait » et « froid » : la colonne « lait » ne trouve pas ce qu’elle cherche, et son attention s’étale sur tout le passé sans rien privilégier.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Head 2 : que signifie un token qui se regarde lui-même ?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Que la relation cherchée par la head <strong>n’existe pas</strong> pour ce token : « boit » n’est pas un adjectif, la head 2 n’a rien à lui dire. Elle est pourtant obligée de répondre quelque chose, puisque le softmax impose à chaque colonne de sommer à 1. La diagonale est alors la case la plus inoffensive : le token récupère sa propre value, donc <strong>aucune information ne circule</strong>.</p>
+<p>Une diagonale marquée signifie que la head ne fait rien pour ce token.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Head 4 : pourquoi les points pâlissent-ils vers la droite ?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Tous les scores valent 0, donc chaque query partage son attention <strong>à parts égales</strong> entre les tokens visibles. La colonne du <span class="math inline">\(n\)</span>-ième token voit <span class="math inline">\(n\)</span> tokens : chaque poids vaut <span class="math inline">\(1/n\)</span>.</p>
+<p>La 1ère colonne, « le », met donc 1,00 sur une seule case, tandis que la 7ème, « froid », étale <span class="math inline">\(1/7 = 0{,}14\)</span> sur sept cases. L’escalier du masque causal se lit directement dans la teinte des points.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Que se passerait-il si on multipliait tous les scores par 10 ?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Le softmax deviendrait presque un <strong>argmax</strong> : le meilleur score raflerait toute l’attention, et les autres tomberaient à 0. L’attention deviendrait « dure », et le token ne récupérerait plus qu’une seule value au lieu d’un mélange.</p>
+<p>À l’inverse, en divisant les scores par 10, toutes les colonnes ressembleraient à celles de la head 4 : une moyenne uniforme, sans information.</p>
+<p>C’est le rôle de la division par <span class="math inline">\(\sqrt{d_h}\)</span> dans la formule : elle empêche les scores de grandir avec la dimension et de saturer le softmax.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Combien de cases contient <span class="math inline">\(\mathbf{A}\)</span> pour un texte de 1 000 tokens ?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(1\,000 \times 1\,000 = 1\)</span> million de cases, <strong>par head et par décodeur</strong>. Pour Llama 3 8B (32 heads × 32 décodeurs), cela fait environ 1 milliard de poids d’attention calculés pour un seul passage.</p>
+<p>Avec 2 000 tokens : 4 millions de cases par head. Doubler la longueur du texte <strong>quadruple</strong> le coût, alors que le nombre de paramètres du modèle, lui, ne bouge pas.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="simplifications" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="simplifications"><span class="header-section-number">5</span> Simplifications</h2>
+<p>Nos quatre heads sont très spécialisées : chacune a un rôle unique, énonçable en une phrase.</p>
+<p>Dans un vrai modèle :</p>
 <ul>
-<li><strong>Plus de neurones = plus de plis = plus de formes possibles.</strong> C’est la <em>largeur</em> de la couche cachée qui donne au modèle sa capacité d’expression.</li>
-<li>La descente de gradient ne tombe pas toujours sur la même solution : le point de départ compte. Avec un modèle non-linéaire, il existe plusieurs minima locaux.</li>
-<li>Trop de neurones et le modèle finit par épouser le bruit des données plutôt que leur tendance : c’est le <strong>surapprentissage</strong> (<strong>overfitting</strong>), que nous verrons plus loin.</li>
+<li>une head mélange souvent plusieurs rôles à la fois, et certaines restent inexplicables</li>
+<li>les rôles ne sont pas répartis proprement : deux heads peuvent faire presque la même chose</li>
+<li>une bonne partie des heads consacre une part importante de leur attention au <strong>premier token</strong> de la séquence, qui sert de « puits d’attention » (<em>attention sink</em>) : c’est là que la head dépose son attention quand elle n’a rien de pertinent à regarder</li>
+<li>les poids ne sont pas décidés d’avance : ils naissent de la comparaison entre les <span class="math inline">\(\mathbf{Q}\)</span> et les <span class="math inline">\(\mathbf{K}\)</span>, donc ils <strong>changent avec la phrase</strong>. Une head « adjectif → nom » n’existerait que si ce comportement a réduit la fonction de coût pendant l’entraînement</li>
 </ul>
-</div>
-</div>
-</div>
 
 
 </section>

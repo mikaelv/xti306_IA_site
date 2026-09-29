@@ -50,7 +50,26 @@
 }
 
 /* --------------------------------------------------------------------------
-   3. Toggle button
+   3. "Where is an LLM?" Venn diagram
+   --------------------------------------------------------------------------
+   Inline SVG on the home page: mermaid cannot draw overlapping sets. The
+   fills are light on purpose, so the label text stays dark in both themes.
+   -------------------------------------------------------------------------- */
+
+.ai-venn {
+  margin: 1.5rem auto;
+  max-width: 44rem;
+}
+
+.ai-venn figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color: #6c757d;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   4. Toggle button
    -------------------------------------------------------------------------- */
 
 #presentation-toggle {

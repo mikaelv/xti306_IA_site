@@ -77,6 +77,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -116,6 +145,12 @@ ul.task-list li input[type="checkbox"] {
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">XTI306 Introduction à l’ingénierie IA</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
@@ -133,14 +168,14 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./cours2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">CM2 - Réseaux de neurones</span></a>
+  <a href="./glossaire.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Glossaire</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./glossaire.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Glossaire</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Références</span></a>
   </div>
 </li>
       </ul>
@@ -178,6 +213,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">CM2 - TensorFlow Playground</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cours3_attention.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CM3 - Le mécanisme d’attention</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -202,8 +243,33 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Sur cette page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#a" id="toc-a" class="nav-link active" data-scroll-target="#a">A</a></li>
+  <li><a href="#b" id="toc-b" class="nav-link" data-scroll-target="#b">B</a></li>
+  <li><a href="#c" id="toc-c" class="nav-link" data-scroll-target="#c">C</a></li>
+  <li><a href="#d" id="toc-d" class="nav-link" data-scroll-target="#d">D</a></li>
+  <li><a href="#e" id="toc-e" class="nav-link" data-scroll-target="#e">E</a></li>
+  <li><a href="#f" id="toc-f" class="nav-link" data-scroll-target="#f">F</a></li>
+  <li><a href="#g" id="toc-g" class="nav-link" data-scroll-target="#g">G</a></li>
+  <li><a href="#h" id="toc-h" class="nav-link" data-scroll-target="#h">H</a></li>
+  <li><a href="#i" id="toc-i" class="nav-link" data-scroll-target="#i">I</a></li>
+  <li><a href="#k" id="toc-k" class="nav-link" data-scroll-target="#k">K</a></li>
+  <li><a href="#l" id="toc-l" class="nav-link" data-scroll-target="#l">L</a></li>
+  <li><a href="#m" id="toc-m" class="nav-link" data-scroll-target="#m">M</a></li>
+  <li><a href="#n" id="toc-n" class="nav-link" data-scroll-target="#n">N</a></li>
+  <li><a href="#o" id="toc-o" class="nav-link" data-scroll-target="#o">O</a></li>
+  <li><a href="#p" id="toc-p" class="nav-link" data-scroll-target="#p">P</a></li>
+  <li><a href="#q" id="toc-q" class="nav-link" data-scroll-target="#q">Q</a></li>
+  <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r">R</a></li>
+  <li><a href="#s" id="toc-s" class="nav-link" data-scroll-target="#s">S</a></li>
+  <li><a href="#t" id="toc-t" class="nav-link" data-scroll-target="#t">T</a></li>
+  <li><a href="#v" id="toc-v" class="nav-link" data-scroll-target="#v">V</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -233,8 +299,530 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>Les termes sont classés par ordre alphabétique. Chaque entrée renvoie à la section du cours où le terme est introduit.</p>
+<ul>
+<li><strong>CM1</strong> : <a href="./cours1.html">Introduction à l’apprentissage automatique</a></li>
+<li><strong>CM2</strong> : <a href="./cours2.html">Réseaux de neurones</a></li>
+<li><strong>CM3</strong> : <a href="./cours3.html">Introduction aux LLMs</a></li>
+</ul>
+<section id="a" class="level2">
+<h2 class="anchored" data-anchor-id="a">A</h2>
+<dl>
+<dt><strong>Apprentissage automatique</strong> (<em>machine learning</em>)</dt>
+<dd>
+Construire la fonction <span class="math inline">\(f\)</span> d’un modèle à partir d’exemples, au lieu de l’écrire à la main. <a href="./cours1.html#comment-une-machine-peut-elle-apprendre">CM1 · Comment une machine peut-elle apprendre ?</a>
+</dd>
+<dt><strong>Apprentissage profond</strong> (<em>deep learning</em>)</dt>
+<dd>
+Réseau de neurones comportant plusieurs couches cachées empilées. Chaque couche construit une représentation de la précédente. <a href="./cours2.html#apprentissage-profond-deep-learning">CM2 · Apprentissage profond</a>
+</dd>
+<dt><strong>Apprentissage supervisé</strong> (<em>supervised learning</em>)</dt>
+<dd>
+Apprentissage à partir d’exemples qui fournissent à la fois l’entrée et la sortie attendue. <a href="./cours1.html#apprentissage-supervisé">CM1 · Apprentissage supervisé</a>
+</dd>
+<dt><strong>Apprentissage auto-supervisé</strong> (<em>self-supervised learning</em>)</dt>
+<dd>
+La cible est extraite des données elles-mêmes. C’est ainsi qu’on entraîne un LLM : la cible est le token suivant, déjà présent dans le corpus. <a href="./cours1.html#dautres-formes-dapprentissage">CM1 · D’autres formes d’apprentissage</a>
+</dd>
+<dt><strong>Apprentissage non supervisé</strong> (<em>unsupervised learning</em>)</dt>
+<dd>
+Les exemples n’ont pas de cible : l’algorithme cherche lui-même une structure dans les données. <a href="./cours1.html#dautres-formes-dapprentissage">CM1 · D’autres formes d’apprentissage</a>
+</dd>
+<dt><strong>Apprentissage par renforcement</strong> (<em>reinforcement learning</em>)</dt>
+<dd>
+Pas de cible, mais une récompense obtenue après une suite d’actions. <a href="./cours1.html#dautres-formes-dapprentissage">CM1 · D’autres formes d’apprentissage</a>
+</dd>
+<dt><strong>Architecture</strong></dt>
+<dd>
+Choix de structure d’un réseau : nombre de couches (profondeur) et nombre de neurones par couche (largeur). <a href="./cours2.html#architecture-profondeur-et-largeur-des-couches">CM2 · Architecture</a>
+</dd>
+<dt><strong>Arrêt anticipé</strong> (<em>early stopping</em>)</dt>
+<dd>
+Arrêter l’entraînement dès que le coût de validation remonte alors que le coût d’entraînement continue de baisser : le surapprentissage a commencé. <a href="./cours2.html#nombre-depochs">CM2 · Nombre d’epochs</a> · <a href="./cours3.html#early-stopping">CM3 · Early stopping</a>
+</dd>
+<dt><strong>Attention</strong> (<em>attention mechanism</em>)</dt>
+<dd>
+Couche qui permet à chaque token de se référer plus ou moins fortement aux tokens qui le précèdent, et d’en récupérer de l’information. <a href="./cours3.html#attention">CM3 · Attention</a>
+</dd>
+<dt><strong>Attention head</strong> (<em>tête d’attention</em>)</dt>
+<dd>
+Une attention élémentaire, qui apprend un type de relation entre tokens. Un bloc décodeur en contient plusieurs, travaillant en parallèle. <a href="./cours3.html#zoom-sur-une-attention-head">CM3 · Zoom sur une attention head</a>
+</dd>
+</dl>
+</section>
+<section id="b" class="level2">
+<h2 class="anchored" data-anchor-id="b">B</h2>
+<dl>
+<dt><strong>Biais</strong> (<em>bias</em>)</dt>
+<dd>
+Le paramètre <span class="math inline">\(b\)</span> d’une transformation linéaire <span class="math inline">\(wx + b\)</span>. Il décale la sortie du neurone. <a href="./cours1.html#transformation-linéaire">CM1 · Transformation linéaire</a>
+</dd>
+<dt><strong>Byte-Pair Encoding (BPE)</strong></dt>
+<dd>
+Algorithme qui construit le vocabulaire de tokens à partir d’un corpus, en fusionnant itérativement les paires de tokens les plus fréquentes. <a href="./cours3.html#lalgorithme-byte-pair-encoding">CM3 · L’algorithme Byte-Pair Encoding</a>
+</dd>
+</dl>
+</section>
+<section id="c" class="level2">
+<h2 class="anchored" data-anchor-id="c">C</h2>
+<dl>
+<dt><strong>Caractéristique</strong> (<em>feature</em>)</dt>
+<dd>
+Une des grandeurs décrivant un exemple : surface, nombre de pièces, localisation… Le nombre de caractéristiques est noté <span class="math inline">\(D\)</span>. <a href="./cours1.html#choisir-lentrée">CM1 · Choisir l’entrée</a> · <a href="./cours2.html#plusieurs-dimensions">CM2 · Plusieurs dimensions</a>
+</dd>
+<dt><strong>Cible</strong> (<em>target</em>), ou <strong>étiquette</strong> (<em>label</em>)</dt>
+<dd>
+La sortie <span class="math inline">\(y^{(i)}\)</span> attendue pour l’exemple <span class="math inline">\(i\)</span> : ce que le modèle aurait dû répondre. <a href="./cours1.html#apprentissage-supervisé">CM1 · Apprentissage supervisé</a>
+</dd>
+<dt><strong>Classification binaire</strong> (<em>binary classification</em>)</dt>
+<dd>
+Tâche dont la sortie est une catégorie parmi deux : spam / non spam, bénigne / maligne. <a href="./cours3.html#classification">CM3 · Classification</a>
+</dd>
+<dt><strong>Classification multi-classe</strong> (<em>multiclass classification</em>)</dt>
+<dd>
+Tâche dont la sortie est une catégorie parmi <span class="math inline">\(K\)</span>. La sortie du modèle est un vecteur de <span class="math inline">\(K\)</span> probabilités dont la somme vaut 1. <a href="./cours3.html#classification">CM3 · Classification</a>
+</dd>
+<dt><strong>CNN</strong> (<em>Convolutional Neural Network</em>)</dt>
+<dd>
+Réseau utilisant des couches de convolution, qui ne sont pas entièrement connectées. Adapté aux images et au son. <a href="./cours3.html#autres-types-de-réseaux-de-neurones">CM3 · Autres types de réseaux de neurones</a>
+</dd>
+<dt><strong>Connexion résiduelle</strong> (<em>residual connection</em>)</dt>
+<dd>
+Addition de l’entrée d’une sous-couche à sa sortie, dans un bloc décodeur : l’information d’origine n’est jamais perdue. <a href="./cours3.html#zoom-sur-un-bloc-décodeur">CM3 · Zoom sur un bloc décodeur</a>
+</dd>
+<dt><strong>Convergence</strong></dt>
+<dd>
+Moment où le coût <span class="math inline">\(J\)</span> ne change presque plus d’une epoch à l’autre : la descente de gradient s’arrête. <a href="./cours1.html#application-sur-une-régression-linéaire">CM1 · Application sur une régression linéaire</a>
+</dd>
+<dt><strong>Corpus</strong></dt>
+<dd>
+Ensemble de textes servant à construire le vocabulaire, puis à entraîner un modèle de langage. <a href="./cours3.html#lalgorithme-byte-pair-encoding">CM3 · L’algorithme Byte-Pair Encoding</a>
+</dd>
+<dt><strong>Couche cachée</strong> (<em>hidden layer</em>)</dt>
+<dd>
+Couche de neurones placés <strong>en parallèle</strong> entre l’entrée et la sortie. Chaque neurone y apporte son propre « pli » à la fonction. <a href="./cours2.html#trois-neurones">CM2 · Trois neurones</a>
+</dd>
+<dt><strong>Couche de sortie</strong> (<em>output layer</em>)</dt>
+<dd>
+Dernière couche du réseau, qui produit <span class="math inline">\(f(x)\)</span>. En régression, un seul neurone sans activation ; en classification, un neurone par classe suivi d’un softmax. <a href="./cours2.html#trois-neurones">CM2 · Trois neurones</a> · <a href="./cours3.html#couche-de-sortie">CM3 · Couche de sortie</a>
+</dd>
+<dt><strong>Couche entièrement connectée</strong> (<em>fully connected</em>, ou <em>dense</em>)</dt>
+<dd>
+Couche dont chaque neurone est relié à <strong>tous</strong> les neurones de la couche précédente. <a href="./cours2.html#définition-1">CM2 · Apprentissage profond</a>
+</dd>
+<dt><strong>Coût</strong> (<em>cost</em>)</dt>
+<dd>
+Agrégation de la perte sur tout un dataset, notée <span class="math inline">\(J(\theta)\)</span>. Les meilleurs paramètres sont ceux pour lesquels <span class="math inline">\(J\)</span> est le plus proche de 0. <a href="./cours1.html#fonction-de-coût-cost-function">CM1 · Fonction de coût</a>
+</dd>
+</dl>
+</section>
+<section id="d" class="level2">
+<h2 class="anchored" data-anchor-id="d">D</h2>
+<dl>
+<dt><strong>Dataset</strong> (<em>jeu de données</em>)</dt>
+<dd>
+Ensemble de <span class="math inline">\(N\)</span> exemples. En apprentissage supervisé, <span class="math inline">\(N\)</span> paires <span class="math inline">\(\left(x^{(i)}, y^{(i)}\right)\)</span>. <a href="./cours1.html#apprentissage-supervisé">CM1 · Apprentissage supervisé</a>
+</dd>
+<dt><strong>Dataset d’entraînement</strong> (<em>training set</em>)</dt>
+<dd>
+La partie du dataset qui sert à ajuster les paramètres (typiquement 90 %). <a href="./cours2.html#validation">CM2 · Validation</a>
+</dd>
+<dt><strong>Dataset de validation</strong> (<em>validation set</em>, ou <em>dev set</em>)</dt>
+<dd>
+La partie du dataset qui ne sert <strong>jamais</strong> à l’entraînement, mais à régler les hyperparamètres et à diagnostiquer le surapprentissage. <a href="./cours2.html#validation">CM2 · Validation</a>
+</dd>
+<dt><strong>Dataset de test</strong> (<em>test set</em>)</dt>
+<dd>
+Dataset réservé au score final du modèle. Il ne doit jamais servir à régler les hyperparamètres. <a href="./cours2.html#test">CM2 · Test</a>
+</dd>
+<dt><strong>Décodeur</strong> (<em>decoder</em>)</dt>
+<dd>
+Bloc répété un grand nombre de fois dans un LLM (32 fois pour Llama 3 8B). Il enchaîne une multi-head attention et un MLP, et conserve les dimensions <span class="math inline">\(D \times T\)</span>. <a href="./cours3.html#décodeurs">CM3 · Décodeurs</a> · <a href="./cours3.html#la-pile-de-décodeurs">CM3 · La pile de décodeurs</a>
+</dd>
+<dt><strong>Decoder-only</strong></dt>
+<dd>
+Architecture des LLMs modernes (GPT, Llama, Mistral, Claude) : l’encodeur du transformer d’origine a été supprimé, le modèle ne fait que <strong>continuer</strong> un texte. <a href="./cours3.html#décodeurs">CM3 · Décodeurs</a>
+</dd>
+<dt><strong>Dense</strong> (matrice)</dt>
+<dd>
+Matrice dont la plupart des cellules sont non nulles. C’est ce que produit la couche d’embedding, par opposition à la matrice one-hot, <em>sparse</em>. <a href="./cours3.html#matrice-dembedding">CM3 · Matrice d’embedding</a>
+</dd>
+<dt><strong>Descente de gradient</strong> (<em>gradient descent</em>)</dt>
+<dd>
+Algorithme itératif qui ajuste les paramètres dans la direction opposée au gradient, jusqu’à minimiser le coût. Analogie : le randonneur dans le brouillard. <a href="./cours1.html#descente-de-gradient-gradient-descent">CM1 · Descente de gradient</a>
+</dd>
+<dt><strong>Dropout</strong></dt>
+<dd>
+Technique de régularisation qui désactive certains poids au hasard pendant l’entraînement, pour réduire la dépendance du réseau à certaines caractéristiques. <a href="./cours3.html#régularisation">CM3 · Régularisation</a>
+</dd>
+</dl>
+</section>
+<section id="e" class="level2">
+<h2 class="anchored" data-anchor-id="e">E</h2>
+<dl>
+<dt><strong>Embedding</strong></dt>
+<dd>
+Représentation vectorielle dense d’un token (ou d’un texte), apprise pendant l’entraînement. Deux tokens de sens proche ont des embeddings proches. <a href="./cours3.html#embeddings">CM3 · Embeddings</a>
+</dd>
+<dt><strong>Encodage one-hot</strong> (<em>one-hot encoding</em>)</dt>
+<dd>
+Représentation d’une catégorie par un vecteur de <span class="math inline">\(V\)</span> dimensions : un 1 sur la bonne ligne, des 0 partout ailleurs. <a href="./cours3.html#one-hot-vectors">CM3 · One-hot vectors</a>
+</dd>
+<dt><strong>Entraînement</strong> (<em>training</em>)</dt>
+<dd>
+Phase pendant laquelle l’algorithme construit <span class="math inline">\(f\)</span> à partir des exemples. Très coûteuse en ressources par rapport à l’inférence. <a href="./cours1.html#lentraînement">CM1 · L’entraînement</a>
+</dd>
+<dt><strong>Entrée</strong> (<em>input</em>) et <strong>sortie</strong> (<em>output</em>)</dt>
+<dd>
+Les deux extrémités d’un modèle : <span class="math inline">\(y = f(x)\)</span>, où <span class="math inline">\(x\)</span> est l’entrée et <span class="math inline">\(y\)</span> la sortie. <a href="./cours1.html#modèle">CM1 · Modèle</a>
+</dd>
+<dt><strong>Entropie croisée</strong> (<em>cross-entropy</em>)</dt>
+<dd>
+Fonction de perte des tâches de classification. Elle ne tient compte que de la probabilité attribuée à la bonne classe : se tromper avec assurance coûte très cher. <a href="./cours3.html#fonctions-de-perte-et-de-coût">CM3 · Fonctions de perte et de coût</a>
+</dd>
+<dt><strong>Epoch</strong> (<em>époque</em>)</dt>
+<dd>
+Un passage complet sur tout le dataset d’entraînement. Avec des mini-batchs, une epoch effectue <span class="math inline">\(N/B\)</span> mises à jour des paramètres. <a href="./cours1.html#application-sur-une-régression-linéaire">CM1 · Application sur une régression linéaire</a> · <a href="./cours3.html#mini-batch">CM3 · Mini-batch</a>
+</dd>
+<dt><strong>Erreur quadratique moyenne</strong> (<em>mean square error</em>, MSE)</dt>
+<dd>
+Fonction de coût de la régression : la moyenne des carrés des écarts entre prédiction et cible. <a href="./cours1.html#fonction-de-coût-cost-function">CM1 · Fonction de coût</a>
+</dd>
+</dl>
+</section>
+<section id="f" class="level2">
+<h2 class="anchored" data-anchor-id="f">F</h2>
+<dl>
+<dt><strong>Fenêtre de contexte</strong> (<em>context window</em>)</dt>
+<dd>
+Longueur maximale de texte acceptée par un modèle. Elle est limitée parce que la matrice d’attention est en <span class="math inline">\(T \times T\)</span> : doubler le texte quadruple le coût. <a href="./cours3.html#points-à-retenir">CM3 · Points à retenir</a>
+</dd>
+<dt><strong>Fonction d’activation</strong></dt>
+<dd>
+Fonction non linéaire <span class="math inline">\(\sigma\)</span> appliquée à la sortie de la transformation linéaire. Sans elle, empiler des couches ne servirait à rien. Voir <em>ReLU</em>, <em>sigmoïde</em>, <em>tanh</em>. <a href="./cours2.html#sec-neurone-1d">CM2 · Fonction d’activation</a>
+</dd>
+<dt><strong>Fonction de coût</strong> (<em>cost function</em>)</dt>
+<dd>
+Voir <em>coût</em>. <a href="./cours1.html#fonction-de-coût-cost-function">CM1 · Fonction de coût</a>
+</dd>
+<dt><strong>Fonction de perte</strong> (<em>loss function</em>)</dt>
+<dd>
+Voir <em>perte</em>. <a href="./cours1.html#fonction-de-perte-loss-function">CM1 · Fonction de perte</a>
+</dd>
+</dl>
+</section>
+<section id="g" class="level2">
+<h2 class="anchored" data-anchor-id="g">G</h2>
+<dl>
+<dt><strong>Généralisation</strong> (<em>generalization</em>)</dt>
+<dd>
+Capacité d’un modèle à répondre juste sur des entrées qu’il n’a <strong>jamais vues</strong>. C’est le seul but qui compte. <a href="./cours1.html#linférence-inference-ou-prédiction.">CM1 · L’inférence</a> · <a href="./cours2.html#surapprentissage-overfitting">CM2 · Surapprentissage</a>
+</dd>
+<dt><strong>Gradient</strong></dt>
+<dd>
+Dérivée partielle de la fonction de coût par rapport à chaque paramètre. C’est la « pente » ressentie par le randonneur. <a href="./cours1.html#application-sur-une-régression-linéaire">CM1 · Application sur une régression linéaire</a>
+</dd>
+<dt><strong>Graphe de calcul</strong> (<em>computational graph</em>)</dt>
+<dd>
+Représentation d’un modèle sous forme de nœuds (neurones) et de flèches (poids). PyTorch l’enregistre pendant la passe avant pour pouvoir le remonter ensuite. <a href="./cours2.html#trois-neurones">CM2 · Trois neurones</a>
+</dd>
+</dl>
+</section>
+<section id="h" class="level2">
+<h2 class="anchored" data-anchor-id="h">H</h2>
+<dl>
+<dt><strong>Hyperparamètre</strong></dt>
+<dd>
+Variable choisie <strong>manuellement</strong> par l’ingénieur, qui influe sur l’entraînement sans être apprise : taux d’apprentissage, nombre d’epochs, taille de batch, profondeur, largeur, fonction d’activation, taille du vocabulaire, dimension d’embedding. <a href="./cours2.html#réglage-des-hyperparamètres-hyperparameter-tuning">CM2 · Réglage des hyperparamètres</a>
+</dd>
+</dl>
+</section>
+<section id="i" class="level2">
+<h2 class="anchored" data-anchor-id="i">I</h2>
+<dl>
+<dt><strong>Inférence</strong> (<em>inference</em>), ou <strong>prédiction</strong></dt>
+<dd>
+Phase où le modèle est figé et répond <span class="math inline">\(\hat{y} = f(x)\)</span> à une entrée nouvelle. Bien moins coûteuse que l’entraînement. <a href="./cours1.html#linférence-inference-ou-prédiction.">CM1 · L’inférence</a>
+</dd>
+</dl>
+</section>
+<section id="k" class="level2">
+<h2 class="anchored" data-anchor-id="k">K</h2>
+<dl>
+<dt><strong>Key</strong> (<em>clé</em>)</dt>
+<dd>
+<span class="math inline">\(\mathbf{K} = \mathbf{W}_K \mathbf{H}\)</span> : ce qu’un token <strong>propose</strong>, l’étiquette qu’il présente aux autres tokens. <a href="./cours3.html#query-key">CM3 · Query, Key</a>
+</dd>
+</dl>
+</section>
+<section id="l" class="level2">
+<h2 class="anchored" data-anchor-id="l">L</h2>
+<dl>
+<dt><strong>Largeur</strong> (<em>width</em>)</dt>
+<dd>
+Le nombre de neurones <span class="math inline">\(M\)</span> d’une couche. <a href="./cours2.html#trois-neurones">CM2 · Trois neurones</a>
+</dd>
+<dt><strong>LLM</strong> (<em>Large Language Model</em>, grand modèle de langage)</dt>
+<dd>
+Modèle de langage à plusieurs milliards de paramètres, qui prédit le token suivant d’un texte. <a href="./cours3.html#vue-globale">CM3 · Vue globale</a> · <a href="./cours1.html#panorama">CM1 · Panorama</a>
+</dd>
+<dt><strong>Logits</strong></dt>
+<dd>
+Les scores bruts produits par la couche de sortie, un par token du vocabulaire, avant leur transformation en probabilités par le softmax. <a href="./cours3.html#vue-globale">CM3 · Vue globale</a>
+</dd>
+</dl>
+</section>
+<section id="m" class="level2">
+<h2 class="anchored" data-anchor-id="m">M</h2>
+<dl>
+<dt><strong>Masque causal</strong></dt>
+<dd>
+Matrice <span class="math inline">\(\mathbf{M}\)</span> qui met <span class="math inline">\(-\infty\)</span> sur les cases où la key suit la query, empêchant un token de regarder ceux qui le suivent. C’est ce qui rend la génération possible de gauche à droite. <a href="./cours3.html#query-key">CM3 · Query, Key</a>
+</dd>
+<dt><strong>Matrice</strong></dt>
+<dd>
+Tableau rectangulaire de nombres. <span class="math inline">\(a_{ij}\)</span> est l’élément de la ligne <span class="math inline">\(i\)</span> et de la colonne <span class="math inline">\(j\)</span>. <a href="./cours2.html#matrices">CM2 · Matrices</a>
+</dd>
+<dt><strong>Matrice d’attention</strong></dt>
+<dd>
+Matrice <span class="math inline">\(\mathbf{A}\)</span> de taille <span class="math inline">\(T \times T\)</span> dont la case <span class="math inline">\((i, j)\)</span> dit quelle part de son attention le token <span class="math inline">\(j\)</span> accorde au token <span class="math inline">\(i\)</span>. Chaque colonne somme à 1. Elle est <strong>recalculée pour chaque phrase</strong>. <a href="./cours3.html#matrice-dattention">CM3 · Matrice d’attention</a>
+</dd>
+<dt><strong>Matrice d’embedding</strong></dt>
+<dd>
+<span class="math inline">\(\mathbf{W}_e\)</span>, de dimensions <span class="math inline">\(D \times V\)</span> : une colonne par token du vocabulaire. C’est la première couche d’un LLM, sans biais ni fonction d’activation. <a href="./cours3.html#matrice-dembedding">CM3 · Matrice d’embedding</a>
+</dd>
+<dt><strong>Mini-batch</strong> (<em>mini-lot</em>)</dt>
+<dd>
+Sous-ensemble de <span class="math inline">\(B\)</span> exemples servant à une mise à jour des paramètres. Le gradient obtenu est une approximation bruitée, ce qui aide à s’échapper des minima locaux. <a href="./cours3.html#mini-batch">CM3 · Mini-batch</a>
+</dd>
+<dt><strong>MLP</strong> (<em>multilayer perceptron</em>, perceptron multicouche)</dt>
+<dd>
+Réseau formé uniquement de couches entièrement connectées, où l’information ne circule que vers l’avant. <a href="./cours2.html#définition-1">CM2 · Apprentissage profond</a>
+</dd>
+<dt><strong>Modèle</strong> (<em>model</em>)</dt>
+<dd>
+Fonction <span class="math inline">\(f\)</span> qui transforme une entrée en une sortie : <span class="math inline">\(y = f(x)\)</span>. <a href="./cours1.html#modèle">CM1 · Modèle</a>
+</dd>
+<dt><strong>Multi-head attention</strong></dt>
+<dd>
+Ensemble des <span class="math inline">\(h\)</span> attention heads d’un bloc décodeur, qui travaillent en parallèle sur la même entrée. Leurs sorties sont concaténées puis multipliées par <span class="math inline">\(\mathbf{W}_O\)</span>. <a href="./cours3.html#zoom-sur-un-bloc-décodeur">CM3 · Zoom sur un bloc décodeur</a>
+</dd>
+</dl>
+</section>
+<section id="n" class="level2">
+<h2 class="anchored" data-anchor-id="n">N</h2>
+<dl>
+<dt><strong>Neurone artificiel</strong></dt>
+<dd>
+Unité de calcul qui pondère ses entrées, les somme, ajoute un biais, puis applique une fonction d’activation : <span class="math inline">\(f(x) = \sigma(wx + b)\)</span>. <a href="./cours2.html#neurone-artificiel">CM2 · Neurone artificiel</a>
+</dd>
+</dl>
+</section>
+<section id="o" class="level2">
+<h2 class="anchored" data-anchor-id="o">O</h2>
+<dl>
+<dt><strong>One-hot vector</strong></dt>
+<dd>
+Vecteur de <span class="math inline">\(V\)</span> dimensions ne contenant qu’un seul 1. Il représente un tokenID sans lui donner de signification numérique : tous les tokens sont équidistants. <a href="./cours3.html#one-hot-vectors">CM3 · One-hot vectors</a>
+</dd>
+</dl>
+</section>
+<section id="p" class="level2">
+<h2 class="anchored" data-anchor-id="p">P</h2>
+<dl>
+<dt><strong>Paramètre</strong></dt>
+<dd>
+Valeur ajustée <strong>automatiquement</strong> pendant l’entraînement : les poids <span class="math inline">\(\mathbf{W}\)</span> et les biais <span class="math inline">\(\mathbf{b}\)</span>. L’ensemble des paramètres est noté <span class="math inline">\(\theta\)</span>. <a href="./cours1.html#transformation-linéaire">CM1 · Transformation linéaire</a> · <a href="./cours2.html#réglage-des-hyperparamètres-hyperparameter-tuning">CM2 · Réglage des hyperparamètres</a>
+</dd>
+<dt><strong>Passe avant</strong> (<em>forward pass</em>)</dt>
+<dd>
+Parcours du graphe de calcul de gauche à droite, pour calculer <span class="math inline">\(f(x)\)</span>. Utilisée à l’entraînement comme à l’inférence. <a href="./cours2.html#rétropropagation-backpropagation">CM2 · Rétropropagation</a>
+</dd>
+<dt><strong>Passe arrière</strong> (<em>backward pass</em>)</dt>
+<dd>
+Étape de l’entraînement pendant laquelle on exécute la rétropropagation pour obtenir les gradients. <a href="./cours2.html#rétropropagation-backpropagation">CM2 · Rétropropagation</a>
+</dd>
+<dt><strong>Perceptron</strong></dt>
+<dd>
+Premier modèle de neurone artificiel, inventé dans les années 1950. Ses limitations à une seule couche ont provoqué l’« hiver de l’IA ». <a href="./cours2.html#introduction">CM2 · Introduction</a>
+</dd>
+<dt><strong>Perte</strong> (<em>loss</em>)</dt>
+<dd>
+Écart entre la prédiction et la cible, pour <strong>un seul</strong> exemple. Toujours positive ; le but de l’entraînement est de l’amener près de 0. <a href="./cours1.html#fonction-de-perte-loss-function">CM1 · Fonction de perte</a>
+</dd>
+<dt><strong>Poids</strong> (<em>weight</em>)</dt>
+<dd>
+Le paramètre <span class="math inline">\(w\)</span> qui multiplie une entrée. Un neurone a un poids par caractéristique. <a href="./cours1.html#transformation-linéaire">CM1 · Transformation linéaire</a>
+</dd>
+<dt><strong>Pré-activation</strong></dt>
+<dd>
+La valeur <span class="math inline">\(z = wx + b\)</span>, sortie de la transformation linéaire avant la fonction d’activation. <a href="./cours2.html#sec-neurone-1d">CM2 · Fonction d’activation</a>
+</dd>
+<dt><strong>Profondeur</strong> (<em>depth</em>)</dt>
+<dd>
+Le nombre <span class="math inline">\(L\)</span> de couches cachées d’un réseau. C’est cet empilement qui donne son nom à l’apprentissage profond. <a href="./cours2.html#définition-1">CM2 · Apprentissage profond</a>
+</dd>
+<dt><strong>PyTorch</strong></dt>
+<dd>
+Bibliothèque Python de calcul matriciel et de différentiation automatique. Un modèle s’y écrit comme une classe héritant de <code>torch.nn.Module</code>. <a href="./cours2.html#réseau-de-neurones-avec-pytorch">CM2 · Réseau de neurones avec PyTorch</a>
+</dd>
+</dl>
+</section>
+<section id="q" class="level2">
+<h2 class="anchored" data-anchor-id="q">Q</h2>
+<dl>
+<dt><strong>Query</strong> (<em>requête</em>)</dt>
+<dd>
+<span class="math inline">\(\mathbf{Q} = \mathbf{W}_Q \mathbf{H}\)</span> : ce qu’un token <strong>cherche</strong> chez les autres tokens. <a href="./cours3.html#query-key">CM3 · Query, Key</a>
+</dd>
+</dl>
+</section>
+<section id="r" class="level2">
+<h2 class="anchored" data-anchor-id="r">R</h2>
+<dl>
+<dt><strong>RAG</strong> (<em>Retrieval-Augmented Generation</em>)</dt>
+<dd>
+Système qui retrouve les documents pertinents par similarité d’embeddings, puis les fournit au LLM pour qu’il réponde à partir de <strong>vos</strong> documents. <a href="./cours3.html#rag">CM3 · RAG</a>
+</dd>
+<dt><strong>Recherche sémantique</strong> (<em>semantic search</em>)</dt>
+<dd>
+Recherche par proximité de sens plutôt que par mots-clés : « comment arrêter de payer ? » retrouve « Résiliation de votre abonnement ». <a href="./cours3.html#rag">CM3 · RAG</a>
+</dd>
+<dt><strong>Régression</strong></dt>
+<dd>
+Tâche dont la sortie est un nombre réel, par opposition à la classification. <a href="./cours3.html#classification">CM3 · Classification</a>
+</dd>
+<dt><strong>Régression linéaire</strong></dt>
+<dd>
+Modèle <span class="math inline">\(f(x) = wx + b\)</span> : trouver les meilleurs paramètres <span class="math inline">\(w\)</span> et <span class="math inline">\(b\)</span> pour faire passer une droite au milieu du nuage de points. <a href="./cours1.html#régression-linéaire">CM1 · Régression linéaire</a>
+</dd>
+<dt><strong>Régularisation</strong> (<em>regularization</em>)</dt>
+<dd>
+Techniques limitant le surapprentissage : pénalités L1 et L2 ajoutées au coût, dropout. <a href="./cours3.html#régularisation">CM3 · Régularisation</a>
+</dd>
+<dt><strong>ReLU</strong> (<em>Rectified Linear Unit</em>)</dt>
+<dd>
+<span class="math inline">\(\mathrm{ReLU}(z) = \max(0, z)\)</span>. Choix par défaut dans les couches cachées : rapide à calculer, et elle atténue la disparition du gradient. <a href="./cours2.html#sec-neurone-1d">CM2 · Fonction d’activation</a>
+</dd>
+<dt><strong>Réseau de neurones</strong> (<em>artificial neural network</em>, ANN)</dt>
+<dd>
+Empilement de transformations simples inspiré du cerveau : des neurones organisés en couches. <a href="./cours2.html#introduction">CM2 · Introduction</a>
+</dd>
+<dt><strong>Rétropropagation</strong> (<em>backpropagation</em>)</dt>
+<dd>
+Algorithme qui <strong>calcule</strong> les gradients en remontant le graphe de calcul de droite à gauche, par la règle de dérivation en chaîne. Elle ne modifie aucun paramètre : c’est la descente de gradient qui s’en charge. <a href="./cours2.html#rétropropagation-backpropagation">CM2 · Rétropropagation</a>
+</dd>
+<dt><strong>RMSE</strong> (<em>Root Mean Square Error</em>)</dt>
+<dd>
+Racine carrée du coût MSE. Elle s’exprime dans l’unité de la sortie, ce qui la rend lisible. Elle sert à <strong>lire</strong> le coût, pas à l’optimiser. <a href="./cours1.html#lire-le-coût-la-rmse">CM1 · Lire le coût : la RMSE</a>
+</dd>
+<dt><strong>RMSNorm</strong></dt>
+<dd>
+Fonction de mise à l’échelle appliquée avant chaque sous-couche d’un bloc décodeur. <a href="./cours3.html#zoom-sur-un-bloc-décodeur">CM3 · Zoom sur un bloc décodeur</a>
+</dd>
+<dt><strong>RNN</strong> (<em>Recurrent Neural Network</em>)</dt>
+<dd>
+Réseau comportant une boucle dans ses connexions, ce qui simule une forme de mémoire. Adapté aux données séquentielles. <a href="./cours3.html#autres-types-de-réseaux-de-neurones">CM3 · Autres types de réseaux de neurones</a>
+</dd>
+<dt><strong>RoPE</strong> (<em>Rotary Position Embedding</em>)</dt>
+<dd>
+Encodage de la <strong>position</strong> des tokens : il fait tourner les vecteurs <span class="math inline">\(\mathbf{Q}\)</span> et <span class="math inline">\(\mathbf{K}\)</span> d’un angle proportionnel à la position, rendant les scores dépendants de la distance entre tokens. <a href="./cours3.html#rope">CM3 · RoPE</a>
+</dd>
+</dl>
+</section>
+<section id="s" class="level2">
+<h2 class="anchored" data-anchor-id="s">S</h2>
+<dl>
+<dt><strong>Sigmoïde</strong> (<em>sigmoid</em>)</dt>
+<dd>
+Fonction d’activation à valeurs dans <span class="math inline">\(]0, 1[\)</span>, utilisée en sortie d’une classification binaire : elle se lit comme une probabilité. <a href="./cours2.html#sec-neurone-1d">CM2 · Fonction d’activation</a>
+</dd>
+<dt><strong>Similarité cosinus</strong> (<em>cosine similarity</em>)</dt>
+<dd>
+Mesure de proximité entre deux embeddings, comprise entre <span class="math inline">\(-1\)</span> et <span class="math inline">\(1\)</span>. Elle ne mesure que l’angle entre les vecteurs, pas leur longueur. <a href="./cours3.html#similarité-sémantique">CM3 · Similarité sémantique</a>
+</dd>
+<dt><strong>Softmax</strong></dt>
+<dd>
+Fonction d’activation de la couche de sortie d’une classification. Elle transforme les logits en probabilités dont la somme vaut 1. Elle n’a <strong>aucun paramètre</strong>, et ne s’applique pas cellule par cellule. <a href="./cours3.html#couche-de-sortie">CM3 · Couche de sortie</a>
+</dd>
+<dt><strong>Sous-apprentissage</strong> (<em>underfitting</em>)</dt>
+<dd>
+Coût élevé à la fois en entraînement et en validation : le modèle est trop simple. <a href="./cours2.html#validation">CM2 · Validation</a>
+</dd>
+<dt><strong>Sparse</strong> (matrice creuse)</dt>
+<dd>
+Matrice presque entièrement composée de 0, comme la matrice one-hot <span class="math inline">\(\mathbf{X}\)</span>. La couche d’embedding la transforme en matrice dense. <a href="./cours3.html#matrice-dembedding">CM3 · Matrice d’embedding</a>
+</dd>
+<dt><strong>Surapprentissage</strong> (<em>overfitting</em>)</dt>
+<dd>
+Le modèle a mémorisé les exemples d’entraînement au lieu d’apprendre : coût d’entraînement faible, coût de validation bien plus élevé. <a href="./cours2.html#surapprentissage-overfitting">CM2 · Surapprentissage</a> · <a href="./cours3.html#techniques-pour-éviter-le-surapprentissage">CM3 · Techniques pour éviter le surapprentissage</a>
+</dd>
+</dl>
+</section>
+<section id="t" class="level2">
+<h2 class="anchored" data-anchor-id="t">T</h2>
+<dl>
+<dt><strong>Taille de batch</strong> (<em>batch size</em>)</dt>
+<dd>
+Le nombre <span class="math inline">\(B\)</span> d’exemples utilisés pour chaque mise à jour des paramètres. Petit <span class="math inline">\(B\)</span> : des mises à jour nombreuses mais bruitées ; grand <span class="math inline">\(B\)</span> : des gradients précis, mais peu de mises à jour. <a href="./cours3.html#mini-batch">CM3 · Mini-batch</a>
+</dd>
+<dt><strong>tanh</strong> (tangente hyperbolique)</dt>
+<dd>
+Fonction d’activation en S à valeurs dans <span class="math inline">\(]-1, 1[\)</span>, utilisée quand on veut une sortie centrée sur 0. <a href="./cours2.html#sec-neurone-1d">CM2 · Fonction d’activation</a>
+</dd>
+<dt><strong>Taux d’apprentissage</strong> (<em>learning rate</em>)</dt>
+<dd>
+Le pas <span class="math inline">\(\alpha\)</span> de la descente de gradient. C’est de loin l’hyperparamètre le plus critique : on le cherche en puissances de 10. <a href="./cours1.html#application-sur-une-régression-linéaire">CM1 · Application sur une régression linéaire</a> · <a href="./cours2.html#taux-dapprentissage">CM2 · Taux d’apprentissage</a>
+</dd>
+<dt><strong>Théorème d’approximation universelle</strong></dt>
+<dd>
+Résultat prouvant qu’un perceptron multicouche peut approximer n’importe quelle fonction. <a href="./cours3.html#théorème-dapproximation-universelle">CM3 · Théorème d’approximation universelle</a>
+</dd>
+<dt><strong>Token</strong></dt>
+<dd>
+Élément du vocabulaire d’un modèle de langage : un mot, un morceau de mot, ou un signe de ponctuation. L’espace fait partie du token. <a href="./cours3.html#tokenization">CM3 · Tokenization</a>
+</dd>
+<dt><strong>TokenID</strong></dt>
+<dd>
+L’indice d’un token dans le vocabulaire. C’est un simple identifiant, comme une clé primaire : ces nombres n’ont <strong>aucune signification</strong> numérique. <a href="./cours3.html#transformation-en-liste-de-tokenid">CM3 · Transformation en liste de tokenID</a>
+</dd>
+<dt><strong>Tokenization</strong></dt>
+<dd>
+Découpage d’un texte en liste de tokens, puis en liste de tokenIDs. <a href="./cours3.html#tokenization">CM3 · Tokenization</a>
+</dd>
+<dt><strong>Transformation linéaire</strong></dt>
+<dd>
+La formule <span class="math inline">\(wx + b\)</span>, ou <span class="math inline">\(\mathbf{W}\mathbf{x} + \mathbf{b}\)</span> en plusieurs dimensions. <a href="./cours1.html#transformation-linéaire">CM1 · Transformation linéaire</a>
+</dd>
+<dt><strong>Transformer</strong></dt>
+<dd>
+Architecture publiée par Google en 2017 (<em>Attention Is All You Need</em>), composée d’un encodeur et d’un décodeur. Les LLMs modernes n’en gardent que le décodeur. <a href="./cours3.html#décodeurs">CM3 · Décodeurs</a>
+</dd>
+</dl>
+</section>
+<section id="v" class="level2">
+<h2 class="anchored" data-anchor-id="v">V</h2>
+<dl>
+<dt><strong>Validation</strong></dt>
+<dd>
+Comparaison du coût d’entraînement et du coût de validation, pour diagnostiquer sous-apprentissage, surapprentissage ou bonne généralisation. <a href="./cours2.html#validation">CM2 · Validation</a>
+</dd>
+<dt><strong>Value</strong> (<em>valeur</em>)</dt>
+<dd>
+<span class="math inline">\(\mathbf{V} = \mathbf{W}_V \mathbf{H}\)</span> : ce qu’un token <strong>transmet</strong> s’il est retenu par l’attention. La sortie de la head est <span class="math inline">\(\mathbf{V}\mathbf{A}\)</span>. <a href="./cours3.html#value">CM3 · Value</a>
+</dd>
+<dt><strong>Vecteur de caractéristiques</strong> (<em>feature vector</em>)</dt>
+<dd>
+L’entrée <span class="math inline">\(\mathbf{x}\)</span> quand elle comporte plusieurs caractéristiques. Vecteurs et matrices sont notés <strong>en gras</strong>. <a href="./cours2.html#vecteurs">CM2 · Vecteurs</a>
+</dd>
+<dt><strong>Vocabulaire</strong></dt>
+<dd>
+L’ensemble fixe des tokens connus d’un modèle. Sa taille <span class="math inline">\(V\)</span> est un hyperparamètre : environ 32 000 tokens là où le français compte 100 000 mots. <a href="./cours3.html#tokenization">CM3 · Tokenization</a>
+</dd>
+</dl>
 
 
+</section>
 
 </main> <!-- /main -->
 <script>
@@ -268,9 +856,17 @@ ul.task-list li input[type="checkbox"] {
     });
   }
 
+  // A page opts out of the reading view by declaring
+  // `body-classes: collapsed-by-default` in its front matter. Its callouts hold
+  // answers the reader is meant to look for first, so they stay closed in both
+  // modes and open only on click.
+  function alwaysCollapsed() {
+    return document.body.classList.contains("collapsed-by-default");
+  }
+
   function render(button, enabled) {
     root.classList.toggle("presentation-mode", enabled);
-    setCalloutsCollapsed(enabled);
+    setCalloutsCollapsed(enabled || alwaysCollapsed());
 
     button.setAttribute("aria-pressed", String(enabled));
     button.title = enabled

@@ -148,6 +148,12 @@ window.Quarto = {
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">XTI306 Introduction à l’ingénierie IA</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
@@ -165,14 +171,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./cours2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">CM2 - Réseaux de neurones</span></a>
+  <a href="./glossaire.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossaire</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./glossaire.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Glossaire</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Références</span></a>
   </div>
 </li>
       </ul>
@@ -210,6 +216,12 @@ window.Quarto = {
  <span class="menu-text">CM2 - TensorFlow Playground</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cours3_attention.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CM3 - Le mécanisme d’attention</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -239,30 +251,31 @@ window.Quarto = {
     <h2 id="toc-title">Sur cette page</h2>
    
   <ul class="collapse">
-  <li><a href="#modèle" id="toc-modèle" class="nav-link active" data-scroll-target="#modèle"><span class="header-section-number">1</span> Modèle</a>
+  <li><a href="#panorama" id="toc-panorama" class="nav-link active" data-scroll-target="#panorama"><span class="header-section-number">1</span> Panorama</a></li>
+  <li><a href="#modèle" id="toc-modèle" class="nav-link" data-scroll-target="#modèle"><span class="header-section-number">2</span> Modèle</a>
   <ul class="collapse">
-  <li><a href="#comment-une-machine-peut-elle-apprendre" id="toc-comment-une-machine-peut-elle-apprendre" class="nav-link" data-scroll-target="#comment-une-machine-peut-elle-apprendre"><span class="header-section-number">1.1</span> Comment une machine peut-elle « apprendre » ?</a></li>
-  <li><a href="#les-deux-temps-de-la-vie-dun-modèle" id="toc-les-deux-temps-de-la-vie-dun-modèle" class="nav-link" data-scroll-target="#les-deux-temps-de-la-vie-dun-modèle"><span class="header-section-number">1.2</span> Les deux temps de la vie d’un modèle</a></li>
-  <li><a href="#dautres-formes-dapprentissage" id="toc-dautres-formes-dapprentissage" class="nav-link" data-scroll-target="#dautres-formes-dapprentissage"><span class="header-section-number">1.3</span> D’autres formes d’apprentissage</a></li>
-  <li><a href="#quelques-familles-de-modèles" id="toc-quelques-familles-de-modèles" class="nav-link" data-scroll-target="#quelques-familles-de-modèles"><span class="header-section-number">1.4</span> Quelques familles de modèles</a></li>
+  <li><a href="#comment-une-machine-peut-elle-apprendre" id="toc-comment-une-machine-peut-elle-apprendre" class="nav-link" data-scroll-target="#comment-une-machine-peut-elle-apprendre"><span class="header-section-number">2.1</span> Comment une machine peut-elle « apprendre » ?</a></li>
+  <li><a href="#les-deux-temps-de-la-vie-dun-modèle" id="toc-les-deux-temps-de-la-vie-dun-modèle" class="nav-link" data-scroll-target="#les-deux-temps-de-la-vie-dun-modèle"><span class="header-section-number">2.2</span> Les deux temps de la vie d’un modèle</a></li>
+  <li><a href="#dautres-formes-dapprentissage" id="toc-dautres-formes-dapprentissage" class="nav-link" data-scroll-target="#dautres-formes-dapprentissage"><span class="header-section-number">2.3</span> D’autres formes d’apprentissage</a></li>
+  <li><a href="#quelques-familles-de-modèles" id="toc-quelques-familles-de-modèles" class="nav-link" data-scroll-target="#quelques-familles-de-modèles"><span class="header-section-number">2.4</span> Quelques familles de modèles</a></li>
   </ul></li>
-  <li><a href="#régression-linéaire" id="toc-régression-linéaire" class="nav-link" data-scroll-target="#régression-linéaire"><span class="header-section-number">2</span> Régression linéaire</a>
+  <li><a href="#régression-linéaire" id="toc-régression-linéaire" class="nav-link" data-scroll-target="#régression-linéaire"><span class="header-section-number">3</span> Régression linéaire</a>
   <ul class="collapse">
-  <li><a href="#etude-de-cas-prix-dun-appartement" id="toc-etude-de-cas-prix-dun-appartement" class="nav-link" data-scroll-target="#etude-de-cas-prix-dun-appartement"><span class="header-section-number">2.1</span> Etude de cas : prix d’un appartement</a></li>
-  <li><a href="#transformation-linéaire" id="toc-transformation-linéaire" class="nav-link" data-scroll-target="#transformation-linéaire"><span class="header-section-number">2.2</span> Transformation linéaire</a></li>
+  <li><a href="#etude-de-cas-prix-dun-appartement" id="toc-etude-de-cas-prix-dun-appartement" class="nav-link" data-scroll-target="#etude-de-cas-prix-dun-appartement"><span class="header-section-number">3.1</span> Etude de cas : prix d’un appartement</a></li>
+  <li><a href="#transformation-linéaire" id="toc-transformation-linéaire" class="nav-link" data-scroll-target="#transformation-linéaire"><span class="header-section-number">3.2</span> Transformation linéaire</a></li>
   </ul></li>
-  <li><a href="#fonction-de-perte-loss-function" id="toc-fonction-de-perte-loss-function" class="nav-link" data-scroll-target="#fonction-de-perte-loss-function"><span class="header-section-number">3</span> Fonction de perte (<strong>loss function</strong>)</a>
+  <li><a href="#fonction-de-perte-loss-function" id="toc-fonction-de-perte-loss-function" class="nav-link" data-scroll-target="#fonction-de-perte-loss-function"><span class="header-section-number">4</span> Fonction de perte (<strong>loss function</strong>)</a>
   <ul class="collapse">
-  <li><a href="#fonction-de-coût-cost-function" id="toc-fonction-de-coût-cost-function" class="nav-link" data-scroll-target="#fonction-de-coût-cost-function"><span class="header-section-number">3.1</span> Fonction de coût (cost function)</a></li>
-  <li><a href="#lire-le-coût-la-rmse" id="toc-lire-le-coût-la-rmse" class="nav-link" data-scroll-target="#lire-le-coût-la-rmse"><span class="header-section-number">3.2</span> Lire le coût : la RMSE</a></li>
+  <li><a href="#fonction-de-coût-cost-function" id="toc-fonction-de-coût-cost-function" class="nav-link" data-scroll-target="#fonction-de-coût-cost-function"><span class="header-section-number">4.1</span> Fonction de coût (cost function)</a></li>
+  <li><a href="#lire-le-coût-la-rmse" id="toc-lire-le-coût-la-rmse" class="nav-link" data-scroll-target="#lire-le-coût-la-rmse"><span class="header-section-number">4.2</span> Lire le coût : la RMSE</a></li>
   </ul></li>
-  <li><a href="#tp-régression-linéaire" id="toc-tp-régression-linéaire" class="nav-link" data-scroll-target="#tp-régression-linéaire"><span class="header-section-number">4</span> TP régression linéaire</a></li>
-  <li><a href="#descente-de-gradient-gradient-descent" id="toc-descente-de-gradient-gradient-descent" class="nav-link" data-scroll-target="#descente-de-gradient-gradient-descent"><span class="header-section-number">5</span> Descente de gradient (gradient descent)</a>
+  <li><a href="#tp-régression-linéaire" id="toc-tp-régression-linéaire" class="nav-link" data-scroll-target="#tp-régression-linéaire"><span class="header-section-number">5</span> TP régression linéaire</a></li>
+  <li><a href="#descente-de-gradient-gradient-descent" id="toc-descente-de-gradient-gradient-descent" class="nav-link" data-scroll-target="#descente-de-gradient-gradient-descent"><span class="header-section-number">6</span> Descente de gradient (gradient descent)</a>
   <ul class="collapse">
-  <li><a href="#analogie-avec-le-randonneur-dans-le-brouillard" id="toc-analogie-avec-le-randonneur-dans-le-brouillard" class="nav-link" data-scroll-target="#analogie-avec-le-randonneur-dans-le-brouillard"><span class="header-section-number">5.1</span> Analogie avec le randonneur dans le brouillard</a></li>
-  <li><a href="#application-sur-une-régression-linéaire" id="toc-application-sur-une-régression-linéaire" class="nav-link" data-scroll-target="#application-sur-une-régression-linéaire"><span class="header-section-number">5.2</span> Application sur une régression linéaire</a></li>
+  <li><a href="#analogie-avec-le-randonneur-dans-le-brouillard" id="toc-analogie-avec-le-randonneur-dans-le-brouillard" class="nav-link" data-scroll-target="#analogie-avec-le-randonneur-dans-le-brouillard"><span class="header-section-number">6.1</span> Analogie avec le randonneur dans le brouillard</a></li>
+  <li><a href="#application-sur-une-régression-linéaire" id="toc-application-sur-une-régression-linéaire" class="nav-link" data-scroll-target="#application-sur-une-régression-linéaire"><span class="header-section-number">6.2</span> Application sur une régression linéaire</a></li>
   </ul></li>
-  <li><a href="#tp-descente-de-gradient" id="toc-tp-descente-de-gradient" class="nav-link" data-scroll-target="#tp-descente-de-gradient"><span class="header-section-number">6</span> TP descente de gradient</a></li>
+  <li><a href="#tp-descente-de-gradient" id="toc-tp-descente-de-gradient" class="nav-link" data-scroll-target="#tp-descente-de-gradient"><span class="header-section-number">7</span> TP descente de gradient</a></li>
   </ul>
 </nav>
     </div>
@@ -294,8 +307,57 @@ window.Quarto = {
 </header>
 
 
-<section id="modèle" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Modèle</h1>
+<section id="panorama" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Panorama</h1>
+<figure class="ai-venn figure">
+<svg viewbox="-12 -12 934 594" role="img" aria-label="Diagramme de Venn : le LLM se situe à l'intersection de l'apprentissage profond, de la science des données et du traitement du langage naturel" style="width:100%;height:auto;font-family:var(--bs-body-font-family,sans-serif)">
+
+  <!-- Nested sets: AI contains ML, which contains DL -->
+  <ellipse cx="327" cy="222" rx="319" ry="207" fill="#f1f1f4" stroke="#9aa0a6" stroke-width="1.2" stroke-dasharray="5 4"></ellipse>
+  <ellipse cx="332" cy="230" rx="251" ry="157" fill="#f3dede" fill-opacity="0.85" stroke="#c08f8f" stroke-width="1.2" stroke-dasharray="5 4"></ellipse>
+  <ellipse cx="340" cy="251" rx="194" ry="97" fill="#d9dfef" fill-opacity="0.9" stroke="#8f99b8" stroke-width="1.2" stroke-dasharray="5 4"></ellipse>
+
+  <!-- Overlapping sets: data science on the right, NLP at the bottom -->
+  <ellipse cx="716" cy="238" rx="181" ry="165" fill="#ece5f4" fill-opacity="0.78" stroke="#a294c0" stroke-width="1.2" stroke-dasharray="5 4"></ellipse>
+  <ellipse cx="473" cy="424" rx="190" ry="125" fill="#e7efe2" fill-opacity="0.78" stroke="#93ad83" stroke-width="1.2" stroke-dasharray="5 4"></ellipse>
+
+  <!-- LLM sits where the three of them meet -->
+  <ellipse cx="452" cy="278" rx="102" ry="56" fill="#5b9bd5" stroke="#1f3864" stroke-width="2.5"></ellipse>
+
+  <g text-anchor="middle" fill="#2b2b2b">
+    <text x="327" y="36" font-size="20">
+      <tspan x="327">Intelligence artificielle</tspan>
+      <tspan x="327" dy="24">(Artificial Intelligence)</tspan>
+    </text>
+    <text x="332" y="108" font-size="19">
+      <tspan x="332">Apprentissage automatique</tspan>
+      <tspan x="332" dy="23">(Machine Learning)</tspan>
+    </text>
+    <text x="232" y="244" font-size="17">
+      <tspan x="232">Apprentissage profond</tspan>
+      <tspan x="232" dy="21">(Deep Learning)</tspan>
+    </text>
+    <text x="778" y="212" font-size="17">
+      <tspan x="778">Science des données</tspan>
+      <tspan x="778" dy="21">(Data Science)</tspan>
+    </text>
+    <text x="473" y="482" font-size="17">
+      <tspan x="473">Traitement du langage naturel</tspan>
+      <tspan x="473" dy="21">(Natural Language Processing)</tspan>
+    </text>
+    <text x="452" y="287" font-size="27" font-weight="700" fill="#ffffff">LLM</text>
+  </g>
+</svg>
+<figcaption>
+  Un LLM est à la croisée de l'apprentissage profond, de la science des données
+  et du traitement du langage naturel.
+  D'après Sarker, <em>LLM potentiality and awareness</em>, Discover Artificial Intelligence, 2024
+  (<a href="https://doi.org/10.1007/s44163-024-00129-0">doi:10.1007/s44163-024-00129-0</a>).
+</figcaption>
+</figure>
+</section>
+<section id="modèle" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Modèle</h1>
 <p>Un <strong>modèle</strong> (<em>model</em>) est une fonction qui transforme une <strong>entrée</strong> en une <strong>sortie</strong> :</p>
 <p><span class="math display">\[y = f(x)\]</span></p>
 <ul>
@@ -341,8 +403,8 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<section id="comment-une-machine-peut-elle-apprendre" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="comment-une-machine-peut-elle-apprendre"><span class="header-section-number">1.1</span> Comment une machine peut-elle « apprendre » ?</h2>
+<section id="comment-une-machine-peut-elle-apprendre" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="comment-une-machine-peut-elle-apprendre"><span class="header-section-number">2.1</span> Comment une machine peut-elle « apprendre » ?</h2>
 <div class="callout callout-style-simple callout-important">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -374,8 +436,8 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<section id="apprentissage-supervisé" class="level3" data-number="1.1.1">
-<h3 data-number="1.1.1" class="anchored" data-anchor-id="apprentissage-supervisé"><span class="header-section-number">1.1.1</span> Apprentissage supervisé</h3>
+<section id="apprentissage-supervisé" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="apprentissage-supervisé"><span class="header-section-number">2.1.1</span> Apprentissage supervisé</h3>
 <p>Lorsque les exemples fournissent à la fois une entrée et la sortie attendue, on parle d’<strong>apprentissage supervisé</strong> (<em>supervised learning</em>).</p>
 <p>Un <strong>dataset</strong> de <span class="math inline">\(N\)</span> exemples est alors un ensemble de <span class="math inline">\(N\)</span> paires :</p>
 <p><span class="math display">\[\mathcal{D} = \left\{\, \left(x^{(i)},\ y^{(i)}\right) \,\right\}_{i=1}^{N}\]</span></p>
@@ -400,18 +462,18 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="les-deux-temps-de-la-vie-dun-modèle" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="les-deux-temps-de-la-vie-dun-modèle"><span class="header-section-number">1.2</span> Les deux temps de la vie d’un modèle</h2>
-<section id="lentraînement" class="level3" data-number="1.2.1">
-<h3 data-number="1.2.1" class="anchored" data-anchor-id="lentraînement"><span class="header-section-number">1.2.1</span> L’entraînement</h3>
+<section id="les-deux-temps-de-la-vie-dun-modèle" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="les-deux-temps-de-la-vie-dun-modèle"><span class="header-section-number">2.2</span> Les deux temps de la vie d’un modèle</h2>
+<section id="lentraînement" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="lentraînement"><span class="header-section-number">2.2.1</span> L’entraînement</h3>
 <ol type="1">
 <li>On choisit d’abord une <strong>famille</strong> de modèle: la forme générale de <span class="math inline">\(f\)</span></li>
 <li>On montre à l’algorithme tous les exemples du <strong>jeu d’entraînement</strong> (<em>training set</em>).</li>
 <li>L’algorithme d’entraînement en déduit <span class="math inline">\(f\)</span>.</li>
 </ol>
 </section>
-<section id="linférence-inference-ou-prédiction." class="level3" data-number="1.2.2">
-<h3 data-number="1.2.2" class="anchored" data-anchor-id="linférence-inference-ou-prédiction."><span class="header-section-number">1.2.2</span> L’inférence (<em>inference</em>), ou <strong>prédiction</strong>.</h3>
+<section id="linférence-inference-ou-prédiction." class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="linférence-inference-ou-prédiction."><span class="header-section-number">2.2.2</span> L’inférence (<em>inference</em>), ou <strong>prédiction</strong>.</h3>
 <p>Le modèle est figé. On lui soumet une entrée <span class="math inline">\(x\)</span> <strong>qu’il n’a jamais vue</strong> et il répond :</p>
 <p><span class="math display">\[\hat{y} = f(x)\]</span></p>
 <p>La capacité à répondre juste sur des entrées nouvelles s’appelle la <strong>généralisation</strong> (<em>generalization</em>).</p>
@@ -451,8 +513,8 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="dautres-formes-dapprentissage" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="dautres-formes-dapprentissage"><span class="header-section-number">1.3</span> D’autres formes d’apprentissage</h2>
+<section id="dautres-formes-dapprentissage" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="dautres-formes-dapprentissage"><span class="header-section-number">2.3</span> D’autres formes d’apprentissage</h2>
 <p>L’apprentissage supervisé exige des exemples avec des labels, donc un travail humain souvent coûteux. D’autres formes d’apprentissage s’en passent :</p>
 <ul>
 <li><strong>non supervisé</strong> (<em>unsupervised</em>) : les exemples n’ont pas de cible, l’algorithme cherche lui-même une structure — regrouper des clients par comportement, par exemple ;</li>
@@ -460,8 +522,8 @@ window.Quarto = {
 <li><strong>par renforcement</strong> (<em>reinforcement</em>) : pas de cible, mais une récompense obtenue après une suite d’actions — jeux, robotique.</li>
 </ul>
 </section>
-<section id="quelques-familles-de-modèles" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="quelques-familles-de-modèles"><span class="header-section-number">1.4</span> Quelques familles de modèles</h2>
+<section id="quelques-familles-de-modèles" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="quelques-familles-de-modèles"><span class="header-section-number">2.4</span> Quelques familles de modèles</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 22%">
@@ -518,13 +580,13 @@ window.Quarto = {
 </table>
 </section>
 </section>
-<section id="régression-linéaire" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Régression linéaire</h1>
-<section id="etude-de-cas-prix-dun-appartement" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="etude-de-cas-prix-dun-appartement"><span class="header-section-number">2.1</span> Etude de cas : prix d’un appartement</h2>
+<section id="régression-linéaire" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Régression linéaire</h1>
+<section id="etude-de-cas-prix-dun-appartement" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="etude-de-cas-prix-dun-appartement"><span class="header-section-number">3.1</span> Etude de cas : prix d’un appartement</h2>
 <p>Nous voulons construire un modèle qui estime le prix d’un appartement à Bordeaux.</p>
-<section id="choisir-lentrée" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="choisir-lentrée"><span class="header-section-number">2.1.1</span> Choisir l’entrée</h3>
+<section id="choisir-lentrée" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="choisir-lentrée"><span class="header-section-number">3.1.1</span> Choisir l’entrée</h3>
 <p>Un appartement possède de nombreuses <strong>caractéristiques</strong> (<em>features</em>) qui influencent son prix : surface, localisation, nombre de pièces, étage, étiquette DPE, année de construction…</p>
 <p>Pour commencer, nous n’en utiliserons qu’une seule, qui est la plus déterminante : la surface.</p>
 <table class="caption-top table">
@@ -554,8 +616,8 @@ window.Quarto = {
 </tbody>
 </table>
 </section>
-<section id="collecter-les-exemples" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="collecter-les-exemples"><span class="header-section-number">2.1.2</span> Collecter les exemples</h3>
+<section id="collecter-les-exemples" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="collecter-les-exemples"><span class="header-section-number">3.1.2</span> Collecter les exemples</h3>
 <p>Entraîner ce modèle suppose d’abord d’observer un maximum de ventes réelles. Chaque exemple <span class="math inline">\(i\)</span> est une paire <span class="math inline">\(\left(x^{(i)}, y^{(i)}\right)\)</span> : une surface constatée et le prix de vente correspondant.</p>
 <div class="cell" data-execution_count="2">
 <div id="tbl-examples" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="2">
@@ -568,39 +630,39 @@ Table&nbsp;1: Cinq exemples du jeu de données. Chaque ligne est une paire (entr
 <style type="text/css">
 </style>
 
-<table id="T_ec6e4" class="cell caption-top table table-sm table-striped small">
+<table id="T_842bc" class="cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th id="T_ec6e4_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Exemple i</th>
-<th id="T_ec6e4_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Surface (m²)</th>
-<th id="T_ec6e4_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Prix (€)</th>
+<th id="T_842bc_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Exemple i</th>
+<th id="T_842bc_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Surface (m²)</th>
+<th id="T_842bc_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Prix (€)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_ec6e4_row0_col0" class="data row0 col0">1</td>
-<td id="T_ec6e4_row0_col1" class="data row0 col1">93</td>
-<td id="T_ec6e4_row0_col2" class="data row0 col2">394 000</td>
+<td id="T_842bc_row0_col0" class="data row0 col0">1</td>
+<td id="T_842bc_row0_col1" class="data row0 col1">93</td>
+<td id="T_842bc_row0_col2" class="data row0 col2">394 000</td>
 </tr>
 <tr class="even">
-<td id="T_ec6e4_row1_col0" class="data row1 col0">2</td>
-<td id="T_ec6e4_row1_col1" class="data row1 col1">61</td>
-<td id="T_ec6e4_row1_col2" class="data row1 col2">305 000</td>
+<td id="T_842bc_row1_col0" class="data row1 col0">2</td>
+<td id="T_842bc_row1_col1" class="data row1 col1">61</td>
+<td id="T_842bc_row1_col2" class="data row1 col2">305 000</td>
 </tr>
 <tr class="odd">
-<td id="T_ec6e4_row2_col0" class="data row2 col0">3</td>
-<td id="T_ec6e4_row2_col1" class="data row2 col1">101</td>
-<td id="T_ec6e4_row2_col2" class="data row2 col2">394 000</td>
+<td id="T_842bc_row2_col0" class="data row2 col0">3</td>
+<td id="T_842bc_row2_col1" class="data row2 col1">101</td>
+<td id="T_842bc_row2_col2" class="data row2 col2">394 000</td>
 </tr>
 <tr class="even">
-<td id="T_ec6e4_row3_col0" class="data row3 col0">4</td>
-<td id="T_ec6e4_row3_col1" class="data row3 col1">86</td>
-<td id="T_ec6e4_row3_col2" class="data row3 col2">384 000</td>
+<td id="T_842bc_row3_col0" class="data row3 col0">4</td>
+<td id="T_842bc_row3_col1" class="data row3 col1">86</td>
+<td id="T_842bc_row3_col2" class="data row3 col2">384 000</td>
 </tr>
 <tr class="odd">
-<td id="T_ec6e4_row4_col0" class="data row4 col0">5</td>
-<td id="T_ec6e4_row4_col1" class="data row4 col1">27</td>
-<td id="T_ec6e4_row4_col2" class="data row4 col2">126 000</td>
+<td id="T_842bc_row4_col0" class="data row4 col0">5</td>
+<td id="T_842bc_row4_col1" class="data row4 col1">27</td>
+<td id="T_842bc_row4_col2" class="data row4 col2">126 000</td>
 </tr>
 </tbody>
 </table>
@@ -657,8 +719,8 @@ Figure&nbsp;1: 60 ventes d’appartements à Bordeaux. Un point = un exemple.
 </div>
 </section>
 </section>
-<section id="transformation-linéaire" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="transformation-linéaire"><span class="header-section-number">2.2</span> Transformation linéaire</h2>
+<section id="transformation-linéaire" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="transformation-linéaire"><span class="header-section-number">3.2</span> Transformation linéaire</h2>
 <p>Le modèle le plus simple serait de tracer une droite qui essaie de se rapprocher au plus près des exemples.</p>
 <div id="cell-fig-line" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
@@ -681,8 +743,8 @@ Figure&nbsp;2: Une droite tracée au milieu du nuage. Elle passe près des point
 <li><span class="math inline">\(w\)</span> est appelé <strong>poids</strong> (<strong>weight</strong>),</li>
 <li><span class="math inline">\(b\)</span> est le <strong>biais</strong> (<strong>bias</strong>).</li>
 </ul>
-<section id="comment-trouver-ces-2-paramètres" class="level3" data-number="2.2.1">
-<h3 data-number="2.2.1" class="anchored" data-anchor-id="comment-trouver-ces-2-paramètres"><span class="header-section-number">2.2.1</span> Comment trouver ces 2 paramètres ?</h3>
+<section id="comment-trouver-ces-2-paramètres" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="comment-trouver-ces-2-paramètres"><span class="header-section-number">3.2.1</span> Comment trouver ces 2 paramètres ?</h3>
 <p>Plusieurs techniques sont possibles :</p>
 <ul>
 <li>visuellement</li>
@@ -706,8 +768,8 @@ Figure&nbsp;2: Une droite tracée au milieu du nuage. Elle passe près des point
 </section>
 </section>
 </section>
-<section id="fonction-de-perte-loss-function" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Fonction de perte (<strong>loss function</strong>)</h1>
+<section id="fonction-de-perte-loss-function" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Fonction de perte (<strong>loss function</strong>)</h1>
 <p>Dans tous les cas, il nous faut un moyen de juger si nos paramètres sont bons. Pour cela, nous allons calculer une <strong>perte</strong> (<strong>loss</strong>) pour chaque exemple i.</p>
 <p><span class="math display">\[L^{(i)} = L\left(\hat{y}^{(i)},\ y^{(i)}\right)\]</span></p>
 <ul>
@@ -718,8 +780,8 @@ Figure&nbsp;2: Une droite tracée au milieu du nuage. Elle passe près des point
 <p>La perte mesure l’écart entre ce que le modèle prédit et la cible (la valeur qu’il aurait dû répondre). La perte est une valeur décimale <strong>positive</strong>. Le but de l’entraînement est d’amener cette perte aussi <strong>proche de 0</strong> que possible.</p>
 <p>Il existe différentes fonctions de perte, adaptées à chaque famille de modèle. Pour notre modèle en transformation linéaire, nous utiliserons la formule :</p>
 <p><span class="math display">\[L\left(\hat{y}^{(i)},\ y^{(i)}\right) = \left(\hat{y}^{(i)} - y^{(i)}\right)^2\]</span></p>
-<section id="fonction-de-coût-cost-function" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="fonction-de-coût-cost-function"><span class="header-section-number">3.1</span> Fonction de coût (cost function)</h2>
+<section id="fonction-de-coût-cost-function" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="fonction-de-coût-cost-function"><span class="header-section-number">4.1</span> Fonction de coût (cost function)</h2>
 <p>Pour trouver les meilleurs paramètres pour notre modèle, il nous faut donc trouver les paramètres pour lesquel la perte est <strong>minimale</strong>, mais en considérant <strong>tous les exemples</strong>. Nous allons utiliser pour cela une <strong>fonction de coût</strong> (cost function).</p>
 <p><span class="math display">\[J = J(w, b\,;\, X, Y)\]</span></p>
 <div class="text-center">
@@ -766,8 +828,8 @@ Note
 </div>
 </div>
 </section>
-<section id="lire-le-coût-la-rmse" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="lire-le-coût-la-rmse"><span class="header-section-number">3.2</span> Lire le coût : la RMSE</h2>
+<section id="lire-le-coût-la-rmse" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="lire-le-coût-la-rmse"><span class="header-section-number">4.2</span> Lire le coût : la RMSE</h2>
 <p>Notre coût <span class="math inline">\(J\)</span> est une moyenne de <strong>carrés</strong> d’euros : il s’exprime donc en €². C’est une unité difficile à interpréter.</p>
 <p>Il suffit d’en prendre la <strong>racine carrée</strong> pour revenir en euros :</p>
 <p><span class="math display">\[\mathrm{RMSE} = \sqrt{J} = \sqrt{\frac{1}{N} \sum_{i=1}^{N} \left(\hat{y}^{(i)} - y^{(i)}\right)^2}\]</span></p>
@@ -783,29 +845,29 @@ Table&nbsp;2: Le même coût, lu de deux façons. La coût MSE est illisible, la
 <style type="text/css">
 </style>
 
-<table id="T_1fefb" class="cell caption-top table table-sm table-striped small">
+<table id="T_54bd0" class="cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th id="T_1fefb_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Modèle</th>
-<th id="T_1fefb_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Coût J MSE (€²)</th>
-<th id="T_1fefb_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">RMSE (€)</th>
+<th id="T_54bd0_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Modèle</th>
+<th id="T_54bd0_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Coût J MSE (€²)</th>
+<th id="T_54bd0_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">RMSE (€)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_1fefb_row0_col0" class="data row0 col0">droite ajustée (w = 4 509, b = 162)</td>
-<td id="T_1fefb_row0_col1" class="data row0 col1">4.94e+08</td>
-<td id="T_1fefb_row0_col2" class="data row0 col2">22 222</td>
+<td id="T_54bd0_row0_col0" class="data row0 col0">droite ajustée (w = 4 509, b = 162)</td>
+<td id="T_54bd0_row0_col1" class="data row0 col1">4.94e+08</td>
+<td id="T_54bd0_row0_col2" class="data row0 col2">22 222</td>
 </tr>
 <tr class="even">
-<td id="T_1fefb_row1_col0" class="data row1 col0">trop plat (w = 3 000, b = 0)</td>
-<td id="T_1fefb_row1_col1" class="data row1 col1">1.29e+10</td>
-<td id="T_1fefb_row1_col2" class="data row1 col2">113 512</td>
+<td id="T_54bd0_row1_col0" class="data row1 col0">trop plat (w = 3 000, b = 0)</td>
+<td id="T_54bd0_row1_col1" class="data row1 col1">1.29e+10</td>
+<td id="T_54bd0_row1_col2" class="data row1 col2">113 512</td>
 </tr>
 <tr class="odd">
-<td id="T_1fefb_row2_col0" class="data row2 col0">trop pentu (w = 6 000, b = 0)</td>
-<td id="T_1fefb_row2_col1" class="data row2 col1">1.25e+10</td>
-<td id="T_1fefb_row2_col2" class="data row2 col2">111 941</td>
+<td id="T_54bd0_row2_col0" class="data row2 col0">trop pentu (w = 6 000, b = 0)</td>
+<td id="T_54bd0_row2_col1" class="data row2 col1">1.25e+10</td>
+<td id="T_54bd0_row2_col2" class="data row2 col2">111 941</td>
 </tr>
 </tbody>
 </table>
@@ -836,20 +898,20 @@ Table&nbsp;2: Le même coût, lu de deux façons. La coût MSE est illisible, la
 </div>
 </section>
 </section>
-<section id="tp-régression-linéaire" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> TP régression linéaire</h1>
+<section id="tp-régression-linéaire" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> TP régression linéaire</h1>
 <p>Voir <a href="./tp1.html">TP1</a>.</p>
 </section>
-<section id="descente-de-gradient-gradient-descent" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Descente de gradient (gradient descent)</h1>
+<section id="descente-de-gradient-gradient-descent" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Descente de gradient (gradient descent)</h1>
 <p>L’approche par tâtonnement n’est pas satisfaisante :</p>
 <ul>
 <li>nous ne sommes pas certains de trouver les meilleurs paramètres (convergence),</li>
 <li>elle n’est pas efficace (lente)</li>
 <li>elle serait impraticable au delà de 2-3 paramètres.</li>
 </ul>
-<section id="analogie-avec-le-randonneur-dans-le-brouillard" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="analogie-avec-le-randonneur-dans-le-brouillard"><span class="header-section-number">5.1</span> Analogie avec le randonneur dans le brouillard</h2>
+<section id="analogie-avec-le-randonneur-dans-le-brouillard" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="analogie-avec-le-randonneur-dans-le-brouillard"><span class="header-section-number">6.1</span> Analogie avec le randonneur dans le brouillard</h2>
 <p>Imaginez que votre avion s’est écrasé sur une montagne inconnue, dans un brouillard épais. Vous cherchez à atteindre le fond de la vallée à pied. Vous pouvez :</p>
 <ul>
 <li>modifier vos <strong>paramètres</strong> de position (latitude, longitude)</li>
@@ -890,8 +952,8 @@ Table&nbsp;2: Le même coût, lu de deux façons. La coût MSE est illisible, la
 </div>
 </div>
 </section>
-<section id="application-sur-une-régression-linéaire" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="application-sur-une-régression-linéaire"><span class="header-section-number">5.2</span> Application sur une régression linéaire</h2>
+<section id="application-sur-une-régression-linéaire" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="application-sur-une-régression-linéaire"><span class="header-section-number">6.2</span> Application sur une régression linéaire</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 23%">
@@ -938,8 +1000,8 @@ Table&nbsp;2: Le même coût, lu de deux façons. La coût MSE est illisible, la
 <li>Sinon : <code>epoch += 1</code> et goto 3</li>
 </ol></li>
 </ol>
-<section id="illustration" class="level3" data-number="5.2.1">
-<h3 data-number="5.2.1" class="anchored" data-anchor-id="illustration"><span class="header-section-number">5.2.1</span> Illustration</h3>
+<section id="illustration" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="illustration"><span class="header-section-number">6.2.1</span> Illustration</h3>
 <p>Le coût dépend de 2 paramètres, et sa représentation graphique serait en 3 dimensions <span class="math inline">\((w, b, J)\)</span>, ce qui serait plus difficile à visualiser.</p>
 <p>Simplifions le problème : figeons <span class="math inline">\(b\)</span> à sa meilleure valeur et ne faisons varier que <span class="math inline">\(w\)</span>. Le coût ne dépend plus que d’un seul paramètre, et le paysage du randonneur se réduit à une courbe.</p>
 <div id="cell-fig-gradient-1d" class="cell" data-execution_count="6">
@@ -1008,14 +1070,14 @@ Figure&nbsp;3: Descente de gradient sur le seul paramètre <span class="math inl
 </div>
 </div>
 </section>
-<section id="activité" class="level3" data-number="5.2.2">
-<h3 data-number="5.2.2" class="anchored" data-anchor-id="activité"><span class="header-section-number">5.2.2</span> Activité</h3>
+<section id="activité" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="activité"><span class="header-section-number">6.2.2</span> Activité</h3>
 <p>Voir <a href="./cours1_gradient_descent.html">Gradient Descent Visualization</a></p>
 </section>
 </section>
 </section>
-<section id="tp-descente-de-gradient" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> TP descente de gradient</h1>
+<section id="tp-descente-de-gradient" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> TP descente de gradient</h1>
 <p>Voir <a href="./tp1.html">TP1</a>.</p>
 <ol type="1">
 <li>Dans le projet tp1_ml, ouvrez le notebook <code>tp1b_gradient_descent.ipynb</code></li>
@@ -1057,9 +1119,17 @@ Figure&nbsp;3: Descente de gradient sur le seul paramètre <span class="math inl
     });
   }
 
+  // A page opts out of the reading view by declaring
+  // `body-classes: collapsed-by-default` in its front matter. Its callouts hold
+  // answers the reader is meant to look for first, so they stay closed in both
+  // modes and open only on click.
+  function alwaysCollapsed() {
+    return document.body.classList.contains("collapsed-by-default");
+  }
+
   function render(button, enabled) {
     root.classList.toggle("presentation-mode", enabled);
-    setCalloutsCollapsed(enabled);
+    setCalloutsCollapsed(enabled || alwaysCollapsed());
 
     button.setAttribute("aria-pressed", String(enabled));
     button.title = enabled
